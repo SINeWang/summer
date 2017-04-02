@@ -1,6 +1,7 @@
 package one.kii.summer.bound;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * Created by WangYanJiong on 02/04/2017.
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Context {
 
     String providerId;

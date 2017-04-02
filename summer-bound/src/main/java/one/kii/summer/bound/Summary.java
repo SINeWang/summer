@@ -1,6 +1,7 @@
 package one.kii.summer.bound;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Summary {
 
     private Status status;
