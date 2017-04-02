@@ -1,6 +1,17 @@
+buildscript {
+    dependencies {
+        classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+    }
+    repositories {
+        maven {
+            url "http://nexus.sinewang.com/repository/maven-public/"
+        }
+    }
+}
+
 plugins {
     id 'nebula.dependency-lock' version '4.9.4' apply false
-    id 'net.researchgate.release' version '2.4.0' apply false
+    id 'net.researchgate.release' version '2.6.0' apply false
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
     id 'idea'
 }
@@ -18,36 +29,48 @@ ext {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: "maven"
+    apply plugin: 'maven'
     apply plugin: 'maven-publish'
+    apply plugin: 'maven-publish-auth'
+
     apply plugin: 'nebula.dependency-lock'
     apply plugin: 'net.researchgate.release'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
+    configurations {
+        deployerJars
+    }
+
     repositories {
         maven {
             url "http://nexus.sinewang.com/repository/maven-public/"
         }
+        mavenLocal()
     }
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         testCompile "junit:junit:${junitVersion}"
         compile "org.springframework:spring-beans:${springBeansVersion}"
+
+        deployerJars "org.apache.maven.wagon:wagon-http:2.2"
+
     }
 
-    buildscript {
-        repositories {
-            maven {
-                url "http://nexus.sinewang.com/repository/maven-public/"
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
             }
         }
-    }
-
-    release {
-        tagTemplate = '$name-$version'
+        repositories {
+            maven {
+                name "nexus.sinewang.com-snapshots"
+                url "http://nexus.sinewang.com/repository/maven-snapshots"
+            }
+        }
     }
 
 }
