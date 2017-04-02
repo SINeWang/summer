@@ -51,6 +51,7 @@ subprojects {
         testCompile "junit:junit:${junitVersion}"
         compile "org.springframework:spring-beans:${springFrameworkVersion}"
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
+        compile("org.springframework:spring-context:${springFrameworkVersion}")
     }
 
     publishing {
@@ -64,6 +65,10 @@ subprojects {
                 name "nexus.sinewang.com-snapshots"
                 url "http://nexus.sinewang.com/repository/maven-snapshots"
             }
+//            maven {
+//                name "nexus.sinewang.com-releases"
+//                url "http://nexus.sinewang.com/repository/maven-releases"
+//            }
         }
     }
 
