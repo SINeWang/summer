@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'summer'
+rootProject.name = 'one.kii.summer'
