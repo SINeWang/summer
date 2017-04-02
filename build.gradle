@@ -1,25 +1,50 @@
 plugins {
-    id 'net.researchgate.release' version '2.4.0' apply true
-    id 'org.springframework.boot' version '1.5.2.RELEASE' apply true
-    id 'java'
-    id 'maven'
+    id 'nebula.dependency-lock' version '4.9.4' apply false
+    id 'net.researchgate.release' version '2.4.0' apply false
+    id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
     id 'idea'
 }
 
+group = 'one.kii.summer'
+
 ext {
     springBootVersion = '1.5.2.RELEASE'
-
+    springBeansVersion = '4.3.7.RELEASE'
+    lombokVersion = '1.16.16'
+    junitVersion = '4.12'
+    commonsCodecVersion = '1.10'
 }
 
-repositories {
-    maven {
-        url "http://nexus.sinewang.com/repository/maven-public/"
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: "maven"
+    apply plugin: 'maven-publish'
+    apply plugin: 'nebula.dependency-lock'
+    apply plugin: 'net.researchgate.release'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    repositories {
+        maven {
+            url "http://nexus.sinewang.com/repository/maven-public/"
+        }
     }
-}
 
-dependencies {
-    compileOnly "org.projectlombok:lombok:1.16.16"
-    testCompile "junit:junit:4.12"
-    compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    dependencies {
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testCompile "junit:junit:${junitVersion}"
+        compile "org.springframework:spring-beans:${springBeansVersion}"
+    }
+
+    buildscript {
+        repositories {
+            maven {
+                url "http://nexus.sinewang.com/repository/maven-public/"
+            }
+        }
+    }
+
 
 }

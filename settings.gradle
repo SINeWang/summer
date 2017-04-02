@@ -1,1 +1,4 @@
 rootProject.name = 'one.kii.summer'
+include 'summer-beans'
+include 'summer-codec'
+
