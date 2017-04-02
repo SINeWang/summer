@@ -20,7 +20,7 @@ group = 'one.kii.summer'
 
 ext {
     springBootVersion = '1.5.2.RELEASE'
-    springBeansVersion = '4.3.7.RELEASE'
+    springFrameworkVersion = '4.3.7.RELEASE'
     lombokVersion = '1.16.16'
     junitVersion = '4.12'
     commonsCodecVersion = '1.10'
@@ -49,7 +49,8 @@ subprojects {
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         testCompile "junit:junit:${junitVersion}"
-        compile "org.springframework:spring-beans:${springBeansVersion}"
+        compile "org.springframework:spring-beans:${springFrameworkVersion}"
+        compile("org.springframework:spring-tx:${springFrameworkVersion}")
     }
 
     publishing {
@@ -64,6 +65,10 @@ subprojects {
                 url "http://nexus.sinewang.com/repository/maven-snapshots"
             }
         }
+    }
+
+    release {
+        tagTemplate = '$name-$version'
     }
 
 }
