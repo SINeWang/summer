@@ -1,5 +1,5 @@
 .idea/
-
+**/build/
 # Created by https://www.gitignore.io/api/macos,intellij+iml,gradle,java
 
 ### Intellij+iml ###
