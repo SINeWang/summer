@@ -1,12 +1,10 @@
 package one.kii.summer.bound.factory;
 
-import one.kii.summer.bound.Context;
-import one.kii.summer.bound.Request;
-import one.kii.summer.bound.Response;
 import one.kii.summer.bound.Summary;
-import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,46 +13,26 @@ import java.util.UUID;
  */
 public class ResponseFactory {
 
-    private static <U, V extends Response> V build(Request request, V response, U data) {
-        Context context = new Context();
-        BeanUtils.copyProperties(context, request.getContext());
-        context.setResponseId(UUID.randomUUID().toString());
-        response.setContext(context);
 
-        BeanUtils.copyProperties(data, response);
-        return response;
+    public static <T> ResponseEntity<T> rejected(HttpStatus status, String reason) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-SUMMER-Summary", Summary.Status.REJECTED.name());
+        headers.set("X-SUMMER-Time", new Date().toString());
+        headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
+        headers.set("X-SUMMER-Reason", reason);
+        return new ResponseEntity<>(headers, status);
     }
 
-    public static <U, V extends Response> V accepted(Request form, Class<V> responseClass, U data) {
-        V response = null;
-        try {
-            response = responseClass.newInstance();
-            Summary summary = new Summary();
-            summary.setStatus(Summary.Status.ACCEPTED);
-            summary.setTime(new Date());
-            response.setSummary(summary);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return build(form, response, data);
+    public static <T> ResponseEntity<T> badRequest(String reasons) {
+        return rejected(HttpStatus.BAD_REQUEST, reasons);
     }
 
-    public static <U, V extends Response> V rejected(Request form, Class<V> responseClass, U data, String... reasons) {
-        V response = null;
-        try {
-            response = responseClass.newInstance();
-            Summary summary = new Summary();
-            summary.setStatus(Summary.Status.REJECTED);
-            summary.setTime(new Date());
-            summary.setReasons(Arrays.asList(reasons));
-            response.setSummary(summary);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return build(form, response, data);
+    public static <T> ResponseEntity<T> accepted(T object) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-SUMMER-Summary", Summary.Status.ACCEPTED.name());
+        headers.set("X-SUMMER-Time", new Date().toString());
+        headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
+        return new ResponseEntity<>(object, headers, HttpStatus.BAD_REQUEST);
     }
+
 }
