@@ -27,12 +27,13 @@ public class ResponseFactory {
         return rejected(HttpStatus.BAD_REQUEST, reasons);
     }
 
-    public static <T> ResponseEntity<T> accepted(T object) {
+    public static <T> ResponseEntity<T> accepted(T object, String ownerId) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-SUMMER-Summary", Summary.Status.ACCEPTED.name());
         headers.set("X-SUMMER-Time", new Date().toString());
         headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
-        return new ResponseEntity<>(object, headers, HttpStatus.BAD_REQUEST);
+        headers.set("X-SUMMER-OwnerId", ownerId);
+        return new ResponseEntity<>(object, headers, HttpStatus.ACCEPTED);
     }
 
 }

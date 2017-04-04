@@ -2,38 +2,25 @@ package one.kii.summer.erest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
-public class GetWithOAuth2AccessToken {
+public class ErestGet {
 
-    private static Logger logger = LoggerFactory.getLogger(GetWithOAuth2AccessToken.class);
-
-    private String bearerAccessToken;
-
-    public GetWithOAuth2AccessToken(String bearerAccessToken) {
-        this.bearerAccessToken = bearerAccessToken;
-    }
-
+    private static Logger logger = LoggerFactory.getLogger(ErestGet.class);
+    
     public <T> T forAny(String urlTemplate, Class<T> klass, Object... uriVariables) {
         logger.debug("forAny:{}, return:{}", urlTemplate, klass.getSimpleName());
-        HttpHeaders headers = new HttpHeaders();
-        headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + bearerAccessToken);
 
-        HttpEntity<?> httpEntity = new HttpEntity<Object>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         Class type = new Type(klass).getType();
 
-        ResponseEntity<T> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, httpEntity, type, uriVariables);
+        ResponseEntity<T> response = restTemplate.getForEntity(urlTemplate, klass, uriVariables);
         return response.getBody();
-
     }
 
     private class Type {

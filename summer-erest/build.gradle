@@ -1,0 +1,4 @@
+dependencies {
+    compile project(":summer-bound")
+    compile "org.springframework:spring-web:${springFrameworkVersion}"
+}
