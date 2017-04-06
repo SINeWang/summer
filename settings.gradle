@@ -1,4 +1,4 @@
-rootProject.name = 'one.kii.summer'
+rootProject.name = 'summer'
 include 'summer-annot'
 include 'summer-beans'
 include 'summer-bound'

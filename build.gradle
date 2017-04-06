@@ -2,11 +2,11 @@ buildscript {
     dependencies {
         classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
     }
-    repositories {
-        maven {
-            url "http://nexus.sinewang.com/repository/maven-public/"
-        }
-    }
+//    repositories {
+//        maven {
+//            url "http://nexus.euler.one/repository/maven-public/"
+//        }
+//    }
 }
 
 plugins {
@@ -39,12 +39,12 @@ subprojects {
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
-    repositories {
-        maven {
-            url "http://nexus.sinewang.com/repository/maven-public/"
-        }
-        mavenLocal()
-    }
+//    repositories {
+//        maven {
+//            url "http://nexus.euler.one/repository/maven-public/"
+//        }
+//        mavenLocal()
+//    }
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -66,7 +66,7 @@ subprojects {
         repositories {
             maven {
                 name "nexus.sinewang.com-snapshots"
-                url "http://nexus.sinewang.com/repository/maven-snapshots"
+                url "http://nexus.euler.one/repository/maven-snapshots"
             }
 //            maven {
 //                name "nexus.sinewang.com-releases"
