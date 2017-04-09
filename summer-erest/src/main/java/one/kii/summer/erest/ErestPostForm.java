@@ -11,9 +11,9 @@ import java.util.UUID;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public class ErestPostFormUrlEncoded {
+public class ErestPostForm {
 
-    private static Logger logger = LoggerFactory.getLogger(ErestPostFormUrlEncoded.class);
+    private static Logger logger = LoggerFactory.getLogger(ErestPostForm.class);
 
     public <T> T doPost(String urlTemplate, HttpHeaders headers, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) {
         logger.debug("forAny:{}, return:{}", urlTemplate, klass.getSimpleName());
@@ -33,17 +33,3 @@ public class ErestPostFormUrlEncoded {
     }
 
 }
-
-//        Class type = new Type(klass).getType();
-//    private class Type {
-//
-//        private Class type;
-//
-//        private Type(Class type) {
-//            this.type = type;
-//        }
-//
-//        Class getType() {
-//            return type;
-//        }
-//    }
