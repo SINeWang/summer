@@ -22,13 +22,20 @@ public class Response {
         return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
     }
 
-    public static <T> ResponseEntity<T> accepted(String requestId, T object, String ownerId) {
+    public static <T> ResponseEntity<T> created(String requestId, T object) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-SUMMER-Time", new Date().toString());
         headers.set("X-SUMMER-RequestId", requestId);
         headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
-        headers.set("X-SUMMER-OwnerId", ownerId);
-        return new ResponseEntity<>(object, headers, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(object, headers, HttpStatus.CREATED);
+    }
+
+    public static <T> ResponseEntity<T> ok(String requestId, T object) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-SUMMER-Time", new Date().toString());
+        headers.set("X-SUMMER-RequestId", requestId);
+        headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
+        return new ResponseEntity<>(object, headers, HttpStatus.OK);
     }
 
     public static <T> ResponseEntity<T> notFound(String requestId, T resource) {
