@@ -21,6 +21,17 @@ ext {
     commonsCodecVersion = '1.10'
 }
 
+scmVersion {
+    tag {
+        prefix = 'summer'
+    }
+}
+
+
+allprojects {
+    project.version = scmVersion.version
+}
+
 
 subprojects {
     apply plugin: 'java'
