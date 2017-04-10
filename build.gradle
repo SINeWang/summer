@@ -59,8 +59,4 @@ subprojects {
 
     group = 'one.kii.summer'
 
-    release {
-        tagTemplate = '$name-$version'
-    }
-
 }
