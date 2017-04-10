@@ -22,15 +22,31 @@ public class Response {
         return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
     }
 
-    public static <T> ResponseEntity<T> accepted(String requestId, T object, String ownerId) {
+    /**
+     For <b>WRITE</b> operations use only.
+     */
+    public static <T> ResponseEntity<T> created(String requestId, T object) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-SUMMER-Time", new Date().toString());
         headers.set("X-SUMMER-RequestId", requestId);
         headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
-        headers.set("X-SUMMER-OwnerId", ownerId);
-        return new ResponseEntity<>(object, headers, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(object, headers, HttpStatus.CREATED);
     }
 
+    /**
+        For <b>READ</b> operations use only.
+     */
+    public static <T> ResponseEntity<T> ok(String requestId, T object) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-SUMMER-Time", new Date().toString());
+        headers.set("X-SUMMER-RequestId", requestId);
+        headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
+        return new ResponseEntity<>(object, headers, HttpStatus.OK);
+    }
+
+    /**
+     For <b>READ</b> operations use only.
+     */
     public static <T> ResponseEntity<T> notFound(String requestId, T resource) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-SUMMER-Time", new Date().toString());
@@ -39,6 +55,9 @@ public class Response {
         return new ResponseEntity<>(resource, headers, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     For <b>WRITE</b> operations use only.
+     */
     public static <T> ResponseEntity<T> conflict(String requestId, T object) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-SUMMER-Time", new Date().toString());
@@ -47,6 +66,9 @@ public class Response {
         return new ResponseEntity<>(object, headers, HttpStatus.CONFLICT);
     }
 
+    /**
+     For <b>READ</b> operations use only.
+     */
     public static <T> ResponseEntity<T> notModified(String requestId) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-SUMMER-Time", new Date().toString());
