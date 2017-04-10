@@ -45,19 +45,6 @@ subprojects {
         testCompile("org.springframework:spring-test:${springFrameworkVersion}")
     }
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
-        }
-        repositories {
-            maven {
-                name "nexus.sinewang.com-snapshots"
-            }
-        }
-    }
-
     group = 'one.kii.summer'
 
     release {
