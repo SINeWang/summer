@@ -5,7 +5,6 @@ buildscript {
 }
 
 plugins {
-    id 'nebula.dependency-lock' version '4.9.4' apply false
     id 'pl.allegro.tech.build.axion-release' version '1.5.0'
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
     id 'idea'
@@ -36,10 +35,6 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
-    apply plugin: 'maven-publish'
-    apply plugin: 'maven-publish-auth'
-
-    apply plugin: 'nebula.dependency-lock'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
@@ -54,7 +49,5 @@ subprojects {
         compile("org.slf4j:slf4j-api:1.7.24")
         testCompile("org.springframework:spring-test:${springFrameworkVersion}")
     }
-
-    group = 'one.kii.summer'
 
 }
