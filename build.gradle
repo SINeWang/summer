@@ -29,6 +29,7 @@ scmVersion {
 
 allprojects {
     project.version = scmVersion.version
+    apply plugin: 'maven-publish-auth'
 }
 
 
