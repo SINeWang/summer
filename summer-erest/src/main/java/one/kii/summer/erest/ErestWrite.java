@@ -27,20 +27,20 @@ public abstract class ErestWrite extends ErestClient {
         this.operatorId = operatorId;
     }
 
-    public <T> T execute(String urlTemplate, HttpHeaders headers, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) {
+    public <T> T execute(String urlTemplate, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) {
         logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
         RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = getHttpHeaders();
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(bodyMap, headers);
         ResponseEntity<T> response = restTemplate.exchange(urlTemplate, httpMethod, request, klass, uriVariables);
         return response.getBody();
     }
 
-    public <T> T execute(String urlTemplate, HttpHeaders headers, Object form, Class<T> klass, Object... uriVariables) {
+    public <T> T execute(String urlTemplate, Object form, Class<T> klass, Object... uriVariables) {
         logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         Field[] fields = form.getClass().getDeclaredFields();
-
         for (Field field : fields) {
             field.setAccessible(true);
             try {
@@ -50,7 +50,7 @@ public abstract class ErestWrite extends ErestClient {
                 e.printStackTrace();
             }
         }
-        return execute(urlTemplate, headers, map, klass, uriVariables);
+        return execute(urlTemplate, map, klass, uriVariables);
     }
 
     protected List<String> toList(Object object) {
