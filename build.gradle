@@ -50,4 +50,12 @@ subprojects {
         testCompile("org.springframework:spring-test:${springFrameworkVersion}")
     }
 
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
 }
