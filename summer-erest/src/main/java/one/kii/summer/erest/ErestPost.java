@@ -11,9 +11,8 @@ public class ErestPost extends ErestWrite {
 
     private static Logger logger = LoggerFactory.getLogger(ErestPost.class);
 
-    public ErestPost() {
+    public ErestPost(String operatorId) {
+        super(operatorId);
         super.httpMethod = HttpMethod.POST;
     }
-
-
 }

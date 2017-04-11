@@ -21,6 +21,12 @@ public abstract class ErestWrite extends ErestClient {
 
     protected HttpMethod httpMethod;
 
+    protected String operatorId;
+
+    public ErestWrite(String operatorId) {
+        this.operatorId = operatorId;
+    }
+
     public <T> T execute(String urlTemplate, HttpHeaders headers, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) {
         logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
         RestTemplate restTemplate = new RestTemplate();
@@ -66,7 +72,7 @@ public abstract class ErestWrite extends ErestClient {
         }
     }
 
-    protected HttpHeaders getHttpHeaders(String operatorId){
+    protected HttpHeaders getHttpHeaders(){
         HttpHeaders headers = buildHttpHeaders();
         headers.set("X-SUMMER-OperatorId", operatorId);
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
