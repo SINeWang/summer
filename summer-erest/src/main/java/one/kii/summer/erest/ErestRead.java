@@ -8,21 +8,22 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
-
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public class ErestGet {
+public abstract class ErestRead extends ErestClient {
 
-    private static Logger logger = LoggerFactory.getLogger(ErestGet.class);
+    private static Logger logger = LoggerFactory.getLogger(ErestRead.class);
+    private HttpMethod httpMethod = HttpMethod.GET;
 
-    public <T> T doGet(String urlTemplate, HttpHeaders headers, Class<T> klass, Object... uriVariables) {
-        logger.debug("doGet:{}, return:{}", urlTemplate, klass.getSimpleName());
+    protected abstract HttpHeaders getHttpHeaders();
 
-        headers.set("X-SUMMER-RequestId", UUID.randomUUID().toString());
+    public <T> T execute(String urlTemplate, Class<T> klass, Object... uriVariables) {
+        logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
 
         RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = getHttpHeaders();
 
         HttpEntity request = new HttpEntity<>(headers);
 

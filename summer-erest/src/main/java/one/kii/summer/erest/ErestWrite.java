@@ -11,36 +11,28 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 /**
- * Created by WangYanJiong on 4/7/17.
+ * Created by WangYanJiong on 11/04/2017.
  */
-public class ErestPostForm {
+public abstract class ErestWrite extends ErestClient {
 
-    private static Logger logger = LoggerFactory.getLogger(ErestPostForm.class);
+    private static Logger logger = LoggerFactory.getLogger(ErestWrite.class);
 
-    public <T> T doPost(String urlTemplate, HttpHeaders headers, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) {
-        logger.debug("forAny:{}, return:{}", urlTemplate, klass.getSimpleName());
+    protected HttpMethod httpMethod;
 
-        headers.set("X-SUMMER-RequestId", UUID.randomUUID().toString());
-        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-
-
+    public <T> T execute(String urlTemplate, HttpHeaders headers, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) {
+        logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
         RestTemplate restTemplate = new RestTemplate();
-
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(bodyMap, headers);
-
-
-        ResponseEntity<T> response = restTemplate.exchange(urlTemplate, HttpMethod.POST, request, klass, uriVariables);
+        ResponseEntity<T> response = restTemplate.exchange(urlTemplate, httpMethod, request, klass, uriVariables);
         return response.getBody();
     }
 
-
-    public <T> T doPost(String urlTemplate, HttpHeaders headers, Object form, Class<T> klass, Object... uriVariables) {
+    public <T> T execute(String urlTemplate, HttpHeaders headers, Object form, Class<T> klass, Object... uriVariables) {
+        logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
         Field[] fields = form.getClass().getDeclaredFields();
 
         for (Field field : fields) {
@@ -52,10 +44,10 @@ public class ErestPostForm {
                 e.printStackTrace();
             }
         }
-        return doPost(urlTemplate, headers, map, klass, uriVariables);
+        return execute(urlTemplate, headers, map, klass, uriVariables);
     }
 
-    private List<String> toList(Object object) {
+    protected List<String> toList(Object object) {
         if (object == null) {
             return Collections.emptyList();
         }
@@ -73,4 +65,14 @@ public class ErestPostForm {
             return list;
         }
     }
+
+    protected HttpHeaders getHttpHeaders(String operatorId){
+        HttpHeaders headers = buildHttpHeaders();
+        headers.set("X-SUMMER-OperatorId", operatorId);
+        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+
+        return headers;
+    }
+
+
 }
