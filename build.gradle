@@ -10,7 +10,6 @@ plugins {
     id 'idea'
 }
 
-
 ext {
     springBootVersion = '1.5.2.RELEASE'
     springFrameworkVersion = '4.3.7.RELEASE'
@@ -25,7 +24,6 @@ scmVersion {
     }
 }
 
-
 allprojects {
     project.version = scmVersion.version
     apply plugin: 'maven-publish-auth'
@@ -33,7 +31,6 @@ allprojects {
     group = 'one.kii.summer'
 
 }
-
 
 subprojects {
 
