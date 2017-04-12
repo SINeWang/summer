@@ -13,7 +13,7 @@ public abstract class ErestClient {
 
     protected HttpHeaders buildHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-SUMMER-RequestId", requestId);
+        headers.set(ErestHeaders.REQUEST_ID, requestId);
         return headers;
     }
 }

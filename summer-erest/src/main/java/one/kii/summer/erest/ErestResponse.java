@@ -14,15 +14,15 @@ public class ErestResponse {
 
     private static HttpHeaders buildHttpHeaders(String requestId) {
         HttpHeaders headers = new HttpHeaders();
-        headers.set("X-SUMMER-Time", new Date().toString());
-        headers.set("X-SUMMER-RequestId", requestId);
-        headers.set("X-SUMMER-ResponseId", UUID.randomUUID().toString());
+        headers.set(ErestHeaders.TIME, new Date().toString());
+        headers.set(ErestHeaders.REQUEST_ID, requestId);
+        headers.set(ErestHeaders.RESPONSE_ID, UUID.randomUUID().toString());
         return headers;
     }
 
     public static <T> ResponseEntity<T> badRequest(String requestId, String reason) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set("X-SUMMER-Reason", reason);
+        headers.set(ErestHeaders.REASON, reason);
         return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
     }
 

@@ -15,7 +15,7 @@ public class ErestGetBasic extends ErestRead {
 
     protected HttpHeaders getHttpHeaders() {
         HttpHeaders headers = buildHttpHeaders();
-        headers.set("X-SUMMER-VisitorId", visitorId);
+        headers.set(ErestHeaders.VISITOR_ID, visitorId);
         return headers;
     }
 }
