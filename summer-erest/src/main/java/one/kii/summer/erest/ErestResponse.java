@@ -37,7 +37,7 @@ public class ErestResponse {
     /**
      * For <b>Async Write</b> operations use only.
      */
-    public static <T> ResponseEntity<T> accepted(String requestId) {
+    public static ResponseEntity accepted(String requestId) {
         HttpHeaders headers = buildHttpHeaders(requestId);
         return new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
     }
