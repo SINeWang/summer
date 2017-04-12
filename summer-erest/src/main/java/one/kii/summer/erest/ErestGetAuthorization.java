@@ -5,17 +5,17 @@ import org.springframework.http.HttpHeaders;
 /**
  * Created by WangYanJiong on 11/04/2017.
  */
-public class ErestGetBearer extends ErestRead {
+public class ErestGetAuthorization extends ErestRead {
 
     private String token;
 
-    public ErestGetBearer(String token) {
+    public ErestGetAuthorization(String token) {
         this.token = token;
     }
 
     protected HttpHeaders getHttpHeaders() {
         HttpHeaders headers = buildHttpHeaders();
-        headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+        headers.set(HttpHeaders.AUTHORIZATION, token);
         return headers;
     }
 }
