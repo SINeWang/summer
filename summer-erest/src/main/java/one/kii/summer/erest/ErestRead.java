@@ -19,6 +19,10 @@ public abstract class ErestRead extends ErestClient {
     protected abstract HttpHeaders getHttpHeaders();
 
     public <T> T execute(String urlTemplate, Class<T> klass, Object... uriVariables) {
+        return executeWithHead(urlTemplate, klass, uriVariables).getBody();
+    }
+
+    public <T> ResponseEntity<T> executeWithHead(String urlTemplate, Class<T> klass, Object... uriVariables) {
         logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -27,9 +31,7 @@ public abstract class ErestRead extends ErestClient {
 
         HttpEntity request = new HttpEntity<>(headers);
 
-        ResponseEntity<T> response = restTemplate.exchange(urlTemplate, HttpMethod.GET, request, klass, uriVariables);
-        return response.getBody();
-
+        return restTemplate.exchange(urlTemplate, HttpMethod.GET, request, klass, uriVariables);
     }
 
 }
