@@ -53,17 +53,19 @@ public class ErestResponse {
     /**
      * For <b>READ</b> operations use only.
      */
-    public static <T> ResponseEntity<T> notFound(String requestId, T resource) {
+    public static <T> ResponseEntity<T> notFound(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        return new ResponseEntity<>(resource, headers, HttpStatus.NOT_FOUND);
+        headers.set(ErestHeaders.REASON, key);
+        return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
     }
 
     /**
      * For <b>WRITE</b> operations use only.
      */
-    public static <T> ResponseEntity<T> conflict(String requestId, T object) {
+    public static <T> ResponseEntity<T> conflict(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        return new ResponseEntity<>(object, headers, HttpStatus.CONFLICT);
+        headers.set(ErestHeaders.REASON, key);
+        return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
     }
 
     /**

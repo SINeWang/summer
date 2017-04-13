@@ -5,17 +5,13 @@ package one.kii.summer.context.exception;
  */
 public class NotFound extends Exception {
 
-    String[] fields;
+    String key;
 
-    public NotFound(String fields){
-        this.fields = new String[]{fields};
+    public NotFound(String key) {
+        this.key = key;
     }
 
-    public NotFound(String[] fields) {
-        this.fields = fields;
-    }
-
-    public String[] getFields() {
-        return fields;
+    public String getKey() {
+        return key;
     }
 }

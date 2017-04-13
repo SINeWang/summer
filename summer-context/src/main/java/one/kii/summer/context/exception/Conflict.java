@@ -5,13 +5,23 @@ package one.kii.summer.context.exception;
  */
 public class Conflict extends Exception {
 
-    String[] fields;
+    Object object;
 
-    public Conflict(String fields){
-        this.fields = new String[]{fields};
+    String key;
+
+    public Conflict(Object object) {
+        this.object = object;
     }
 
-    public Conflict(String[] fields) {
-        this.fields = fields;
+    public Conflict(String key) {
+        this.key = key;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public String getKey() {
+        return key;
     }
 }
