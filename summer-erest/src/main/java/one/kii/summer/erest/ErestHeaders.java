@@ -13,6 +13,8 @@ public class ErestHeaders {
 
     public static final String OPERATOR_ID = "X-SUMMER-OperatorId";
 
+    public static final String OWNER_ID = "X-SUMMER-OwnerId";
+
     public static final String TIME = "X-SUMMER-TIme";
 
     public static final String REASON = "X-SUMMER-Reason";
