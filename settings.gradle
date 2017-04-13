@@ -1,5 +1,6 @@
 rootProject.name = 'summer'
-include 'summer-annot'
 include 'summer-beans'
 include 'summer-codec'
 include 'summer-erest'
+include 'summer-context'
+
