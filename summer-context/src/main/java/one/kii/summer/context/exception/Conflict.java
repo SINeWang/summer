@@ -7,6 +7,10 @@ public class Conflict extends Exception {
 
     String[] fields;
 
+    public Conflict(String fields){
+        this.fields = new String[]{fields};
+    }
+
     public Conflict(String[] fields) {
         this.fields = fields;
     }

@@ -7,6 +7,10 @@ public class NotFound extends Exception {
 
     String[] fields;
 
+    public NotFound(String fields){
+        this.fields = new String[]{fields};
+    }
+
     public NotFound(String[] fields) {
         this.fields = fields;
     }

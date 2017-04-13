@@ -7,6 +7,9 @@ public class NotModified extends Exception {
 
     String[] fields;
 
+    public NotModified(String fields){
+        this.fields = new String[]{fields};
+    }
     public NotModified(String[] fields) {
         this.fields = fields;
     }

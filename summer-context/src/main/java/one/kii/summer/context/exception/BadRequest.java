@@ -9,6 +9,10 @@ public class BadRequest extends Exception {
 
     String[] reasons;
 
+    public BadRequest(String fields){
+        this.fields = new String[]{fields};
+    }
+
     public BadRequest(String[] fields) {
         this.fields = fields;
     }
