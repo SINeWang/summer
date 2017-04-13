@@ -81,7 +81,9 @@ public abstract class ErestWrite extends ErestClient {
 
     protected HttpHeaders getHttpHeaders() {
         HttpHeaders headers = buildHttpHeaders();
-        headers.set("X-SUMMER-OperatorId", operatorId);
+        if (operatorId != null) {
+            headers.set("X-SUMMER-OperatorId", operatorId);
+        }
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
 
         return headers;
