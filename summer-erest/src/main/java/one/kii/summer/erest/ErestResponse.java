@@ -51,12 +51,21 @@ public class ErestResponse {
     }
 
     /**
-     * For <b>READ</b> operations use only.
+     * For <b>READ</b> operations use only. Not Exists or Visit Permission NOT satisfied.
      */
     public static <T> ResponseEntity<T> notFound(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
         headers.set(ErestHeaders.REASON, key);
         return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * For <b>WRITE</b> operations use only, but Write Permission NOT satisfied.
+     */
+    public static <T> ResponseEntity<T> forbidden(String requestId, String key) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.set(ErestHeaders.REASON, key);
+        return new ResponseEntity<>(headers, HttpStatus.FORBIDDEN);
     }
 
     /**
