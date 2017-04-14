@@ -19,4 +19,12 @@ public class ErestHeaders {
 
     public static final String REASON = "X-SUMMER-Reason";
 
+    public static final String FORBIDDEN_KEY = "X-SUMMER-ForbiddenKey";
+
+    public static final String CONFLICT_KEY = "X-SUMMER-ConflictKey";
+
+    public static final String NOT_FOUND_KEY = "X-SUMMER-NotFoundKey";
+
+    public static final String BAD_REQUEST_FIELDS = "X-SUMMER-BadRequestFields";
+
 }

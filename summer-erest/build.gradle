@@ -1,3 +1,4 @@
 dependencies {
     compile "org.springframework:spring-web:${springFrameworkVersion}"
+    compile project(":summer-context")
 }
