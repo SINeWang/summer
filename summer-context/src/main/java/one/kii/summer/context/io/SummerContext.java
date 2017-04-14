@@ -6,15 +6,13 @@ import lombok.EqualsAndHashCode;
 import java.util.UUID;
 
 /**
- * Created by WangYanJiong on 4/13/17.
+ * Created by WangYanJiong on 14/04/2017.
  */
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RequestContext extends SummerContext {
+public abstract class SummerContext {
 
-    String requestId;
-
-    String ownerId;
+    String processId = UUID.randomUUID().toString();
 
 }

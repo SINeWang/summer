@@ -10,11 +10,10 @@ import java.util.UUID;
  */
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class RequestContext extends SummerContext {
+public class ForwardContext extends SummerContext {
 
     String requestId;
 
-    String ownerId;
+    String forwardId = UUID.randomUUID().toString();
 
 }
