@@ -5,13 +5,17 @@ package one.kii.summer.io.exception;
  */
 public class Forbidden extends Exception {
 
-    private String key;
+    private String[] keys;
 
     public Forbidden(String key) {
-        this.key = key;
+        this.keys = new String[]{key};
     }
 
-    public String getKey() {
-        return key;
+    public Forbidden(String[] keys) {
+        this.keys = keys;
+    }
+
+    public String[] getKeys() {
+        return keys;
     }
 }

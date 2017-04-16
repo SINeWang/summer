@@ -55,11 +55,11 @@ public abstract class ErestWrite extends ErestClient {
         handleBasic(code, headers);
         switch (code) {
             case CONFLICT:
-                String key409 = headers.get(ErestHeaders.CONFLICT_KEY).get(0);
-                throw new Conflict(key409);
+                List<String> key409 = headers.get(ErestHeaders.CONFLICT_KEY);
+                throw new Conflict(key409.toArray(new String[0]));
             case FORBIDDEN:
-                String key403 = headers.get(ErestHeaders.FORBIDDEN_KEY).get(0);
-                throw new Forbidden(key403);
+                List<String>  key403 = headers.get(ErestHeaders.FORBIDDEN_KEY);
+                throw new Forbidden(key403.toArray(new String[0]));
         }
         throw new Panic();
     }

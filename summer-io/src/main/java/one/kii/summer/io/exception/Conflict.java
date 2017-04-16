@@ -15,4 +15,8 @@ public class Conflict extends Exception {
     public Conflict(String[] keys) {
         this.keys = keys;
     }
+
+    public String[] getKeys() {
+        return keys;
+    }
 }
