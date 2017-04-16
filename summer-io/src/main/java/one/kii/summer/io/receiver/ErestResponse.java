@@ -1,5 +1,6 @@
-package one.kii.summer.io.sender;
+package one.kii.summer.io.receiver;
 
+import one.kii.summer.io.context.ErestHeaders;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,13 @@ public class ErestResponse {
         return headers;
     }
 
-    public static <T> ResponseEntity<T> badRequest(String requestId, String reason) {
+    public static <T> ResponseEntity<T> badRequest(String requestId, String[] fields) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.REASON, reason);
+        if (fields != null && fields.length > 0) {
+            for(String field : fields){
+                headers.add(ErestHeaders.BAD_FIELDS, field);
+            }
+        }
         return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
     }
 
@@ -55,7 +60,7 @@ public class ErestResponse {
      */
     public static <T> ResponseEntity<T> notFound(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.REASON, key);
+        headers.set(ErestHeaders.BAD_FIELDS, key);
         return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
     }
 
@@ -64,7 +69,7 @@ public class ErestResponse {
      */
     public static <T> ResponseEntity<T> forbidden(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.REASON, key);
+        headers.set(ErestHeaders.BAD_FIELDS, key);
         return new ResponseEntity<>(headers, HttpStatus.FORBIDDEN);
     }
 
@@ -73,7 +78,7 @@ public class ErestResponse {
      */
     public static <T> ResponseEntity<T> conflict(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.REASON, key);
+        headers.set(ErestHeaders.BAD_FIELDS, key);
         return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
     }
 

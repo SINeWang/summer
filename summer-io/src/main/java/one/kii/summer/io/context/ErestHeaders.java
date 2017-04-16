@@ -1,4 +1,4 @@
-package one.kii.summer.io.sender;
+package one.kii.summer.io.context;
 
 /**
  * Created by WangYanJiong on 4/12/17.
@@ -17,7 +17,7 @@ public class ErestHeaders {
 
     public static final String TIME = "X-SUMMER-TIme";
 
-    public static final String REASON = "X-SUMMER-Reason";
+    public static final String BAD_FIELDS = "X-SUMMER-BadFields";
 
     public static final String FORBIDDEN_KEY = "X-SUMMER-ForbiddenKey";
 
