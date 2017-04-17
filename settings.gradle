@@ -1,5 +1,5 @@
 rootProject.name = 'summer'
 include 'summer-beans'
 include 'summer-codec'
+include 'summer-datetime'
 include 'summer-io'
-
