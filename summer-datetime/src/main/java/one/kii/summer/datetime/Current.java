@@ -19,7 +19,7 @@ public class Current {
         return thisYear;
     }
 
-    public Date DAY() {
+    public static Date DAY() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
