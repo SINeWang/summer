@@ -58,15 +58,5 @@ public class ArraysAssert {
         return Arrays.equals(array, anotherArray);
     }
 
-    private class Type {
-        Class type;
 
-        public Type(Class type) {
-            this.type = type;
-        }
-
-        public Class getType() {
-            return type;
-        }
-    }
 }
