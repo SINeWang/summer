@@ -4,15 +4,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
 /**
- * Created by WangYanJiong on 17/04/2017.
+ * Created by WangYanJiong on 18/04/2017.
  */
-public class ErestPostAuthorization extends ErestWrite {
+public class ErestPutAuthorization extends ErestWrite {
 
     private String token;
 
-    public ErestPostAuthorization(String operatorId, String token) {
+    public ErestPutAuthorization(String operatorId, String token) {
         super(operatorId);
-        super.httpMethod = HttpMethod.POST;
+        super.httpMethod = HttpMethod.PUT;
     }
 
     protected HttpHeaders getHttpHeaders() {

@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 public abstract class ErestRead extends ErestClient {
 
     private static Logger logger = LoggerFactory.getLogger(ErestRead.class);
-    private HttpMethod httpMethod = HttpMethod.GET;
+    protected HttpMethod httpMethod;
 
     protected abstract HttpHeaders getHttpHeaders();
 
