@@ -13,6 +13,7 @@ public class ErestPostAuthorization extends ErestWrite {
     public ErestPostAuthorization(String operatorId, String token) {
         super(operatorId);
         super.httpMethod = HttpMethod.POST;
+        this.token = token;
     }
 
     protected HttpHeaders getHttpHeaders() {
