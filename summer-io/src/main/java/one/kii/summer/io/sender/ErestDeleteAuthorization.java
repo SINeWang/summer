@@ -6,13 +6,14 @@ import org.springframework.http.HttpMethod;
 /**
  * Created by WangYanJiong on 11/04/2017.
  */
-public class ErestGetAuthorization extends ErestRead {
+public class ErestDeleteAuthorization extends ErestWrite {
 
     private String authorization;
 
-    public ErestGetAuthorization(String authorization) {
+    public ErestDeleteAuthorization(String operatorId, String authorization) {
+        super(operatorId);
         this.authorization = authorization;
-        super.httpMethod = HttpMethod.GET;
+        super.httpMethod = HttpMethod.DELETE;
     }
 
     protected HttpHeaders getHttpHeaders() {

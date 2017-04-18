@@ -34,7 +34,7 @@ public abstract class ErestRead extends ErestClient {
         HttpEntity request = new HttpEntity<>(headers);
 
         try {
-            return restTemplate.exchange(urlTemplate, HttpMethod.GET, request, klass, uriVariables);
+            return restTemplate.exchange(urlTemplate, httpMethod, request, klass, uriVariables);
         } catch (HttpStatusCodeException status) {
             handleReadException(status);
         }

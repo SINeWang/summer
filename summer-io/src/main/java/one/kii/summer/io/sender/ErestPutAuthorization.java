@@ -8,17 +8,17 @@ import org.springframework.http.HttpMethod;
  */
 public class ErestPutAuthorization extends ErestWrite {
 
-    private String token;
+    private String authorization;
 
-    public ErestPutAuthorization(String operatorId, String token) {
+    public ErestPutAuthorization(String operatorId, String authorization) {
         super(operatorId);
         super.httpMethod = HttpMethod.PUT;
-        this.token = token;
+        this.authorization = authorization;
     }
 
     protected HttpHeaders getHttpHeaders() {
         HttpHeaders headers = buildHttpHeaders();
-        headers.set(HttpHeaders.AUTHORIZATION, token);
+        headers.set(HttpHeaders.AUTHORIZATION, authorization);
         return headers;
     }
 }
