@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 /**
  * Created by WangYanJiong on 11/04/2017.
  */
-public class ErestDeleteAuthorization extends ErestWrite {
+public class ErestDeleteAuthorization extends ErestWriteWithoutRequestBody {
 
     private String authorization;
 
@@ -21,4 +21,6 @@ public class ErestDeleteAuthorization extends ErestWrite {
         headers.set(HttpHeaders.AUTHORIZATION, authorization);
         return headers;
     }
+
+
 }

@@ -1,39 +1,38 @@
 package one.kii.summer.io.sender;
 
-import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 /**
  * Created by WangYanJiong on 11/04/2017.
  */
-public abstract class ErestWrite extends ErestClient {
+public abstract class ErestWrite extends ErestWriteWithoutRequestBody {
 
     private static Logger logger = LoggerFactory.getLogger(ErestWrite.class);
 
-    protected HttpMethod httpMethod;
-
-    protected String operatorId;
-
     public ErestWrite(String operatorId) {
-        this.operatorId = operatorId;
+        super(operatorId);
     }
 
     public <T> T execute(String urlTemplate, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) throws Panic, BadRequest, Conflict, NotFound, Forbidden {
         return executeWithHead(urlTemplate, bodyMap, klass, uriVariables).getBody();
     }
+
+    public <T> T execute(String urlTemplate, Object form, Class<T> klass, Object... uriVariables) throws Forbidden, Conflict, NotFound, Panic, BadRequest {
+        return executeWithHead(urlTemplate, form, klass, uriVariables).getBody();
+    }
+
 
     public <T> ResponseEntity<T> executeWithHead(String urlTemplate, MultiValueMap<String, String> bodyMap, Class<T> klass, Object... uriVariables) throws Panic, NotFound, BadRequest, Conflict, Forbidden {
         logger.debug("request: {}, execute:{}, url:{}, uriVariables:{}", requestId, httpMethod, urlTemplate, uriVariables);
@@ -46,26 +45,6 @@ public abstract class ErestWrite extends ErestClient {
             handleWriteException(status);
         }
         throw new Panic();
-    }
-
-
-    protected void handleWriteException(HttpStatusCodeException status) throws NotFound, BadRequest, Conflict, Panic, Forbidden {
-        HttpStatus code = status.getStatusCode();
-        HttpHeaders headers = status.getResponseHeaders();
-        handleBasic(code, headers);
-        switch (code) {
-            case CONFLICT:
-                List<String> key409 = headers.get(ErestHeaders.CONFLICT_KEY);
-                throw new Conflict(key409.toArray(new String[0]));
-            case FORBIDDEN:
-                List<String>  key403 = headers.get(ErestHeaders.FORBIDDEN_KEY);
-                throw new Forbidden(key403.toArray(new String[0]));
-        }
-        throw new Panic();
-    }
-
-    public <T> T execute(String urlTemplate, Object form, Class<T> klass, Object... uriVariables) throws Forbidden, Conflict, NotFound, Panic, BadRequest {
-        return executeWithHead(urlTemplate, form, klass, uriVariables).getBody();
     }
 
     public <T> ResponseEntity<T> executeWithHead(String urlTemplate, Object form, Class<T> klass, Object... uriVariables) throws Conflict, Panic, NotFound, BadRequest, Forbidden {
@@ -83,35 +62,6 @@ public abstract class ErestWrite extends ErestClient {
             }
         }
         return executeWithHead(urlTemplate, map, klass, uriVariables);
-    }
-
-    protected List<String> toList(Object object) {
-        if (object == null) {
-            return Collections.emptyList();
-        }
-        List<String> list = new ArrayList<>();
-        if (!object.getClass().isArray()) {
-            list.add(object.toString());
-            return list;
-        } else {
-            Object[] objects = (Object[]) object;
-            for (Object value : objects) {
-                if (value != null) {
-                    list.add(value.toString());
-                }
-            }
-            return list;
-        }
-    }
-
-    protected HttpHeaders getHttpHeaders() {
-        HttpHeaders headers = buildHttpHeaders();
-        if (operatorId != null) {
-            headers.set("X-SUMMER-OperatorId", operatorId);
-        }
-        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
-
-        return headers;
     }
 
 

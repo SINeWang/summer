@@ -7,11 +7,11 @@ import org.springframework.http.HttpMethod;
 /**
  * Created by WangYanJiong on 11/04/2017.
  */
-public class ErestPost extends ErestWrite {
+public class ErestPostWrite extends ErestWrite {
 
-    private static Logger logger = LoggerFactory.getLogger(ErestPost.class);
+    private static Logger logger = LoggerFactory.getLogger(ErestPostWrite.class);
 
-    public ErestPost(String operatorId) {
+    public ErestPostWrite(String operatorId) {
         super(operatorId);
         super.httpMethod = HttpMethod.POST;
     }

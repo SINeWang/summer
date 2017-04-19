@@ -4,6 +4,7 @@ import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.UUID;
 public abstract class ErestClient {
 
     protected String requestId = UUID.randomUUID().toString();
+
+    protected HttpMethod httpMethod;
 
     protected HttpHeaders buildHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
