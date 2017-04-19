@@ -11,6 +11,9 @@ public class ReadContext extends RequestContext {
     @Getter
     String visitorId;
 
+    @Getter
+    String referId;
+
     public ReadContext(String requestId, String ownerId, String visitorId) {
         super(requestId, ownerId);
         this.visitorId = visitorId;
