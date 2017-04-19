@@ -28,10 +28,16 @@ public abstract class ErestClient {
     protected void handleBasic(HttpStatus code, HttpHeaders headers) throws NotFound, BadRequest {
         switch (code) {
             case NOT_FOUND:
-                String key = headers.get(ErestHeaders.NOT_FOUND_KEY).get(0);
-                throw new NotFound(key);
+                List<String> values = headers.get(ErestHeaders.NOT_FOUND_KEY);
+                if (values == null || values.size() == 0) {
+                    throw new NotFound(null);
+                }
+                throw new NotFound(values.toArray(new String[0]));
             case BAD_REQUEST:
                 List<String> fields = headers.get(ErestHeaders.BAD_REQUEST_FIELDS);
+                if (fields == null || fields.size() == 0) {
+                    throw new NotFound(null);
+                }
                 throw new BadRequest(fields.toArray(new String[0]));
 
         }

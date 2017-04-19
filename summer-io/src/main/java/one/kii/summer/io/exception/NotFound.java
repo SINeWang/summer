@@ -5,13 +5,23 @@ package one.kii.summer.io.exception;
  */
 public class NotFound extends Exception {
 
-    String key;
+    String[] keys;
 
-    public NotFound(String key) {
-        this.key = key;
+    public NotFound(String[] keys) {
+        this.keys = keys;
+    }
+
+    public String[] getKeys() {
+        return keys;
     }
 
     public String getKey() {
-        return key;
+        if (keys == null) {
+            return null;
+        }
+        if (keys.length == 0) {
+            return null;
+        }
+        return keys[0];
     }
 }
