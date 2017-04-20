@@ -16,6 +16,9 @@ public class RequestContext extends SummerContext {
     @Getter
     String ownerId;
 
+    @Getter
+    String referId;
+
     public RequestContext(String requestId, String ownerId) {
         this.requestId = requestId;
         this.ownerId = ownerId;

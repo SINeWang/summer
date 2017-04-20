@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by WangYanJiong on 19/04/2017.
  */
-public class ReadForwarder {
+public class ReadForwarder extends ActionForwarder {
 
     public static ReadContext from(WriteContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
@@ -55,26 +55,6 @@ public class ReadForwarder {
                 context.getOperatorId());
         readContext.referId = context.getProcessId();
         return readContext;
-    }
-
-    private static String findOwnerIdFromObject(Object target) throws BadRequest {
-        Field[] fields = target.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(OwnerId.class);
-            if (annotation != null) {
-                field.setAccessible(true);
-                Object value;
-                try {
-                    value = field.get(target);
-                } catch (IllegalAccessException e) {
-                    throw new BadRequest(OwnerId.FIELD_NAME);
-                }
-                if (value != null) {
-                    return value.toString();
-                }
-            }
-        }
-        throw new BadRequest(OwnerId.FIELD_NAME);
     }
 
 }
