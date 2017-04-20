@@ -12,13 +12,22 @@ import java.util.List;
 public class Must {
 
 
-    public static void have(Object object, String[] fieldsName) throws BadRequest {
+    public static void have(Object object, String... fieldsName) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
+        }
+        if (fieldsName == null) {
+            throw new NullPointerException();
+        }
+        if (fieldsName.length == 0) {
+            return;
         }
         List<String> badFields = new ArrayList<>();
         Class type = object.getClass();
         for (String fieldName : fieldsName) {
+            if (fieldName == null) {
+                continue;
+            }
             Field field = null;
             try {
                 field = type.getDeclaredField(fieldName);
