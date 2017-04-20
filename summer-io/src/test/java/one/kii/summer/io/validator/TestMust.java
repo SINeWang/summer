@@ -1,5 +1,6 @@
 package one.kii.summer.io.validator;
 
+import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.BadRequest;
 import org.junit.Test;
 
@@ -42,8 +43,22 @@ public class TestMust {
         Must.have(tc, new String[]{"a", "d"});
     }
 
+    @Test
+    public void test4() throws BadRequest {
+        TestClass2 tc2 = new TestClass2();
+        Must.have(tc2);
+    }
+
 
     class TestClass {
+        String a = "12";
+        String b = null;
+        String c = "  ";
+        String d = "123";
+    }
+
+    class TestClass2 {
+        @MustHave
         String a = "12";
         String b = null;
         String c = "  ";
