@@ -15,7 +15,6 @@ public class WriteForwarder extends ActionForwarder {
             throw new BadRequest(OwnerId.FIELD_NAME);
         }
         return buildWriteContext(context, targetOwnerId);
-
     }
 
     public static WriteContext from(WriteAuthorizationContext context, String targetOwnerId) throws BadRequest {
@@ -23,7 +22,6 @@ public class WriteForwarder extends ActionForwarder {
             throw new BadRequest(OwnerId.FIELD_NAME);
         }
         return buildWriteContext(context, targetOwnerId);
-
     }
 
     public static WriteContext from(ReadContext context, String targetOwnerId) throws BadRequest {
@@ -59,7 +57,6 @@ public class WriteForwarder extends ActionForwarder {
     public static WriteContext from(WriteAuthorizationContext context, Object target) throws BadRequest {
         String ownerId = findOwnerIdFromObject(target);
         return buildWriteContext(context, ownerId);
-
     }
 
     private static WriteContext buildWriteContext(ReadContext context, String ownerId) {
