@@ -23,6 +23,19 @@ public class WriteForwarder extends ActionForwarder {
 
     }
 
+    public static WriteContext from(WriteAuthorizationContext context, String targetOwnerId) throws BadRequest {
+        if (targetOwnerId == null) {
+            throw new BadRequest(OwnerId.FIELD_NAME);
+        }
+        WriteContext writeContext = new WriteContext(
+                UUID.randomUUID().toString(),
+                targetOwnerId,
+                context.getOperatorId());
+        writeContext.referId = context.getProcessId();
+        return writeContext;
+
+    }
+
     public static WriteContext from(ReadContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
             throw new BadRequest(OwnerId.FIELD_NAME);
@@ -30,6 +43,28 @@ public class WriteForwarder extends ActionForwarder {
         WriteContext writeContext = new WriteContext(
                 UUID.randomUUID().toString(),
                 targetOwnerId,
+                context.getVisitorId());
+        writeContext.referId = context.getProcessId();
+        return writeContext;
+    }
+
+    public static WriteContext from(ReadAuthorizationContext context, String targetOwnerId) throws BadRequest {
+        if (targetOwnerId == null) {
+            throw new BadRequest(OwnerId.FIELD_NAME);
+        }
+        WriteContext writeContext = new WriteContext(
+                UUID.randomUUID().toString(),
+                targetOwnerId,
+                context.getVisitorId());
+        writeContext.referId = context.getProcessId();
+        return writeContext;
+    }
+
+    public static WriteContext from(ReadAuthorizationContext context, Object target) throws BadRequest {
+        String ownerId = findOwnerIdFromObject(target);
+        WriteContext writeContext = new WriteContext(
+                UUID.randomUUID().toString(),
+                ownerId,
                 context.getVisitorId());
         writeContext.referId = context.getProcessId();
         return writeContext;
@@ -55,4 +90,14 @@ public class WriteForwarder extends ActionForwarder {
         return writeContext;
     }
 
+    public static WriteContext from(WriteAuthorizationContext context, Object target) throws BadRequest {
+        String ownerId = findOwnerIdFromObject(target);
+        WriteContext writeContext = new WriteContext(
+                UUID.randomUUID().toString(),
+                ownerId,
+                context.getOperatorId());
+        writeContext.referId = context.getProcessId();
+        return writeContext;
+
+    }
 }

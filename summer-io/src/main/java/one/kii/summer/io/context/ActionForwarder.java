@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
  */
 public abstract class ActionForwarder {
 
+
     protected static String findOwnerIdFromObject(Object target) throws BadRequest {
         Field[] fields = target.getClass().getDeclaredFields();
         for (Field field : fields) {
