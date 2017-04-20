@@ -45,8 +45,6 @@ public class WriteForwarder extends ActionForwarder {
         return buildWriteContext(context, ownerId);
     }
 
-
-
     public static WriteContext from(ReadContext context, Object target) throws BadRequest {
         String ownerId = findOwnerIdFromObject(target);
         return buildWriteContext(context, ownerId);
