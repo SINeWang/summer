@@ -46,7 +46,7 @@ public class ReadAuthorizationForwarder extends ActionForwarder {
                 ownerId,
                 context.getOperatorId(),
                 context.getAuthorization());
-        readContext.referId = context.getProcessId();
+        readContext.referId = context.getRequestId();
         return readContext;
     }
 
@@ -56,7 +56,7 @@ public class ReadAuthorizationForwarder extends ActionForwarder {
                 ownerId,
                 context.getVisitorId(),
                 context.getAuthorization());
-        readContext.referId = context.getProcessId();
+        readContext.referId = context.getRequestId();
         return readContext;
     }
 

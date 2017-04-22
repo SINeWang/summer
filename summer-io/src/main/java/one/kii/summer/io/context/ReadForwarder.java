@@ -20,7 +20,7 @@ public class ReadForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 targetOwnerId,
                 context.getOperatorId());
-        readContext.referId = context.getProcessId();
+        readContext.referId = context.getRequestId();
         return readContext;
 
     }
@@ -33,7 +33,7 @@ public class ReadForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 targetOwnerId,
                 context.getVisitorId());
-        readContext.referId = context.getProcessId();
+        readContext.referId = context.getRequestId();
         return readContext;
     }
 
@@ -43,7 +43,7 @@ public class ReadForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 ownerId,
                 context.getVisitorId());
-        readContext.referId = context.getProcessId();
+        readContext.referId = context.getRequestId();
         return readContext;
     }
 
@@ -53,7 +53,7 @@ public class ReadForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 ownerId,
                 context.getOperatorId());
-        readContext.referId = context.getProcessId();
+        readContext.referId = context.getRequestId();
         return readContext;
     }
 

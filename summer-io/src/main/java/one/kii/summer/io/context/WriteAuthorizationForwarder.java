@@ -43,7 +43,7 @@ public class WriteAuthorizationForwarder extends ActionForwarder {
                 targetOwnerId,
                 context.getVisitorId(),
                 context.getAuthorization());
-        writeContext.referId = context.getProcessId();
+        writeContext.referId = context.getRequestId();
         return writeContext;
     }
 
@@ -53,7 +53,7 @@ public class WriteAuthorizationForwarder extends ActionForwarder {
                 targetOwnerId,
                 context.getOperatorId(),
                 context.getAuthorization());
-        writeContext.referId = context.getProcessId();
+        writeContext.referId = context.getRequestId();
         return writeContext;
     }
 

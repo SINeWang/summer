@@ -64,7 +64,7 @@ public class WriteForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 ownerId,
                 context.getVisitorId());
-        writeContext.referId = context.getProcessId();
+        writeContext.referId = context.getRequestId();
         return writeContext;
     }
 
@@ -73,7 +73,7 @@ public class WriteForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 targetOwnerId,
                 context.getVisitorId());
-        writeContext.referId = context.getProcessId();
+        writeContext.referId = context.getRequestId();
         return writeContext;
     }
 
@@ -82,7 +82,7 @@ public class WriteForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 targetOwnerId,
                 context.getOperatorId());
-        writeContext.referId = context.getProcessId();
+        writeContext.referId = context.getRequestId();
         return writeContext;
     }
 
@@ -91,7 +91,7 @@ public class WriteForwarder extends ActionForwarder {
                 UUID.randomUUID().toString(),
                 targetOwnerId,
                 context.getOperatorId());
-        writeContext.referId = context.getProcessId();
+        writeContext.referId = context.getRequestId();
         return writeContext;
     }
 }
