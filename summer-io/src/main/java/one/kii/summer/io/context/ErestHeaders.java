@@ -27,4 +27,7 @@ public class ErestHeaders {
 
     public static final String BAD_REQUEST_FIELDS = "X-SUMMER-BadRequestFields";
 
+    public static final String RETRY = "X-SUMMER-Retry";
+
+    public static final String TIME_LIMIT = "X-SUMMER-TimeLimit";
 }
