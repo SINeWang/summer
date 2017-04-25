@@ -17,6 +17,7 @@ ext {
     junitVersion = '4.12'
     commonsCodecVersion = '1.10'
     slf4jVersion = '1.7.24'
+    guavaVersion = '21.0'
 }
 
 scmVersion {
@@ -49,6 +50,7 @@ subprojects {
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
 
         compile "org.springframework:spring-beans:${springFrameworkVersion}"
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
