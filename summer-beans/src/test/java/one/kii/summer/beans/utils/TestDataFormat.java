@@ -6,14 +6,14 @@ import org.junit.Test;
 /**
  * Created by WangYanJiong on 25/04/2017.
  */
-public class TestCaseFormat {
+public class TestDataFormat {
 
 
     @Test
     public void test() {
 
         TestCase tc = new TestCase();
-        TestCase newTc =  CaseFormat.lowerCamel2LowerHyphen(tc);
+        TestCase newTc =  DataFormat.toLowerHyphen(tc);
 
         Assert.assertEquals("ab-cd", newTc.getSomeField());
         Assert.assertEquals(1, newTc.getI());
