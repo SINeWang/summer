@@ -1,4 +1,4 @@
-package one.kii.summer.beans.utils;
+package one.kii.summer.io.utils;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -14,11 +14,11 @@ public class MultiValueForm {
 
     private final static MultiValueMap EMPTY = new LinkedMultiValueMap();
 
-    public static MultiValueMap from(Object object) {
+    public static MultiValueMap<String, String> from(Object object) {
         if (object == null) {
             return EMPTY;
         }
-        MultiValueMap map = new LinkedMultiValueMap();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 
         Class type = object.getClass();
         Field[] fields = type.getDeclaredFields();

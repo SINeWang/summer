@@ -1,4 +1,4 @@
-package one.kii.summer.beans.utils;
+package one.kii.summer.io.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
