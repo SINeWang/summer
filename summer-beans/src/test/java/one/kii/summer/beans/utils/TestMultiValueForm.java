@@ -31,10 +31,12 @@ public class TestMultiValueForm {
         String[] objects1 = objects.toArray(new String[0]);
 
         Assert.assertArrayEquals(EXPECTED_MULTI, objects1);
+
+        Assert.assertEquals("true", map.getFirst("tf").toString());
     }
 
     @Test
-    public void testNull(){
+    public void testNull() {
         MultiValueMap map = MultiValueForm.from(null);
         Assert.assertNotNull(map);
         Assert.assertEquals(0, map.size());
@@ -45,6 +47,16 @@ public class TestMultiValueForm {
 
         String single = EXPECTED_SINGLE;
         String[] multi = EXPECTED_MULTI;
+
+        boolean tf = true;
+
+        public boolean isTf() {
+            return tf;
+        }
+
+        public void setTf(boolean tf) {
+            this.tf = tf;
+        }
 
         public String getSingle() {
             return single;
