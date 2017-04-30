@@ -7,7 +7,7 @@ import one.kii.summer.io.context.ReadContext;
  */
 public abstract class ReadController {
 
-    protected ReadContext buildContext(String requestId, String visitorId, String ownerId) {
-        return new ReadContext(requestId, visitorId, ownerId);
+    protected ReadContext buildContext(String requestId, String ownerId, String visitorId) {
+        return new ReadContext(requestId, ownerId, visitorId);
     }
 }

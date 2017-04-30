@@ -7,7 +7,7 @@ import one.kii.summer.io.context.WriteContext;
  */
 public abstract class WriteController {
 
-    protected WriteContext buildContext(String requestId, String operatorId, String ownerId) {
+    protected WriteContext buildContext(String requestId, String ownerId, String operatorId) {
         return new WriteContext(requestId, ownerId, operatorId);
     }
 
