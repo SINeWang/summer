@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,16 +20,6 @@ public class ErestResponse {
         headers.set(ErestHeaders.REQUEST_ID, requestId);
         headers.set(ErestHeaders.RESPONSE_ID, UUID.randomUUID().toString());
         return headers;
-    }
-
-    public static <T> ResponseEntity<T> badRequest(String requestId, String[] fields) {
-        HttpHeaders headers = buildHttpHeaders(requestId);
-        if (fields != null && fields.length > 0) {
-            for(String field : fields){
-                headers.add(ErestHeaders.BAD_FIELDS, field);
-            }
-        }
-        return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -55,12 +46,33 @@ public class ErestResponse {
         return new ResponseEntity<>(object, headers, HttpStatus.OK);
     }
 
+    public static <T> ResponseEntity<T> badRequest(String requestId, String key) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.set(ErestHeaders.BAD_FIELDS, key);
+        return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+    }
+
+    public static <T> ResponseEntity<T> badRequest(String requestId, String[] keys) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.put(ErestHeaders.BAD_FIELDS, Arrays.asList(keys));
+        return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
+    }
+
     /**
      * For <b>READ</b> operations use only. Not Exists or Visit Permission NOT satisfied.
      */
     public static <T> ResponseEntity<T> notFound(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.BAD_FIELDS, key);
+        headers.set(ErestHeaders.NOT_FOUND_KEY, key);
+        return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * For <b>READ</b> operations use only. Not Exists or Visit Permission NOT satisfied.
+     */
+    public static <T> ResponseEntity<T> notFound(String requestId, String[] keys) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.put(ErestHeaders.NOT_FOUND_KEY, Arrays.asList(keys));
         return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
     }
 
@@ -69,7 +81,16 @@ public class ErestResponse {
      */
     public static <T> ResponseEntity<T> forbidden(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.BAD_FIELDS, key);
+        headers.set(ErestHeaders.FORBIDDEN_KEY, key);
+        return new ResponseEntity<>(headers, HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * For <b>WRITE</b> operations use only, but Write Permission NOT satisfied.
+     */
+    public static <T> ResponseEntity<T> forbidden(String requestId, String[] keys) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.put(ErestHeaders.FORBIDDEN_KEY, Arrays.asList(keys));
         return new ResponseEntity<>(headers, HttpStatus.FORBIDDEN);
     }
 
@@ -78,7 +99,16 @@ public class ErestResponse {
      */
     public static <T> ResponseEntity<T> conflict(String requestId, String key) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.BAD_FIELDS, key);
+        headers.set(ErestHeaders.CONFLICT_KEY, key);
+        return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
+    }
+
+    /**
+     * For <b>WRITE</b> operations use only.
+     */
+    public static <T> ResponseEntity<T> conflict(String requestId, String[] keys) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.put(ErestHeaders.CONFLICT_KEY, Arrays.asList(keys));
         return new ResponseEntity<>(headers, HttpStatus.CONFLICT);
     }
 
