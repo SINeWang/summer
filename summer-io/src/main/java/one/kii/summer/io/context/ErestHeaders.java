@@ -15,7 +15,7 @@ public class ErestHeaders {
 
     public static final String OWNER_ID = "X-SUMMER-OwnerId";
 
-    public static final String TIME = "X-SUMMER-TIme";
+    public static final String TIME = "X-SUMMER-Time";
 
     public static final String BAD_FIELDS = "X-SUMMER-BadFields";
 
