@@ -11,13 +11,14 @@ plugins {
 }
 
 ext {
+    commonsCodecVersion = '1.10'
+    guavaVersion = '21.0'
+    jacksondatabindVersion = '2.8.7'
+    junitVersion = '4.12'
+    lombokVersion = '1.16.16'
+    slf4jVersion = '1.7.24'
     springBootVersion = '1.5.2.RELEASE'
     springFrameworkVersion = '4.3.7.RELEASE'
-    lombokVersion = '1.16.16'
-    junitVersion = '4.12'
-    commonsCodecVersion = '1.10'
-    slf4jVersion = '1.7.24'
-    guavaVersion = '21.0'
 }
 
 scmVersion {

@@ -16,7 +16,7 @@ public class TestHashTools {
         String hash1 = HashTools.hashHex("");
         Assert.assertEquals(NULL_HEX, hash1);
 
-        String hash2 = HashTools.hashHex(null);
+        String hash2 = HashTools.hashHex((String) null);
         Assert.assertEquals(NULL_HEX, hash2);
     }
 
