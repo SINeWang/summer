@@ -25,8 +25,16 @@ public class TestDataTools {
 
         List<TestData> test2 = DataTools.copy(test1, TestData.class);
         Assert.assertEquals(test1.size(), test2.size());
-        Assert.assertEquals("aaa",test1.get(0).getAaa());
-        Assert.assertEquals("bbb",test2.get(1).getAaa());
+        Assert.assertEquals("aaa", test1.get(0).getAaa());
+        Assert.assertEquals("bbb", test2.get(1).getAaa());
+    }
+
+    @Test
+    public void testMagicCopy() {
+        TestData0 d0 = DataTools.magicCopy(TestData0.class, new TestData1(), new TestData2());
+
+        Assert.assertEquals("1", d0.f1);
+        Assert.assertEquals("2", d0.f2);
     }
 
     public static class TestData {
@@ -39,6 +47,46 @@ public class TestDataTools {
 
         public void setAaa(String aaa) {
             this.aaa = aaa;
+        }
+    }
+
+
+    public static class TestData0 {
+        String f1;
+        String f2;
+
+        public String getF1() {
+            return f1;
+        }
+
+        public void setF1(String f1) {
+            this.f1 = f1;
+        }
+
+        public String getF2() {
+            return f2;
+        }
+
+        public void setF2(String f2) {
+            this.f2 = f2;
+        }
+    }
+
+
+    public static class TestData1 {
+        public String getF1() {
+            return f1;
+        }
+
+        String f1 = "1";
+    }
+
+    public static class TestData2 {
+
+        String f2 = "2";
+
+        public String getF2() {
+            return f2;
         }
     }
 }

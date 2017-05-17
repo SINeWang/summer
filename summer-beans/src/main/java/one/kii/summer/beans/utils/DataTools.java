@@ -11,6 +11,68 @@ import java.util.List;
  */
 public class DataTools {
 
+    public static <T> T magicCopy(Class<T> target, Object... sources) {
+        T instance = null;
+        try {
+            instance = target.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        if (sources == null || sources.length == 0) {
+            return instance;
+        }
+        BeanUtils.copyProperties(sources[0], instance);
+        if (sources.length == 1) {
+            return instance;
+        }
+        fillMissingFields(instance, sources);
+        return instance;
+    }
+
+    private static  <T> void fillMissingFields(T target, Object... sources) {
+        Field[] targetFields = target.getClass().getDeclaredFields();
+        for (Field targetField : targetFields) {
+            Object value;
+            try {
+                targetField.setAccessible(true);
+                value = targetField.get(target);
+            } catch (IllegalAccessException e) {
+                //ignore
+                continue;
+            }
+            if (value != null) {
+                continue;
+            }
+            for (int i = 1; i < sources.length; i++) {
+                Field sourceField;
+                try {
+                    sourceField = sources[i].getClass().getDeclaredField(targetField.getName());
+                } catch (NoSuchFieldException e) {
+                    continue;
+                }
+                if (sourceField.getType().equals(targetField.getType())) {
+                    sourceField.setAccessible(true);
+                    try {
+                        value = sourceField.get(sources[i]);
+                    } catch (IllegalAccessException e) {
+                        //ignore
+                    }
+                    if (value != null) {
+                        try {
+                            targetField.set(target, value);
+                        } catch (IllegalAccessException e) {
+                            // ignore
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     public static <T> T copy(Object src, Class<T> klass) {
         T instance = null;
         try {
@@ -68,4 +130,6 @@ public class DataTools {
         }
         return list;
     }
+
+
 }
