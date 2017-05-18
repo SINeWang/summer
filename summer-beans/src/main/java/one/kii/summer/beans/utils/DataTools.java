@@ -3,6 +3,8 @@ package one.kii.summer.beans.utils;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class DataTools {
         return instance;
     }
 
-    private static  <T> void fillMissingFields(T target, Object... sources) {
+    private static <T> void fillMissingFields(T target, Object... sources) {
         Field[] targetFields = target.getClass().getDeclaredFields();
         for (Field targetField : targetFields) {
             Object value;
@@ -47,17 +49,28 @@ public class DataTools {
                 continue;
             }
             for (int i = 1; i < sources.length; i++) {
-                Field sourceField;
+                Field sourceField = null;
+                boolean noSuchField = false;
                 try {
                     sourceField = sources[i].getClass().getDeclaredField(targetField.getName());
                 } catch (NoSuchFieldException e) {
-                    continue;
+                    noSuchField = true;
                 }
-                if (sourceField.getType().equals(targetField.getType())) {
-                    sourceField.setAccessible(true);
+                if (noSuchField) {
+                    String fieldName = targetField.getName();
+                    char first = Character.toUpperCase(fieldName.charAt(0));
+                    String getMethodName = "get" + first+ fieldName.substring(1);
+                    Method method;
                     try {
-                        value = sourceField.get(sources[i]);
+                        method = sources[i].getClass().getMethod(getMethodName);
+                    } catch (NoSuchMethodException e) {
+                        continue;
+                    }
+                    try {
+                        value = method.invoke(sources[i]);
                     } catch (IllegalAccessException e) {
+                        //ignore
+                    } catch (InvocationTargetException e) {
                         //ignore
                     }
                     if (value != null) {
@@ -68,6 +81,23 @@ public class DataTools {
                         }
                     }
                     break;
+                } else {
+                    if (sourceField.getType().equals(targetField.getType())) {
+                        sourceField.setAccessible(true);
+                        try {
+                            value = sourceField.get(sources[i]);
+                        } catch (IllegalAccessException e) {
+                            //ignore
+                        }
+                        if (value != null) {
+                            try {
+                                targetField.set(target, value);
+                            } catch (IllegalAccessException e) {
+                                // ignore
+                            }
+                        }
+                        break;
+                    }
                 }
             }
         }
