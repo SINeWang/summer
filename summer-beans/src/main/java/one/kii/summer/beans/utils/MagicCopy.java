@@ -59,6 +59,7 @@ public class MagicCopy {
                             targetValue = BasicCopy.from(targetField.getType(), sourceValue);
                             setValue(target, targetField, targetValue);
                         }
+                        break;
                     }
                 } else {
                     Field sourceField = null;
@@ -96,8 +97,11 @@ public class MagicCopy {
                                 //ignore
                             }
                             setValue(target, targetField, sourceValue);
-                            break;
+                        } else {
+                            targetValue = BasicCopy.from(targetField.getType(), sourceValue);
+                            setValue(target, targetField, targetValue);
                         }
+                        break;
                     }
                 }
 
