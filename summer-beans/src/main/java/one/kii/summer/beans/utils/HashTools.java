@@ -1,6 +1,6 @@
-package one.kii.summer.codec.utils;
+package one.kii.summer.beans.utils;
 
-import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.beans.annotations.KeyFactor;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.util.StringUtils;
 
@@ -56,7 +56,7 @@ public class HashTools {
 
         List<String> hashFields = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(HashFactor.class);
+            Annotation annotation = field.getAnnotation(KeyFactor.class);
             if (annotation != null) {
                 hashFields.add(field.getName());
             }

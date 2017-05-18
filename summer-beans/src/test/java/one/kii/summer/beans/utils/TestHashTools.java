@@ -1,10 +1,11 @@
-package one.kii.summer.codec.utils;
+package one.kii.summer.beans.utils;
 
-import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.beans.annotations.KeyFactor;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static one.kii.summer.codec.utils.HashTools.NULL_HEX;
+import static one.kii.summer.beans.utils.HashTools.NULL_HEX;
+
 
 /**
  * Created by WangYanJiong on 04/05/2017.
@@ -51,43 +52,43 @@ public class TestHashTools {
     }
 
     public static class TestSingleFactorObject {
-        @HashFactor
+        @KeyFactor
         String field = "abc";
 
     }
 
     public static class TestDoubleFactorObject {
-        @HashFactor
+        @KeyFactor
         String field1 = "abc";
 
-        @HashFactor
+        @KeyFactor
         String field2 = "def";
 
     }
 
     public static class TestPartFactorObject {
-        @HashFactor
+        @KeyFactor
         String field1 = "abc";
 
-        @HashFactor
+        @KeyFactor
         String field2 = "def";
 
         String field3 = "ghi";
     }
 
     public static class TestPartFactorPrimitiveObject {
-        @HashFactor
+        @KeyFactor
         String field1 = "abc";
 
-        @HashFactor
+        @KeyFactor
         String field2 = "def";
 
         String field3 = "ghi";
 
-        @HashFactor
+        @KeyFactor
         int field4 = 1000;
 
-        @HashFactor
+        @KeyFactor
         boolean field5 = true;
 
     }
