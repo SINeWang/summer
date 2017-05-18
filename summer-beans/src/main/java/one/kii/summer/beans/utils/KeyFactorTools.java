@@ -28,4 +28,19 @@ public class KeyFactorTools {
         Arrays.sort(keys);
         return keys;
     }
+
+    public static String[] find(Class klass) {
+        Field[] fields = klass.getDeclaredFields();
+
+        List<String> keyFactors = new ArrayList<>();
+        for (Field field : fields) {
+            Annotation annotation = field.getAnnotation(KeyFactor.class);
+            if (annotation != null) {
+                keyFactors.add(field.getName());
+            }
+        }
+        String[] keys = keyFactors.toArray(new String[0]);
+        Arrays.sort(keys);
+        return keys;
+    }
 }
