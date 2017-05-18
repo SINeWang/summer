@@ -17,9 +17,9 @@ public class MagicCopy {
         try {
             instance = target.newInstance();
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            // ignore
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            // ignore
         }
 
         if (sources == null || sources.length == 0) {
