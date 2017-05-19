@@ -2,23 +2,50 @@ package one.kii.summer.beans.utils;
 
 import org.springframework.beans.BeanUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
 public class BasicCopy {
 
-
-    public static <T> T from(Class<T> klass, Object src) {
+    public static <T> T from(Class<T> klass, Map map) {
         T instance = null;
         try {
             instance = klass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (InstantiationException | IllegalAccessException e) {
+            // ignore
+        }
+        Field[] fields = klass.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Object value = map.get(field.getName());
+            if (value != null) {
+                if (value.getClass().equals(field.getType())) {
+                    try {
+                        field.set(instance, field.getType().cast(value));
+                    } catch (IllegalAccessException e) {
+                        //ignore
+                    }
+                }
+            }
+        }
+        return instance;
+    }
+
+
+    public static <T> T from(Class<T> klass, Object src) {
+        if (src instanceof Map) {
+            return BasicCopy.from(klass, (Map) src);
+        }
+        T instance = null;
+        try {
+            instance = klass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            // ignore
         }
         BeanUtils.copyProperties(src, instance);
 

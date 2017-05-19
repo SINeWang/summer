@@ -1,7 +1,5 @@
 package one.kii.summer.beans.utils;
 
-import org.springframework.beans.BeanUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,23 +11,16 @@ import java.util.Map;
 public class MagicCopy {
 
     public static <T> T from(Class<T> target, Object... sources) {
-        T instance = null;
-        try {
-            instance = target.newInstance();
-        } catch (InstantiationException e) {
-            // ignore
-        } catch (IllegalAccessException e) {
-            // ignore
-        }
-
         if (sources == null || sources.length == 0) {
-            return instance;
+            return null;
         }
-        BeanUtils.copyProperties(sources[0], instance);
+        T instance;
         if (sources.length == 1) {
-            return instance;
+            return BasicCopy.from(target, sources[0]);
+        } else {
+            instance = BasicCopy.from(target, sources[0]);
+            fillMissingFields(instance, sources);
         }
-        fillMissingFields(instance, sources);
         return instance;
     }
 
@@ -81,25 +72,29 @@ public class MagicCopy {
                         }
                         try {
                             sourceValue = method.invoke(sources[i]);
-                        } catch (IllegalAccessException e) {
-                            //ignore
-                        } catch (InvocationTargetException e) {
+                        } catch (IllegalAccessException | InvocationTargetException e) {
                             //ignore
                         }
-                        setValue(target, targetField, sourceValue);
-                        break;
-                    } else {
-                        if (sourceField.getType().equals(targetField.getType())) {
-                            sourceField.setAccessible(true);
-                            try {
-                                sourceValue = sourceField.get(sources[i]);
-                            } catch (IllegalAccessException e) {
-                                //ignore
-                            }
+                        if (sourceValue != null) {
                             setValue(target, targetField, sourceValue);
+                            break;
+                        }
+                    } else {
+                        try {
+                            sourceField.setAccessible(true);
+                            sourceValue = sourceField.get(sources[i]);
+                        } catch (IllegalAccessException e) {
+                            //ignore
+                        }
+                        if (sourceValue == null) {
+                            continue;
+                        }
+                        if (sourceField.getType().equals(targetField.getType())) {
+                            setValue(target, targetField, sourceValue);
+                            break;
                         } else {
-                            targetValue = BasicCopy.from(targetField.getType(), sourceValue);
-                            setValue(target, targetField, targetValue);
+                            Object anotherValue = BasicCopy.from(targetField.getType(), sourceValue);
+                            setValue(target, targetField, anotherValue);
                         }
                         break;
                     }
