@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TestKeyFactorTools {
 
     @Test
-    public void test(){
+    public void test1(){
 
         String[] expect = {"fieldA", "fieldZ"};
 
@@ -18,6 +18,17 @@ public class TestKeyFactorTools {
 
         Assert.assertArrayEquals(expect, actual);
     }
+
+    @Test
+    public void test2(){
+
+        String[] expect = {"fieldA", "fieldZ"};
+
+        String[] actual =  KeyFactorTools.find(TestKeys.class);
+
+        Assert.assertArrayEquals(expect, actual);
+    }
+
 
 
     public static class TestKeys{

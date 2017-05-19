@@ -32,7 +32,6 @@ public class MagicCopy {
                 targetField.setAccessible(true);
                 targetValue = targetField.get(target);
             } catch (IllegalAccessException e) {
-                //ignore
                 continue;
             }
             if (targetValue != null) {
@@ -73,7 +72,7 @@ public class MagicCopy {
                         try {
                             sourceValue = method.invoke(sources[i]);
                         } catch (IllegalAccessException | InvocationTargetException e) {
-                            //ignore
+                            continue;
                         }
                         if (sourceValue != null) {
                             setValue(target, targetField, sourceValue);
@@ -84,7 +83,7 @@ public class MagicCopy {
                             sourceField.setAccessible(true);
                             sourceValue = sourceField.get(sources[i]);
                         } catch (IllegalAccessException e) {
-                            //ignore
+                            continue;
                         }
                         if (sourceValue == null) {
                             continue;

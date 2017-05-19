@@ -35,7 +35,7 @@ public class ArraysAssert {
                 field = another.getClass().getDeclaredField(anotherFieldName);
                 field.setAccessible(true);
             } catch (NoSuchFieldException e) {
-                logger.error("no-such-field-exception:{}", anotherFieldName, e);
+                logger.debug("no-such-field-exception:{}", anotherFieldName, e);
                 return false;
             }
             try {
@@ -44,7 +44,7 @@ public class ArraysAssert {
                     anothers.add(object.toString());
                 }
             } catch (IllegalAccessException e) {
-                logger.error("illegal-access-exception:{}", anotherFieldName, e);
+                logger.debug("illegal-access-exception:{}", anotherFieldName, e);
                 return false;
             }
         }

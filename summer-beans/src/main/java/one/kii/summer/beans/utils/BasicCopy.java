@@ -24,11 +24,26 @@ public class BasicCopy {
             field.setAccessible(true);
             Object value = map.get(field.getName());
             if (value != null) {
-                if (value.getClass().equals(field.getType())) {
+                if (field.getType().equals(value.getClass())) {
                     try {
-                        field.set(instance, field.getType().cast(value));
+                        field.set(instance, value);
                     } catch (IllegalAccessException e) {
-                        //ignore
+                    }
+                } else {
+                    if (field.getType().equals(String.class)) {
+                        try {
+                            field.set(instance, String.valueOf(value));
+                        } catch (IllegalAccessException e) {
+                        }
+                    } else {
+                        Object anotherValue = from(field.getType(), value);
+                        if (anotherValue == null) {
+                            continue;
+                        }
+                        try {
+                            field.set(instance, anotherValue);
+                        } catch (IllegalAccessException e) {
+                        }
                     }
                 }
             }
@@ -38,51 +53,81 @@ public class BasicCopy {
 
 
     public static <T> T from(Class<T> klass, Object src) {
-        if (src instanceof Map) {
-            return BasicCopy.from(klass, (Map) src);
+        if (src == null) {
+            return null;
         }
-        T instance = null;
+        if (klass.isPrimitive() || src.getClass().isPrimitive() || klass.equals(String.class)) {
+            T x = primitive(klass, src);
+            if (x != null) return x;
+        }
+        if (src instanceof Map) {
+            return from(klass, (Map) src);
+        }
+
+        T instance;
         try {
             instance = klass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            // ignore
+            return null;
         }
         BeanUtils.copyProperties(src, instance);
 
-//        Field[] fields = klass.getDeclaredFields();
-//        for (Field targetField : fields) {
-//            if (!targetField.getType().isEnum()) {
-//                continue;
-//            }
-//            Object targetValue = null;
-//            try {
-//                targetValue = targetField.get(instance);
-//            } catch (IllegalAccessException e) {
-//                continue;
-//            }
-//            if (targetValue == null) {
-//                Field srcField;
-//                try {
-//                    srcField = src.getClass().getDeclaredField(targetField.getName());
-//                } catch (NoSuchFieldException e) {
-//                    continue;
-//                }
-//                Object srcValue;
-//                try {
-//                    srcField.setAccessible(true);
-//                    srcValue = srcField.get(src);
-//                } catch (IllegalAccessException e) {
-//                    continue;
-//                }
-//                if (srcValue != null) {
-//                    targetField.setAccessible(true);
-//                    targetField.set(instance, Enum.valueOf((Enum)targetField.getType(), String.valueOf(srcValue)));
-//                }
-//            }
-//
-//        }
-
         return instance;
+    }
+
+    private static <T> T primitive(Class<T> klass, Object src) {
+        if (klass.equals(String.class)) {
+            return (T) String.valueOf(src);
+        }
+        if (klass.equals(int.class) && src.getClass().equals(Integer.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Integer.class) && src.getClass().equals(int.class)) {
+            return (T) src;
+        }
+        if (klass.equals(boolean.class) && src.getClass().equals(Boolean.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Boolean.class) && src.getClass().equals(boolean.class)) {
+            return (T) src;
+        }
+        if (klass.equals(long.class) && src.getClass().equals(Long.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Long.class) && src.getClass().equals(long.class)) {
+            return (T) src;
+        }
+        if (klass.equals(float.class) && src.getClass().equals(Float.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Float.class) && src.getClass().equals(float.class)) {
+            return (T) src;
+        }
+        if (klass.equals(double.class) && src.getClass().equals(Double.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Double.class) && src.getClass().equals(double.class)) {
+            return (T) src;
+        }
+        if (klass.equals(byte.class) && src.getClass().equals(Byte.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Byte.class) && src.getClass().equals(byte.class)) {
+            return (T) src;
+        }
+        if (klass.equals(char.class) && src.getClass().equals(Character.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Character.class) && src.getClass().equals(char.class)) {
+            return (T) src;
+        }
+        if (klass.equals(short.class) && src.getClass().equals(Short.class)) {
+            return (T) src;
+        }
+        if (klass.equals(Short.class) && src.getClass().equals(short.class)) {
+            return (T) src;
+        }
+        return null;
     }
 
     public static <T> List<T> from(Class<T> klass, List srcs) {

@@ -11,6 +11,13 @@ import java.util.Map;
  */
 public class TestMagicCopy {
 
+    @Test
+    public void case0() {
+        TestData0 d0 = MagicCopy.from(TestData0.class, new TestData1());
+
+        Assert.assertEquals("1", d0.f1);
+    }
+
 
     @Test
     public void case1() {
@@ -47,7 +54,7 @@ public class TestMagicCopy {
     @Test
     public void case4() {
         Map map1 = new HashMap();
-        map1.put("f1", "1");
+        map1.put("f1", 1);
 
 
         TestData0 d0 = MagicCopy.from(TestData0.class, map1, new TestData3());
@@ -55,6 +62,30 @@ public class TestMagicCopy {
         Assert.assertEquals("1", d0.f1);
         Assert.assertEquals("2", d0.f2);
     }
+
+    @Test
+    public void case5() {
+        Map map1 = new HashMap();
+        map1.put("f1", 1);
+        Map map2 = new HashMap();
+        map2.put("f2", 2);
+
+
+        TestData0 d0 = MagicCopy.from(TestData0.class, map1, map2);
+
+        Assert.assertEquals("1", d0.f1);
+        Assert.assertEquals("2", d0.f2);
+    }
+    @Test
+    public void case6() {
+
+        TestData0 d0 = MagicCopy.from(TestData0.class, new TestData3(), new TestData4());
+
+        Assert.assertEquals("1", d0.f1);
+        Assert.assertEquals("2", d0.f2);
+    }
+
+
 
     public static class TestData0 {
         String f1;
@@ -97,5 +128,9 @@ public class TestMagicCopy {
 
     public static class TestData3 extends TestData2 {
 
+    }
+
+    public static class TestData4 {
+        int f1 = 1;
     }
 }
