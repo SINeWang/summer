@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
-public class MagicCopy {
+public class MultipleModelMapping {
 
     public static <T> T from(Class<T> target, Object... sources) {
         if (sources == null || sources.length == 0) {
@@ -16,9 +16,9 @@ public class MagicCopy {
         }
         T instance;
         if (sources.length == 1) {
-            return BasicCopy.from(target, sources[0]);
+            return SingleModelMapping.from(target, sources[0]);
         } else {
-            instance = BasicCopy.from(target, sources[0]);
+            instance = SingleModelMapping.from(target, sources[0]);
             fillMissingFields(instance, sources);
         }
         return instance;
@@ -46,7 +46,7 @@ public class MagicCopy {
                         if (targetField.getType().equals(sourceValue.getClass())) {
                             setValue(target, targetField, sourceValue);
                         } else {
-                            targetValue = BasicCopy.from(targetField.getType(), sourceValue);
+                            targetValue = SingleModelMapping.from(targetField.getType(), sourceValue);
                             setValue(target, targetField, targetValue);
                         }
                         break;
@@ -92,7 +92,7 @@ public class MagicCopy {
                             setValue(target, targetField, sourceValue);
                             break;
                         } else {
-                            Object anotherValue = BasicCopy.from(targetField.getType(), sourceValue);
+                            Object anotherValue = SingleModelMapping.from(targetField.getType(), sourceValue);
                             setValue(target, targetField, anotherValue);
                         }
                         break;

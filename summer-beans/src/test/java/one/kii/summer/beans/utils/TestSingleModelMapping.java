@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 26/04/2017.
  */
-public class TestBasicCopy {
+public class TestSingleModelMapping {
 
 
     @Test
@@ -25,7 +25,7 @@ public class TestBasicCopy {
         test1.add(td1);
         test1.add(td2);
 
-        List<TestData> test2 = BasicCopy.from(TestData.class, test1);
+        List<TestData> test2 = SingleModelMapping.from(TestData.class, test1);
         Assert.assertEquals(test1.size(), test2.size());
         Assert.assertEquals("aaa", test1.get(0).getAaa());
         Assert.assertEquals("bbb", test2.get(1).getAaa());
@@ -36,7 +36,7 @@ public class TestBasicCopy {
         Map map = new HashMap();
         map.put("bbb", 111);
 
-        TestData2 td = BasicCopy.from(TestData2.class, map);
+        TestData2 td = SingleModelMapping.from(TestData2.class, map);
         Assert.assertEquals(111, td.getBbb());
     }
 

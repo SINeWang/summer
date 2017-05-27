@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
-public class BasicCopy {
+public class SingleModelMapping {
 
     public static <T> T from(Class<T> klass, Map map) {
         T instance = null;
@@ -130,9 +130,9 @@ public class BasicCopy {
         return null;
     }
 
-    public static <T> List<T> from(Class<T> klass, List srcs) {
+    public static <T> List<T> from(Class<T> klass, List sources) {
         List<T> list = new ArrayList<>();
-        for (Object src : srcs) {
+        for (Object src : sources) {
             if (src != null) {
                 T target = from(klass, src);
                 list.add(target);

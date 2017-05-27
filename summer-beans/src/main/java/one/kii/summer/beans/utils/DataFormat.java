@@ -11,7 +11,7 @@ public class DataFormat {
 
     public static <T> T toLowerHyphen(T object) {
 
-        T target = (T) BasicCopy.from(object.getClass(), object);
+        T target = (T) SingleModelMapping.from(object.getClass(), object);
         Field[] fields = object.getClass().getDeclaredFields();
 
         for (Field field : fields) {
