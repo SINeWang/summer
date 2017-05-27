@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
-public class MultipleModelMapping {
+public class MultipleValueMapping {
 
     public static <T> T from(Class<T> target, Object... sources) {
         if (sources == null || sources.length == 0) {
@@ -16,9 +16,9 @@ public class MultipleModelMapping {
         }
         T instance;
         if (sources.length == 1) {
-            return SingleModelMapping.from(target, sources[0]);
+            return SingleValueMapping.from(target, sources[0]);
         } else {
-            instance = SingleModelMapping.from(target, sources[0]);
+            instance = SingleValueMapping.from(target, sources[0]);
             fillMissingFields(instance, sources);
         }
         return instance;
@@ -46,7 +46,7 @@ public class MultipleModelMapping {
                         if (targetField.getType().equals(sourceValue.getClass())) {
                             setValue(target, targetField, sourceValue);
                         } else {
-                            targetValue = SingleModelMapping.from(targetField.getType(), sourceValue);
+                            targetValue = SingleValueMapping.from(targetField.getType(), sourceValue);
                             setValue(target, targetField, targetValue);
                         }
                         break;
@@ -92,7 +92,7 @@ public class MultipleModelMapping {
                             setValue(target, targetField, sourceValue);
                             break;
                         } else {
-                            Object anotherValue = SingleModelMapping.from(targetField.getType(), sourceValue);
+                            Object anotherValue = SingleValueMapping.from(targetField.getType(), sourceValue);
                             setValue(target, targetField, anotherValue);
                         }
                         break;
