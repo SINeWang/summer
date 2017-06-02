@@ -30,28 +30,7 @@ public class MustHaveTools {
                 if (value == null) {
                     missing.add(field.getName());
                     continue;
-                } else {
-                    if (value instanceof Long) {
-                        if (0 == (long) value) {
-                            missing.add(field.getName());
-                        }
-                    } else if (value.getClass().equals(long.class)) {
-                        if (0 == (long) value) {
-                            missing.add(field.getName());
-                        }
-                    }
-                    if (value instanceof Integer) {
-                        if (0 == (int) value) {
-                            missing.add(field.getName());
-                        }
-                    } else if (value.getClass().equals(int.class)) {
-                        if (0 == (int) value) {
-                            missing.add(field.getName());
-                        }
-                    }
-
                 }
-
             }
         }
         String[] keys = missing.toArray(new String[0]);

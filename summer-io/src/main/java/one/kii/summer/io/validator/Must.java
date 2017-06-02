@@ -5,6 +5,8 @@ import one.kii.summer.io.exception.BadRequest;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,12 +69,27 @@ public class Must {
 
 
     private static void checkValueNotEmpty(Object object, List<String> badFields, Field field) {
-        field.setAccessible(true);
-        Object value = null;
+        Object value;
         try {
+            field.setAccessible(true);
             value = field.get(object);
         } catch (IllegalAccessException e) {
-            badFields.add(field.getName());
+            String fieldName = field.getName();
+            char first = Character.toUpperCase(fieldName.charAt(0));
+            String getMethodName = "get" + first + fieldName.substring(1);
+            Method method;
+            try {
+                method = object.getClass().getMethod(getMethodName);
+            } catch (NoSuchMethodException ignore) {
+                badFields.add(field.getName());
+                return;
+            }
+            try {
+                value = method.invoke(object);
+            } catch (IllegalAccessException | InvocationTargetException e1) {
+                badFields.add(field.getName());
+                return;
+            }
         }
         if (value == null) {
             badFields.add(field.getName());
