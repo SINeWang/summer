@@ -67,6 +67,20 @@ public class Must {
         }
     }
 
+    public static void have(Class klass) throws BadRequest {
+        Field[] fields = klass.getDeclaredFields();
+        List<String> badFields = new ArrayList<>();
+        for (Field field : fields) {
+            Annotation annotation = field.getAnnotation(MustHave.class);
+            if (annotation != null) {
+                badFields.add(field.getName());
+            }
+        }
+        if (badFields.size() > 0) {
+            throw new BadRequest(badFields.toArray(new String[0]));
+        }
+    }
+
 
     private static void checkValueNotEmpty(Object object, List<String> badFields, Field field) {
         Object value;
