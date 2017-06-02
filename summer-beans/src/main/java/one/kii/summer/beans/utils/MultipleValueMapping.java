@@ -24,7 +24,7 @@ public class MultipleValueMapping {
         return instance;
     }
 
-    private static <T> void fillMissingFields(T target, Object... sources) {
+    protected static <T> void fillMissingFields(T target, Object... sources) {
         Field[] targetFields = target.getClass().getDeclaredFields();
         for (Field targetField : targetFields) {
             Object targetValue;

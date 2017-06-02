@@ -71,7 +71,7 @@ public class SingleValueMapping {
             return null;
         }
         BeanUtils.copyProperties(src, instance);
-
+        MultipleValueMapping.fillMissingFields(instance, instance);
         return instance;
     }
 
