@@ -3,6 +3,8 @@ package one.kii.summer.beans.utils;
 import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -73,42 +75,95 @@ public class SingleValueMapping {
         }
         BeanUtils.copyProperties(src, instance);
         for (Field targetField : klass.getDeclaredFields()) {
-            Object targetValue = null;
-            try {
-                targetField.setAccessible(true);
-                targetValue = targetField.get(instance);
-            } catch (IllegalAccessException e) {
+            Object targetValue = getValue(targetField, instance);
+            if (targetValue != null) {
                 continue;
             }
-            if (targetValue == null) {
-                Field srcField = null;
-                try {
-                    srcField = src.getClass().getDeclaredField(targetField.getName());
-                } catch (NoSuchFieldException e) {
-                    continue;
-                }
-                Object srcValue = null;
+            Object srcValue = getValue(targetField.getName(), src);
+            if (srcValue != null) {
+                targetValue = primitive(targetField.getType(), srcValue);
+            }
+            if (targetValue != null) {
                 try {
                     targetField.setAccessible(true);
-                    srcValue = srcField.get(src);
+                    targetField.set(instance, targetValue);
                 } catch (IllegalAccessException e) {
-                    continue;
-                }
-                if (srcValue != null) {
-                    targetValue = primitive(targetField.getType(), srcValue);
-                }
-                if (targetValue != null) {
-                    try {
-                        targetField.setAccessible(true);
-                        targetField.set(instance, targetValue);
-                    } catch (IllegalAccessException e) {
-                        continue;
-                    }
+                    setValue(instance, targetField, targetValue);
                 }
             }
         }
         return instance;
     }
+
+    private static <T> void setValue(T instance, Field targetField, Object targetValue) {
+        String fieldName = targetField.getName();
+        char first = Character.toUpperCase(fieldName.charAt(0));
+        String getMethodName = "set" + first + fieldName.substring(1);
+        Method method;
+        try {
+            method = instance.getClass().getMethod(getMethodName, targetField.getType());
+        } catch (NoSuchMethodException ignore) {
+            return;
+        }
+        try {
+            method.invoke(instance, targetValue);
+        } catch (IllegalAccessException | InvocationTargetException e1) {
+            return;
+        }
+
+    }
+
+    private static Object getValue(Field field, Object instance) {
+        try {
+            field.setAccessible(true);
+            return field.get(instance);
+        } catch (IllegalAccessException e) {
+            String fieldName = field.getName();
+            char first = Character.toUpperCase(fieldName.charAt(0));
+            String getMethodName = "get" + first + fieldName.substring(1);
+            Method method;
+            try {
+                method = instance.getClass().getMethod(getMethodName);
+            } catch (NoSuchMethodException ignore) {
+                return null;
+            }
+            try {
+                return method.invoke(instance);
+            } catch (IllegalAccessException | InvocationTargetException e1) {
+                return null;
+            }
+        }
+    }
+
+    private static Object getValue(String fieldName, Object instance) {
+        Field field = null;
+        try {
+            field = instance.getClass().getDeclaredField(fieldName);
+        } catch (NoSuchFieldException ignore) {
+        }
+        if (field != null) {
+            field.setAccessible(true);
+            try {
+                return field.get(instance);
+            } catch (IllegalAccessException e) {
+
+            }
+        }
+        char first = Character.toUpperCase(fieldName.charAt(0));
+        String getMethodName = "get" + first + fieldName.substring(1);
+        Method method;
+        try {
+            method = instance.getClass().getMethod(getMethodName);
+        } catch (NoSuchMethodException ignore) {
+            return null;
+        }
+        try {
+            return method.invoke(instance);
+        } catch (IllegalAccessException | InvocationTargetException e1) {
+            return null;
+        }
+    }
+
 
     private static <T> T primitive(Class<T> klass, Object src) {
         if (klass.equals(String.class)) {
