@@ -75,6 +75,7 @@ public class SingleValueMapping {
         for (Field targetField : klass.getDeclaredFields()) {
             Object targetValue = null;
             try {
+                targetField.setAccessible(true);
                 targetValue = targetField.get(instance);
             } catch (IllegalAccessException e) {
                 continue;
@@ -88,6 +89,7 @@ public class SingleValueMapping {
                 }
                 Object srcValue = null;
                 try {
+                    targetField.setAccessible(true);
                     srcValue = srcField.get(src);
                 } catch (IllegalAccessException e) {
                     continue;
@@ -97,7 +99,7 @@ public class SingleValueMapping {
                 }
                 if (targetValue != null) {
                     try {
-//                        targetField.setAccessible(true);
+                        targetField.setAccessible(true);
                         targetField.set(instance, targetValue);
                     } catch (IllegalAccessException e) {
                         continue;
