@@ -62,6 +62,11 @@ public class TestNotNull {
         NotNull.of(TestClass2.class, MayHave.class, new TestClass2());
     }
 
+    @Test
+    public void testNoneOf24() throws NotFound {
+        NotNull.of(TestClass2.class, new TestClass2());
+    }
+
     static class TestClass2 {
 
         String a;
