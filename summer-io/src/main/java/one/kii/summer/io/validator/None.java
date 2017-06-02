@@ -16,6 +16,9 @@ public class None {
         Field[] fields = klass.getDeclaredFields();
         List<String> badFields = new ArrayList<>();
         for (Field field : fields) {
+            if (field.getName().startsWith("this$")) {
+                continue;
+            }
             badFields.add(field.getName());
         }
         if (badFields.size() > 0) {
@@ -23,11 +26,14 @@ public class None {
         }
     }
 
-    public static void of(Class klass, Class<? extends Annotation> ingore) throws NotFound {
+    public static void of(Class klass, Class<? extends Annotation> ignore) throws NotFound {
         Field[] fields = klass.getDeclaredFields();
         List<String> badFields = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(ingore);
+            if (field.getName().startsWith("this$")) {
+                continue;
+            }
+            Annotation annotation = field.getAnnotation(ignore);
             if (annotation == null) {
                 badFields.add(field.getName());
             }
