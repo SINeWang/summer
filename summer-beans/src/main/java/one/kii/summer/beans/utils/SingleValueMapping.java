@@ -56,7 +56,8 @@ public class SingleValueMapping {
         if (src == null) {
             return null;
         }
-        if (klass.isPrimitive() || src.getClass().isPrimitive() || klass.equals(String.class)) {
+        if (klass.isPrimitive() || klass.equals(String.class)
+                || src.getClass().isPrimitive() || src.getClass().equals(String.class)) {
             T x = primitive(klass, src);
             if (x != null) return x;
         }
@@ -71,7 +72,39 @@ public class SingleValueMapping {
             return null;
         }
         BeanUtils.copyProperties(src, instance);
-        MultipleValueMapping.fillMissingFields(instance, instance);
+        for (Field targetField : klass.getDeclaredFields()) {
+            Object targetValue = null;
+            try {
+                targetValue = targetField.get(instance);
+            } catch (IllegalAccessException e) {
+                continue;
+            }
+            if (targetValue == null) {
+                Field srcField = null;
+                try {
+                    srcField = src.getClass().getDeclaredField(targetField.getName());
+                } catch (NoSuchFieldException e) {
+                    continue;
+                }
+                Object srcValue = null;
+                try {
+                    srcValue = srcField.get(src);
+                } catch (IllegalAccessException e) {
+                    continue;
+                }
+                if (srcValue != null) {
+                    targetValue = primitive(targetField.getType(), srcValue);
+                }
+                if (targetValue != null) {
+                    try {
+//                        targetField.setAccessible(true);
+                        targetField.set(instance, targetValue);
+                    } catch (IllegalAccessException e) {
+                        continue;
+                    }
+                }
+            }
+        }
         return instance;
     }
 

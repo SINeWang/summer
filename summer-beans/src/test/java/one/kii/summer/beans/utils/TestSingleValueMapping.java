@@ -46,7 +46,25 @@ public class TestSingleValueMapping {
         map.put("ccc", "3333");
 
         TestData3 td = SingleValueMapping.from(TestData3.class, map);
-        Assert.assertEquals(3333L, td.getCcc());
+        Assert.assertEquals(Long.valueOf(3333L), td.getCcc());
+    }
+
+    @Test
+    public void test41() {
+        TestData4 testData4 = new TestData4();
+        testData4.setCcc("444");
+
+        TestData3 td = SingleValueMapping.from(TestData3.class, testData4);
+        Assert.assertEquals(Long.valueOf(444L), td.getCcc());
+    }
+
+    @Test
+    public void test42() {
+        TestData3 testData3 = new TestData3();
+        testData3.setCcc(333L);
+
+        TestData4 td = SingleValueMapping.from(TestData4.class, testData3);
+        Assert.assertEquals("333", td.getCcc());
     }
 
 
@@ -76,15 +94,28 @@ public class TestSingleValueMapping {
         }
     }
 
-    public static class TestData3{
+    public static class TestData3 {
 
-        long ccc;
+        Long ccc;
 
-        public long getCcc() {
+        public Long getCcc() {
             return ccc;
         }
 
-        public void setCcc(long ccc) {
+        public void setCcc(Long ccc) {
+            this.ccc = ccc;
+        }
+    }
+
+    public static class TestData4 {
+
+        String ccc;
+
+        public String getCcc() {
+            return ccc;
+        }
+
+        public void setCcc(String ccc) {
             this.ccc = ccc;
         }
     }
