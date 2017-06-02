@@ -127,6 +127,49 @@ public class SingleValueMapping {
         if (klass.equals(Short.class) && src.getClass().equals(short.class)) {
             return (T) src;
         }
+
+        if (klass.equals(long.class) && src.getClass().equals(String.class)) {
+            return (T) Long.valueOf((String) src);
+        }
+        if (klass.equals(Long.class) && src.getClass().equals(String.class)) {
+            return (T) Long.valueOf((String) src);
+        }
+        if (klass.equals(int.class) && src.getClass().equals(String.class)) {
+            return (T) Integer.valueOf((String) src);
+        }
+        if (klass.equals(Integer.class) && src.getClass().equals(String.class)) {
+            return (T) Integer.valueOf((String) src);
+        }
+        if (klass.equals(boolean.class) && src.getClass().equals(String.class)) {
+            return (T) Boolean.valueOf((String) src);
+        }
+        if (klass.equals(Boolean.class) && src.getClass().equals(String.class)) {
+            return (T) Boolean.valueOf((String) src);
+        }
+        if (klass.equals(float.class) && src.getClass().equals(String.class)) {
+            return (T) Float.valueOf((String) src);
+        }
+        if (klass.equals(Float.class) && src.getClass().equals(String.class)) {
+            return (T) Float.valueOf((String) src);
+        }
+        if (klass.equals(double.class) && src.getClass().equals(String.class)) {
+            return (T) Double.valueOf((String) src);
+        }
+        if (klass.equals(Double.class) && src.getClass().equals(String.class)) {
+            return (T) Double.valueOf((String) src);
+        }
+        if (klass.equals(byte.class) && src.getClass().equals(String.class)) {
+            return (T) Byte.valueOf((String) src);
+        }
+        if (klass.equals(Byte.class) && src.getClass().equals(String.class)) {
+            return (T) Byte.valueOf((String) src);
+        }
+        if (klass.equals(short.class) && src.getClass().equals(String.class)) {
+            return (T) Short.valueOf((String) src);
+        }
+        if (klass.equals(Short.class) && src.getClass().equals(String.class)) {
+            return (T) Short.valueOf((String) src);
+        }
         return null;
     }
 

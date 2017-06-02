@@ -40,6 +40,15 @@ public class TestSingleValueMapping {
         Assert.assertEquals(111, td.getBbb());
     }
 
+    @Test
+    public void test3() {
+        Map map = new HashMap();
+        map.put("ccc", "3333");
+
+        TestData3 td = SingleValueMapping.from(TestData3.class, map);
+        Assert.assertEquals(3333L, td.getCcc());
+    }
+
 
     public static class TestData {
 
@@ -64,6 +73,19 @@ public class TestSingleValueMapping {
 
         public void setBbb(int bbb) {
             this.bbb = bbb;
+        }
+    }
+
+    public static class TestData3{
+
+        long ccc;
+
+        public long getCcc() {
+            return ccc;
+        }
+
+        public void setCcc(long ccc) {
+            this.ccc = ccc;
         }
     }
 }
