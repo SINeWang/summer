@@ -12,11 +12,13 @@ import java.util.List;
  */
 public class NotNull {
 
+    private static final String INTERNAL_CLASS = "this$";
+
     public static void of(Class klass) throws NotFound {
         Field[] fields = klass.getDeclaredFields();
         List<String> badFields = new ArrayList<>();
         for (Field field : fields) {
-            if (field.getName().startsWith("this$")) {
+            if (field.getName().startsWith(INTERNAL_CLASS)) {
                 continue;
             }
             badFields.add(field.getName());
@@ -45,7 +47,7 @@ public class NotNull {
         Field[] fields = klass.getDeclaredFields();
         List<String> badFields = new ArrayList<>();
         for (Field field : fields) {
-            if (field.getName().startsWith("this$")) {
+            if (field.getName().startsWith(INTERNAL_CLASS)) {
                 continue;
             }
             Annotation annotation = field.getAnnotation(ignore);
