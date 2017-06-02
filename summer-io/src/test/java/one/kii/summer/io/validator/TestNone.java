@@ -21,7 +21,7 @@ public class TestNone {
         try {
             None.of(TestClass2.class);
         } catch (NotFound notFound) {
-            Assert.assertEquals(3, notFound.getKeys().length);
+            Assert.assertEquals(4, notFound.getKeys().length);
         }
     }
 

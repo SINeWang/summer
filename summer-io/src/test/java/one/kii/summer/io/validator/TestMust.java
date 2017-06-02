@@ -49,11 +49,6 @@ public class TestMust {
         Must.have(tc2);
     }
 
-    @Test(expected = BadRequest.class)
-    public void test11() throws BadRequest {
-        Must.have(TestClass2.class);
-    }
-
 
     class TestClass {
         String a = "12";
