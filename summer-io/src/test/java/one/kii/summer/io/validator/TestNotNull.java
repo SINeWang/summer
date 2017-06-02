@@ -8,35 +8,58 @@ import org.junit.Test;
 /**
  * Created by WangYanJiong on 02/06/2017.
  */
-public class TestNone {
+public class TestNotNull {
 
     @Test
-    public void testNoneOf1() {
+    public void testNoneOf11() {
         try {
-            None.of(TestClass1.class);
+            NotNull.of(TestClass1.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(4, notFound.getKeys().length);
         }
 
         try {
-            None.of(TestClass2.class);
+            NotNull.of(TestClass2.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(4, notFound.getKeys().length);
         }
     }
 
     @Test
-    public void testNoneOf2() {
+    public void testNoneOf12() {
         try {
-            None.of(TestClass1.class, MayHave.class);
+            NotNull.of(TestClass1.class, MayHave.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(3, notFound.getKeys().length);
         }
         try {
-            None.of(TestClass2.class, MayHave.class);
+            NotNull.of(TestClass2.class, MayHave.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(3, notFound.getKeys().length);
         }
+    }
+
+    @Test
+    public void testNoneOf21() {
+        try {
+            NotNull.of(TestClass1.class, (TestClass1) null);
+        } catch (NotFound notFound) {
+            Assert.assertEquals(4, notFound.getKeys().length);
+        }
+    }
+
+    @Test
+    public void testNoneOf22() {
+        try {
+            NotNull.of(TestClass1.class, MayHave.class);
+        } catch (NotFound notFound) {
+            Assert.assertEquals(3, notFound.getKeys().length);
+        }
+    }
+
+    @Test
+    public void testNoneOf23() throws NotFound {
+        NotNull.of(TestClass2.class, MayHave.class, new TestClass2());
     }
 
     static class TestClass2 {

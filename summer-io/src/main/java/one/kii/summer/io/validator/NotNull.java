@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 02/06/2017.
  */
-public class None {
+public class NotNull {
 
     public static void of(Class klass) throws NotFound {
         Field[] fields = klass.getDeclaredFields();
@@ -25,6 +25,21 @@ public class None {
             throw new NotFound(badFields.toArray(new String[0]));
         }
     }
+
+    public static <T> T of(Class<T> klass, T object) throws NotFound {
+        if (object == null) {
+            of(klass);
+        }
+        return object;
+    }
+
+    public static <T> T of(Class<T> klass, Class<? extends Annotation> ignore, T object) throws NotFound {
+        if (object == null) {
+            of(klass, ignore);
+        }
+        return object;
+    }
+
 
     public static void of(Class klass, Class<? extends Annotation> ignore) throws NotFound {
         Field[] fields = klass.getDeclaredFields();
