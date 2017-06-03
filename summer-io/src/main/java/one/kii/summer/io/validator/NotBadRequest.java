@@ -16,7 +16,7 @@ import java.util.List;
 public class NotBadRequest {
 
 
-    public static void have(Object object, String... fieldsName) throws BadRequest {
+    public static void from(Object object, String... fieldsName) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
         }
@@ -48,7 +48,7 @@ public class NotBadRequest {
     }
 
 
-    public static void have(Object object) throws BadRequest {
+    public static void from(Object object) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
         }

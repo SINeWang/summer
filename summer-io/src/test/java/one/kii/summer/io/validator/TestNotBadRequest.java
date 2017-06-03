@@ -15,7 +15,7 @@ public class TestNotBadRequest {
         TestClass tc = new TestClass();
 
         try {
-            NotBadRequest.have(tc, new String[]{"a"});
+            NotBadRequest.from(tc, new String[]{"a"});
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         }
@@ -26,7 +26,7 @@ public class TestNotBadRequest {
 
         TestClass tc = new TestClass();
 
-        NotBadRequest.have(tc, new String[]{"b"});
+        NotBadRequest.from(tc, new String[]{"b"});
     }
 
     @Test
@@ -34,19 +34,19 @@ public class TestNotBadRequest {
 
         TestClass tc = new TestClass();
 
-        NotBadRequest.have(tc, new String[]{"c"});
+        NotBadRequest.from(tc, new String[]{"c"});
     }
 
     @Test
     public void test3() throws BadRequest {
         TestClass tc = new TestClass();
-        NotBadRequest.have(tc, new String[]{"a", "d"});
+        NotBadRequest.from(tc, new String[]{"a", "d"});
     }
 
     @Test
     public void test4() throws BadRequest {
         TestClass2 tc2 = new TestClass2();
-        NotBadRequest.have(tc2);
+        NotBadRequest.from(tc2);
     }
 
 
