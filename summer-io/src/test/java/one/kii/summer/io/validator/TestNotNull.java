@@ -57,14 +57,46 @@ public class TestNotNull {
         }
     }
 
-    @Test
+    @Test(expected = NotFound.class)
     public void testNoneOf23() throws NotFound {
         NotNull.of(TestClass2.class, MayHave.class, new TestClass2());
     }
 
-    @Test
+    @Test(expected = NotFound.class)
     public void testNoneOf24() throws NotFound {
         NotNull.of(TestClass2.class, new TestClass2());
+    }
+
+    @Test
+    public void testNoneOf31() {
+
+        try {
+            NotNull.of(TestClass2.class, new TestClass2());
+        } catch (NotFound notFound) {
+            Assert.assertEquals(4, notFound.getKeys().length);
+        }
+    }
+
+    @Test
+    public void testNoneOf32() {
+        TestClass2 tc2 = new TestClass2();
+        tc2.setA("a");
+        try {
+            NotNull.of(TestClass2.class, tc2);
+        } catch (NotFound notFound) {
+            Assert.assertEquals(3, notFound.getKeys().length);
+        }
+    }
+
+    @Test
+    public void testNoneOf33() {
+        TestClass2 tc2 = new TestClass2();
+        tc2.setA("a");
+        try {
+            NotNull.of(TestClass2.class, MayHave.class, tc2);
+        } catch (NotFound notFound) {
+            Assert.assertEquals(2, notFound.getKeys().length);
+        }
     }
 
     static class TestClass2 {
@@ -74,6 +106,14 @@ public class TestNotNull {
         String b;
         String c;
         String d;
+
+        public String getA() {
+            return a;
+        }
+
+        public void setA(String a) {
+            this.a = a;
+        }
     }
 
     class TestClass1 {
