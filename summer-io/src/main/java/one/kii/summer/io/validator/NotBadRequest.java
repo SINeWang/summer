@@ -16,7 +16,7 @@ import java.util.List;
 public class NotBadRequest {
 
 
-    public static void from(Object object, String... fieldsName) throws BadRequest {
+    public static <T> T from(T object, String... fieldsName) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
         }
@@ -24,7 +24,7 @@ public class NotBadRequest {
             throw new NullPointerException();
         }
         if (fieldsName.length == 0) {
-            return;
+            return object;
         }
         List<String> badFields = new ArrayList<>();
         Class type = object.getClass();
@@ -45,10 +45,11 @@ public class NotBadRequest {
         if (badFields.size() > 0) {
             throw new BadRequest(badFields.toArray(new String[0]));
         }
+        return object;
     }
 
 
-    public static void from(Object object) throws BadRequest {
+    public static <T> T from(T object) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
         }
@@ -65,6 +66,7 @@ public class NotBadRequest {
         if (badFields.size() > 0) {
             throw new BadRequest(badFields.toArray(new String[0]));
         }
+        return object;
     }
 
 
