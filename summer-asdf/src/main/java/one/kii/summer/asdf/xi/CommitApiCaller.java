@@ -13,7 +13,7 @@ public class CommitApiCaller {
     private CommitApiCaller() {
     }
 
-    public static <R, C extends WriteContext, F> ResponseEntity<R> call(CommitApi<R, C, F> api, C context, F form) {
+    public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form) {
         try {
             return ErestResponse.ok(context.getRequestId(), api.commit(context, form));
         } catch (BadRequest badRequest) {
