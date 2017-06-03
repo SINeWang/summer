@@ -8,18 +8,18 @@ import org.junit.Test;
 /**
  * Created by WangYanJiong on 02/06/2017.
  */
-public class TestNotNull {
+public class TestNotBadResponse {
 
     @Test
     public void testNoneOf11() {
         try {
-            NotNull.of(TestClass1.class);
+            NotBadResponse.of(TestClass1.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(4, notFound.getKeys().length);
         }
 
         try {
-            NotNull.of(TestClass2.class);
+            NotBadResponse.of(TestClass2.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(4, notFound.getKeys().length);
         }
@@ -28,12 +28,12 @@ public class TestNotNull {
     @Test
     public void testNoneOf12() {
         try {
-            NotNull.of(TestClass1.class, MayHave.class);
+            NotBadResponse.of(TestClass1.class, MayHave.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(3, notFound.getKeys().length);
         }
         try {
-            NotNull.of(TestClass2.class, MayHave.class);
+            NotBadResponse.of(TestClass2.class, MayHave.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(3, notFound.getKeys().length);
         }
@@ -42,7 +42,7 @@ public class TestNotNull {
     @Test
     public void testNoneOf21() {
         try {
-            NotNull.of(TestClass1.class, (TestClass1) null);
+            NotBadResponse.of(TestClass1.class, (TestClass1) null);
         } catch (NotFound notFound) {
             Assert.assertEquals(4, notFound.getKeys().length);
         }
@@ -51,7 +51,7 @@ public class TestNotNull {
     @Test
     public void testNoneOf22() {
         try {
-            NotNull.of(TestClass1.class, MayHave.class);
+            NotBadResponse.of(TestClass1.class, MayHave.class);
         } catch (NotFound notFound) {
             Assert.assertEquals(3, notFound.getKeys().length);
         }
@@ -59,19 +59,19 @@ public class TestNotNull {
 
     @Test(expected = NotFound.class)
     public void testNoneOf23() throws NotFound {
-        NotNull.of(TestClass2.class, MayHave.class, new TestClass2());
+        NotBadResponse.of(TestClass2.class, MayHave.class, new TestClass2());
     }
 
     @Test(expected = NotFound.class)
     public void testNoneOf24() throws NotFound {
-        NotNull.of(TestClass2.class, new TestClass2());
+        NotBadResponse.of(TestClass2.class, new TestClass2());
     }
 
     @Test
     public void testNoneOf31() {
 
         try {
-            NotNull.of(TestClass2.class, new TestClass2());
+            NotBadResponse.of(TestClass2.class, new TestClass2());
         } catch (NotFound notFound) {
             Assert.assertEquals(4, notFound.getKeys().length);
         }
@@ -82,7 +82,7 @@ public class TestNotNull {
         TestClass2 tc2 = new TestClass2();
         tc2.setA("a");
         try {
-            NotNull.of(TestClass2.class, tc2);
+            NotBadResponse.of(TestClass2.class, tc2);
         } catch (NotFound notFound) {
             Assert.assertEquals(3, notFound.getKeys().length);
         }
@@ -93,7 +93,7 @@ public class TestNotNull {
         TestClass2 tc2 = new TestClass2();
         tc2.setA("a");
         try {
-            NotNull.of(TestClass2.class, MayHave.class, tc2);
+            NotBadResponse.of(TestClass2.class, MayHave.class, tc2);
         } catch (NotFound notFound) {
             Assert.assertEquals(2, notFound.getKeys().length);
         }

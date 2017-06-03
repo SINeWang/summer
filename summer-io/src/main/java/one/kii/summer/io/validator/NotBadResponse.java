@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 02/06/2017.
  */
-public class NotNull {
+public class NotBadResponse {
 
     private static final String INTERNAL_CLASS = "this$";
 

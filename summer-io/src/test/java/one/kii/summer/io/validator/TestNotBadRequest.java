@@ -1,13 +1,13 @@
 package one.kii.summer.io.validator;
 
-import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import org.junit.Test;
 
 /**
  * Created by WangYanJiong on 20/04/2017.
  */
-public class TestMust {
+public class TestNotBadRequest {
 
     @Test
     public void test() {
@@ -15,7 +15,7 @@ public class TestMust {
         TestClass tc = new TestClass();
 
         try {
-            Must.have(tc, new String[]{"a"});
+            NotBadRequest.have(tc, new String[]{"a"});
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         }
@@ -26,27 +26,27 @@ public class TestMust {
 
         TestClass tc = new TestClass();
 
-        Must.have(tc, new String[]{"b"});
+        NotBadRequest.have(tc, new String[]{"b"});
     }
 
-    @Test(expected = BadRequest.class)
+    @Test
     public void test2() throws BadRequest {
 
         TestClass tc = new TestClass();
 
-        Must.have(tc, new String[]{"c"});
+        NotBadRequest.have(tc, new String[]{"c"});
     }
 
     @Test
     public void test3() throws BadRequest {
         TestClass tc = new TestClass();
-        Must.have(tc, new String[]{"a", "d"});
+        NotBadRequest.have(tc, new String[]{"a", "d"});
     }
 
     @Test
     public void test4() throws BadRequest {
         TestClass2 tc2 = new TestClass2();
-        Must.have(tc2);
+        NotBadRequest.have(tc2);
     }
 
 
@@ -58,8 +58,8 @@ public class TestMust {
     }
 
     class TestClass2 {
-        @MustHave
         String a = "12";
+        @MayHave
         String b = null;
         String c = "  ";
         String d = "123";

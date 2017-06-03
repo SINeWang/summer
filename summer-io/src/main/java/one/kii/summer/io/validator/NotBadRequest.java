@@ -1,6 +1,6 @@
 package one.kii.summer.io.validator;
 
-import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 
 import java.lang.annotation.Annotation;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 20/04/2017.
  */
-public class Must {
+public class NotBadRequest {
 
 
     public static void have(Object object, String... fieldsName) throws BadRequest {
@@ -56,8 +56,8 @@ public class Must {
         Field[] fields = type.getDeclaredFields();
         List<String> badFields = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(MustHave.class);
-            if (annotation == null) {
+            Annotation mayHave = field.getAnnotation(MayHave.class);
+            if (mayHave != null) {
                 continue;
             }
             checkValueNotEmpty(object, badFields, field);
@@ -93,12 +93,6 @@ public class Must {
         }
         if (value == null) {
             badFields.add(field.getName());
-        }
-        if (value instanceof String) {
-            String str = (String) value;
-            if (str.trim().length() == 0) {
-                badFields.add(field.getName());
-            }
         }
     }
 }
