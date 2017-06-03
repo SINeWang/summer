@@ -5,26 +5,26 @@ package one.kii.summer.io.exception;
  */
 public class BadRequest extends Exception {
 
-    String[] fields;
+    String[] keys;
 
     String[] reasons;
 
-    public BadRequest(String fields){
-        this.fields = new String[]{fields};
+    public BadRequest(String keys) {
+        this.keys = new String[]{keys};
     }
 
-    public BadRequest(String[] fields) {
-        this.fields = fields;
+    public BadRequest(String[] keys) {
+        this.keys = keys;
     }
 
-    public BadRequest(String[] fields, String[] reasons) {
-        this.fields = fields;
+    public BadRequest(String[] keys, String[] reasons) {
+        this.keys = keys;
         this.reasons = reasons;
     }
 
 
-    public String[] getFields() {
-        return fields;
+    public String[] getKeys() {
+        return keys;
     }
 
     public String[] getReasons() {

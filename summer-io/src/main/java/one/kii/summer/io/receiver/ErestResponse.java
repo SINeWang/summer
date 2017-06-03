@@ -61,9 +61,10 @@ public class ErestResponse {
     /**
      * For <b>READ</b> operations use only. Not Exists or Visit Permission NOT satisfied.
      */
-    public static <T> ResponseEntity<T> notFound(String requestId, String key) {
+    public static <T> ResponseEntity<T> notFound(String requestId, String visitorId, String[] keys) {
         HttpHeaders headers = buildHttpHeaders(requestId);
-        headers.set(ErestHeaders.NOT_FOUND_KEY, key);
+        headers.put(ErestHeaders.NOT_FOUND_KEY, Arrays.asList(keys));
+        headers.set(ErestHeaders.VISITOR_ID, visitorId);
         return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
     }
 
@@ -94,6 +95,7 @@ public class ErestResponse {
         return new ResponseEntity<>(headers, HttpStatus.FORBIDDEN);
     }
 
+
     /**
      * For <b>WRITE</b> operations use only.
      */
@@ -118,6 +120,18 @@ public class ErestResponse {
     public static <T> ResponseEntity<T> notModified(String requestId) {
         HttpHeaders headers = buildHttpHeaders(requestId);
         return new ResponseEntity<>(headers, HttpStatus.NOT_MODIFIED);
+    }
+
+    public static <T> ResponseEntity<T> panic(String requestId, String[] keys) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.put(ErestHeaders.PANIC, Arrays.asList(keys));
+        return new ResponseEntity<>(headers, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public static <T> ResponseEntity<T> panic(String requestId, String message) {
+        HttpHeaders headers = buildHttpHeaders(requestId);
+        headers.set(ErestHeaders.PANIC, message);
+        return new ResponseEntity<>(headers, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

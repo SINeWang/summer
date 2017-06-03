@@ -30,4 +30,6 @@ public class ErestHeaders {
     public static final String RETRY = "X-SUMMER-Retry";
 
     public static final String TIME_LIMIT = "X-SUMMER-TimeLimit";
+
+    public static final String PANIC = "X-SUMMER-Panic";
 }
