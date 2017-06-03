@@ -21,7 +21,6 @@ public class TestCommitApiCaller {
         CommitApi api = new TestOK();
         Object resp = CommitApiCaller.sync(api, context, form);
         Assert.isInstanceOf(ResponseEntity.class, resp);
-
     }
 
 
