@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
  */
 public class CommitApiCaller {
 
+    private CommitApiCaller() {
+    }
 
     public static <R, C extends WriteContext, F> ResponseEntity<R> call(CommitApi<R, C, F> api, C context, F form) {
         try {
