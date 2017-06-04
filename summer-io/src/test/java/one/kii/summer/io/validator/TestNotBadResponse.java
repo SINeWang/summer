@@ -2,6 +2,7 @@ package one.kii.summer.io.validator;
 
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,14 +15,14 @@ public class TestNotBadResponse {
     public void testNoneOf11() {
         try {
             NotBadResponse.of(TestClass1.class);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(4, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(4, panic.getKeys().length);
         }
 
         try {
             NotBadResponse.of(TestClass2.class);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(4, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(4, panic.getKeys().length);
         }
     }
 
@@ -29,13 +30,13 @@ public class TestNotBadResponse {
     public void testNoneOf12() {
         try {
             NotBadResponse.of(TestClass1.class, MayHave.class);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(3, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(3, panic.getKeys().length);
         }
         try {
             NotBadResponse.of(TestClass2.class, MayHave.class);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(3, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(3, panic.getKeys().length);
         }
     }
 
@@ -43,8 +44,8 @@ public class TestNotBadResponse {
     public void testNoneOf21() {
         try {
             NotBadResponse.of(TestClass1.class, (TestClass1) null);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(4, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(4, panic.getKeys().length);
         }
     }
 
@@ -52,18 +53,18 @@ public class TestNotBadResponse {
     public void testNoneOf22() {
         try {
             NotBadResponse.of(TestClass1.class, MayHave.class);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(3, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(3, panic.getKeys().length);
         }
     }
 
-    @Test(expected = NotFound.class)
-    public void testNoneOf23() throws NotFound {
+    @Test(expected = Panic.class)
+    public void testNoneOf23() throws Panic {
         NotBadResponse.of(TestClass2.class, MayHave.class, new TestClass2());
     }
 
-    @Test(expected = NotFound.class)
-    public void testNoneOf24() throws NotFound {
+    @Test(expected = Panic.class)
+    public void testNoneOf24() throws Panic {
         NotBadResponse.of(TestClass2.class, new TestClass2());
     }
 
@@ -72,8 +73,8 @@ public class TestNotBadResponse {
 
         try {
             NotBadResponse.of(TestClass2.class, new TestClass2());
-        } catch (NotFound notFound) {
-            Assert.assertEquals(4, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(4, panic.getKeys().length);
         }
     }
 
@@ -83,8 +84,8 @@ public class TestNotBadResponse {
         tc2.setA("a");
         try {
             NotBadResponse.of(TestClass2.class, tc2);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(3, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(3, panic.getKeys().length);
         }
     }
 
@@ -94,8 +95,8 @@ public class TestNotBadResponse {
         tc2.setA("a");
         try {
             NotBadResponse.of(TestClass2.class, MayHave.class, tc2);
-        } catch (NotFound notFound) {
-            Assert.assertEquals(2, notFound.getKeys().length);
+        } catch (Panic panic) {
+            Assert.assertEquals(2, panic.getKeys().length);
         }
     }
 
