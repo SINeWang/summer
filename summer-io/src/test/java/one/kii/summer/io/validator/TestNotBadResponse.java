@@ -1,7 +1,6 @@
 package one.kii.summer.io.validator;
 
 import one.kii.summer.io.annotations.MayHave;
-import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
