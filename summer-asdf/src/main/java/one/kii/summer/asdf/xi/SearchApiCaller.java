@@ -24,7 +24,7 @@ public class SearchApiCaller {
         logger.debug("begin: api={},context={},form={}", api, context, form);
         try {
             List<R> response = api.search(context, form);
-            logger.debug("after: response={}", (Object) response.toArray(new Object[0]));
+            logger.debug("after: response=<{}>", (Object) response.toArray(new Object[0]));
             return ErestResponse.ok(context.getRequestId(), response);
         } catch (BadRequest badRequest) {
             logger.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
