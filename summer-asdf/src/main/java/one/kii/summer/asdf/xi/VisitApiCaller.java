@@ -23,7 +23,7 @@ public class VisitApiCaller {
         } catch (NotFound notFound) {
             return ErestResponse.notFound(context.getRequestId(), notFound.getKeys());
         } catch (Panic panic) {
-            return ErestResponse.panic(context.getRequestId(), panic.getMessage());
+            return ErestResponse.panic(context.getRequestId(), panic.getKeys());
         }
     }
 }
