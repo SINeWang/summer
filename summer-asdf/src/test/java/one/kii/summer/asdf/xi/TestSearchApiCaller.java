@@ -7,6 +7,9 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 05/06/2017.
  */
@@ -42,14 +45,14 @@ public class TestSearchApiCaller {
 
     public static class TestOK implements SearchApi {
         @Override
-        public Object search(ReadContext context, Object form) throws BadRequest, Panic {
-            return new Object();
+        public List search(ReadContext context, Object form) throws BadRequest, Panic {
+            return new ArrayList();
         }
     }
 
     public static class TestBadRequest implements SearchApi {
         @Override
-        public Object search(ReadContext context, Object form) throws BadRequest, Panic {
+        public List search(ReadContext context, Object form) throws BadRequest, Panic {
             throw new BadRequest(keys);
         }
     }
@@ -57,7 +60,7 @@ public class TestSearchApiCaller {
 
     public static class TestPanic implements SearchApi {
         @Override
-        public Object search(ReadContext context, Object form) throws BadRequest, Panic {
+        public List search(ReadContext context, Object form) throws BadRequest, Panic {
             throw new Panic(keys);
         }
     }

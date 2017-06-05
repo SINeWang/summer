@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 05/06/2017.
  */
@@ -18,17 +20,17 @@ public class SearchApiCaller {
     private SearchApiCaller() {
     }
 
-    public static <R, C extends ReadContext, F> ResponseEntity<R> sync(SearchApi<R, C, F> api, C context, F form) {
+    public static <R, C extends ReadContext, F> ResponseEntity<List<R>> sync(SearchApi<R, C, F> api, C context, F form) {
         logger.debug("begin: api={},context={},form={}", api, context, form);
         try {
-            R response = api.search(context, form);
-            logger.debug("after: response={}", response);
+            List<R> response = api.search(context, form);
+            logger.debug("after: response={}", (Object) response.toArray(new Object[0]));
             return ErestResponse.ok(context.getRequestId(), response);
         } catch (BadRequest badRequest) {
-            logger.error("after: badRequest=<{}>", (Object)  badRequest.getKeys());
+            logger.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
             return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());
         } catch (Panic panic) {
-            logger.error("after: panic=<{}>", (Object)  panic.getKeys());
+            logger.error("after: panic=<{}>", (Object) panic.getKeys());
             return ErestResponse.panic(context.getRequestId(), panic.getKeys());
         }
     }
