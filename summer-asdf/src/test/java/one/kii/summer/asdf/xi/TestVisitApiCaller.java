@@ -74,7 +74,7 @@ public class TestVisitApiCaller {
     public static class TestPanic implements VisitApi {
         @Override
         public Object visit(ReadContext context, Object form) throws BadRequest, NotFound, Panic {
-            throw new Panic();
+            throw new Panic(keys);
         }
     }
 }

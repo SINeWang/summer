@@ -98,7 +98,7 @@ public class TestCommitApiCaller {
     public static class TestPanic implements CommitApi {
         @Override
         public Object commit(WriteContext context, Object form) throws BadRequest, Conflict, Forbidden, NotFound, Panic {
-            throw new Panic();
+            throw new Panic(keys);
         }
     }
 }

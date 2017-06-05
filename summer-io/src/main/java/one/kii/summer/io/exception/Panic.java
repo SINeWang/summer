@@ -10,13 +10,6 @@ public class Panic extends Exception {
 
     String[] reasons;
 
-    public Panic() {
-    }
-
-    public Panic(String keys) {
-        this.keys = new String[]{keys};
-    }
-
     public Panic(String[] keys) {
         this.keys = keys;
     }

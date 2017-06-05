@@ -44,8 +44,8 @@ public abstract class ErestWriteWithoutRequestBody extends ErestClient {
             return restTemplate.exchange(urlTemplate, httpMethod, request, klass, uriVariables);
         } catch (HttpStatusCodeException status) {
             handleWriteException(status);
+            throw new Panic(headers.keySet().toArray(new String[0]));
         }
-        throw new Panic();
     }
 
     public <T> T execute(String urlTemplate, Class<T> klass, Object... uriVariables) throws Panic, NotFound, BadRequest, Conflict, Forbidden {
@@ -85,7 +85,7 @@ public abstract class ErestWriteWithoutRequestBody extends ErestClient {
                 List<String> key403 = headers.get(ErestHeaders.FORBIDDEN_KEY);
                 throw new Forbidden(key403.toArray(new String[0]));
         }
-        throw new Panic();
+        throw new Panic(headers.keySet().toArray(new String[0]));
     }
 
 }

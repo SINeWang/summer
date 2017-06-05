@@ -41,8 +41,9 @@ public abstract class ErestWrite extends ErestWriteWithoutRequestBody {
             return restTemplate.exchange(urlTemplate, httpMethod, request, klass, uriVariables);
         } catch (HttpStatusCodeException status) {
             handleWriteException(status);
+            throw new Panic(headers.keySet().toArray(new String[0]));
         }
-        throw new Panic();
+
     }
 
     public <T> ResponseEntity<T> executeWithHead(String urlTemplate, Object form, Class<T> klass, Object... uriVariables) throws Conflict, Panic, NotFound, BadRequest, Forbidden {

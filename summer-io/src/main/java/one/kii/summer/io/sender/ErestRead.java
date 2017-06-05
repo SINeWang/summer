@@ -6,7 +6,10 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,8 +39,8 @@ public abstract class ErestRead extends ErestClient {
             return restTemplate.exchange(urlTemplate, httpMethod, request, klass, uriVariables);
         } catch (HttpStatusCodeException status) {
             handleReadException(status);
+            throw new Panic(headers.keySet().toArray(new String[0]));
         }
-        throw new Panic();
     }
 
 
