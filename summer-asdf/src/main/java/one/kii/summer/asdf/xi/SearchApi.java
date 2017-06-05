@@ -9,6 +9,6 @@ import one.kii.summer.io.exception.Panic;
  */
 public interface SearchApi<R, C extends ReadContext, F> {
 
-    R visit(C context, F form) throws BadRequest, Panic;
+    R search(C context, F form) throws BadRequest, Panic;
 
 }

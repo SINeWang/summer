@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
  */
 public class TestCommitApiCaller {
 
-
     static String[] keys = new String[]{};
     WriteContext context = new WriteContext("requestId", "ownerId", "operatorId");
     Object form = new Object();

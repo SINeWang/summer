@@ -18,21 +18,21 @@ public class TestMultiValueForm {
 
     @Test
     public void testFrom() {
-        MultiValueMap map = MultiValueForm.from(new TestMultiValue());
+        MultiValueMap<String, String> map = MultiValueForm.from(new TestMultiValue());
 
-        String single = map.getFirst("single").toString();
+        String single = map.getFirst("single");
 
         Assert.assertEquals(EXPECTED_SINGLE, single);
 
         Arrays.sort(EXPECTED_MULTI);
 
-        List<String> objects = (List<String>) map.get("multi");
+        List<String> objects = map.get("multi");
 
         String[] objects1 = objects.toArray(new String[0]);
 
         Assert.assertArrayEquals(EXPECTED_MULTI, objects1);
 
-        Assert.assertEquals("true", map.getFirst("tf").toString());
+        Assert.assertEquals("true", map.getFirst("tf"));
     }
 
     @Test
