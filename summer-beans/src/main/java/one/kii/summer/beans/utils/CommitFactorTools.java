@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 18/05/2017.
  */
-public class KeyFactorTools {
+public class CommitFactorTools {
 
     public static String[] find(Object object) {
         Class klass = object.getClass();

@@ -14,7 +14,7 @@ public class TestCommitFactorTools {
 
         String[] expect = {"fieldA", "fieldZ"};
 
-        String[] actual =  KeyFactorTools.find(new TestKeys());
+        String[] actual =  CommitFactorTools.find(new TestKeys());
 
         Assert.assertArrayEquals(expect, actual);
     }
@@ -24,7 +24,7 @@ public class TestCommitFactorTools {
 
         String[] expect = {"fieldA", "fieldZ"};
 
-        String[] actual =  KeyFactorTools.find(TestKeys.class);
+        String[] actual =  CommitFactorTools.find(TestKeys.class);
 
         Assert.assertArrayEquals(expect, actual);
     }
