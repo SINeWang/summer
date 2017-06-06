@@ -1,6 +1,6 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.CommitFactor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -19,7 +19,7 @@ public class KeyFactorTools {
 
         List<String> keyFactors = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(KeyFactor.class);
+            Annotation annotation = field.getAnnotation(CommitFactor.class);
             if (annotation != null) {
                 keyFactors.add(field.getName());
             }
@@ -34,7 +34,7 @@ public class KeyFactorTools {
 
         List<String> keyFactors = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(KeyFactor.class);
+            Annotation annotation = field.getAnnotation(CommitFactor.class);
             if (annotation != null) {
                 keyFactors.add(field.getName());
             }

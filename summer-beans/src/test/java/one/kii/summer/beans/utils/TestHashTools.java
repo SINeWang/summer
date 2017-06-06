@@ -1,6 +1,6 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.CommitFactor;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -52,43 +52,43 @@ public class TestHashTools {
     }
 
     public static class TestSingleFactorObject {
-        @KeyFactor
+        @CommitFactor
         String field = "abc";
 
     }
 
     public static class TestDoubleFactorObject {
-        @KeyFactor
+        @CommitFactor
         String field1 = "abc";
 
-        @KeyFactor
+        @CommitFactor
         String field2 = "def";
 
     }
 
     public static class TestPartFactorObject {
-        @KeyFactor
+        @CommitFactor
         String field1 = "abc";
 
-        @KeyFactor
+        @CommitFactor
         String field2 = "def";
 
         String field3 = "ghi";
     }
 
     public static class TestPartFactorPrimitiveObject {
-        @KeyFactor
+        @CommitFactor
         String field1 = "abc";
 
-        @KeyFactor
+        @CommitFactor
         String field2 = "def";
 
         String field3 = "ghi";
 
-        @KeyFactor
+        @CommitFactor
         int field4 = 1000;
 
-        @KeyFactor
+        @CommitFactor
         boolean field5 = true;
 
     }

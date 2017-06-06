@@ -1,13 +1,13 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.CommitFactor;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Created by WangYanJiong on 18/05/2017.
  */
-public class TestKeyFactorTools {
+public class TestCommitFactorTools {
 
     @Test
     public void test1(){
@@ -29,16 +29,14 @@ public class TestKeyFactorTools {
         Assert.assertArrayEquals(expect, actual);
     }
 
-
-
     public static class TestKeys{
 
-        @KeyFactor
+        @CommitFactor
         String fieldA;
 
         String fieldB;
 
-        @KeyFactor
+        @CommitFactor
         String fieldZ;
     }
 }
