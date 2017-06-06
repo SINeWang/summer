@@ -4,19 +4,21 @@ import one.kii.summer.beans.annotations.ConflictFactor;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Map;
+
 /**
  * Created by WangYanJiong on 06/06/2017.
  */
-public class TestConflictFactorTools {
+public class TestConflictFinder {
 
     @Test
     public void test1() {
 
-        String[] expect = {"fieldA=1", "fieldZ=2"};
+        Map<String, Object> actual = ConflictFinder.find(new TestKeys1());
 
-        String[] actual = ConflictFactorTools.find(new TestKeys1());
+        Assert.assertEquals(2L, actual.get("fieldZ"));
 
-        Assert.assertArrayEquals(expect, actual);
+        Assert.assertEquals("1", actual.get("fieldA"));
     }
 
     @Test
@@ -24,7 +26,7 @@ public class TestConflictFactorTools {
 
         String[] expect = {"fieldA", "fieldZ"};
 
-        String[] actual = ConflictFactorTools.find(TestKeys2.class);
+        String[] actual = ConflictFinder.find(TestKeys2.class);
 
         Assert.assertArrayEquals(expect, actual);
     }
