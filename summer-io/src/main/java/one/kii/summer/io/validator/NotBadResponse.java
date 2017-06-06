@@ -1,5 +1,6 @@
 package one.kii.summer.io.validator;
 
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Panic;
 
 import java.lang.annotation.Annotation;
@@ -16,54 +17,25 @@ public class NotBadResponse {
 
     private static final String INTERNAL_CLASS = "this$";
 
-    public static void of(Class klass) throws Panic {
-        Field[] fields = klass.getDeclaredFields();
-        List<String> badFields = new ArrayList<>();
-        for (Field field : fields) {
-            if (field.getName().startsWith(INTERNAL_CLASS)) {
-                continue;
-            }
-            badFields.add(field.getName());
-        }
-        if (badFields.size() > 0) {
-            throw new Panic(badFields.toArray(new String[0]));
-        }
-    }
 
-    public static <T> T of(Class<T> klass, T object) throws Panic {
+    public static <T> T of(T object) throws Panic {
         if (object == null) {
-            of(klass);
+            throw new NullPointerException();
         } else {
-            checkFields(object, null);
+            checkFields(object, MayHave.class);
         }
         return object;
     }
 
-    public static <T> T of(Class<T> klass, Class<? extends Annotation> ignore, T object) throws Panic {
+    public static <T> T of(T object, Class<? extends Annotation> ignore) throws Panic {
         if (object == null) {
-            of(klass, ignore);
+            throw new NullPointerException();
         } else {
             checkFields(object, ignore);
         }
         return object;
     }
 
-    public static void of(Class klass, Class<? extends Annotation> ignore) throws Panic {
-        Field[] fields = klass.getDeclaredFields();
-        List<String> badFields = new ArrayList<>();
-        for (Field field : fields) {
-            if (field.getName().startsWith(INTERNAL_CLASS)) {
-                continue;
-            }
-            Annotation annotation = field.getAnnotation(ignore);
-            if (annotation == null) {
-                badFields.add(field.getName());
-            }
-        }
-        if (badFields.size() > 0) {
-            throw new Panic(badFields.toArray(new String[0]));
-        }
-    }
 
     private static void checkFields(Object object, Class<? extends Annotation> ignore) throws Panic {
         Class klass = object.getClass();
