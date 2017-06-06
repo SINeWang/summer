@@ -10,70 +10,23 @@ import org.junit.Test;
  */
 public class TestNotBadResponse {
 
-    @Test
-    public void testNoneOf11() {
-        try {
-            NotBadResponse.of(TestClass1.class);
-        } catch (Panic panic) {
-            Assert.assertEquals(4, panic.getKeys().length);
-        }
-
-        try {
-            NotBadResponse.of(TestClass2.class);
-        } catch (Panic panic) {
-            Assert.assertEquals(4, panic.getKeys().length);
-        }
-    }
-
-    @Test
-    public void testNoneOf12() {
-        try {
-            NotBadResponse.of(TestClass1.class, MayHave.class);
-        } catch (Panic panic) {
-            Assert.assertEquals(3, panic.getKeys().length);
-        }
-        try {
-            NotBadResponse.of(TestClass2.class, MayHave.class);
-        } catch (Panic panic) {
-            Assert.assertEquals(3, panic.getKeys().length);
-        }
-    }
-
-    @Test
-    public void testNoneOf21() {
-        try {
-            NotBadResponse.of(TestClass1.class, (TestClass1) null);
-        } catch (Panic panic) {
-            Assert.assertEquals(4, panic.getKeys().length);
-        }
-    }
-
-    @Test
-    public void testNoneOf22() {
-        try {
-            NotBadResponse.of(TestClass1.class, MayHave.class);
-        } catch (Panic panic) {
-            Assert.assertEquals(3, panic.getKeys().length);
-        }
-    }
-
     @Test(expected = Panic.class)
     public void testNoneOf23() throws Panic {
-        NotBadResponse.of(TestClass2.class, MayHave.class, new TestClass2());
+        NotBadResponse.of(new TestClass2(), MayHave.class);
     }
 
     @Test(expected = Panic.class)
     public void testNoneOf24() throws Panic {
-        NotBadResponse.of(TestClass2.class, new TestClass2());
+        NotBadResponse.of(new TestClass2());
     }
 
     @Test
     public void testNoneOf31() {
 
         try {
-            NotBadResponse.of(TestClass2.class, new TestClass2());
+            NotBadResponse.of(new TestClass2());
         } catch (Panic panic) {
-            Assert.assertEquals(4, panic.getKeys().length);
+            Assert.assertEquals(3, panic.getKeys().length);
         }
     }
 
@@ -82,9 +35,9 @@ public class TestNotBadResponse {
         TestClass2 tc2 = new TestClass2();
         tc2.setA("a");
         try {
-            NotBadResponse.of(TestClass2.class, tc2);
+            NotBadResponse.of(tc2);
         } catch (Panic panic) {
-            Assert.assertEquals(3, panic.getKeys().length);
+            Assert.assertEquals(2, panic.getKeys().length);
         }
     }
 
@@ -93,7 +46,7 @@ public class TestNotBadResponse {
         TestClass2 tc2 = new TestClass2();
         tc2.setA("a");
         try {
-            NotBadResponse.of(TestClass2.class, MayHave.class, tc2);
+            NotBadResponse.of(tc2, MayHave.class);
         } catch (Panic panic) {
             Assert.assertEquals(2, panic.getKeys().length);
         }
@@ -116,13 +69,5 @@ public class TestNotBadResponse {
         }
     }
 
-    class TestClass1 {
-
-        String a;
-        @MayHave
-        String b;
-        String c;
-        String d;
-    }
 
 }
