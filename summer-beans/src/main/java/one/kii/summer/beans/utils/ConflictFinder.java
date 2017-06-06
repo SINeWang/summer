@@ -1,6 +1,6 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.ConflictFactor;
+import one.kii.summer.beans.annotations.Conflict;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -11,15 +11,13 @@ import java.util.*;
  */
 public class ConflictFinder {
 
-    private static String IS = "=";
-
     public static Map<String, Object> find(Object object) {
         Class klass = object.getClass();
         Field[] fields = klass.getDeclaredFields();
 
         Map<String, Object> map = new HashMap<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(ConflictFactor.class);
+            Annotation annotation = field.getAnnotation(Conflict.class);
             if (annotation != null) {
                 Object value = FieldValueTools.get(field, object);
                 map.put(field.getName(), value);
@@ -33,7 +31,7 @@ public class ConflictFinder {
 
         List<String> conflicts = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(ConflictFactor.class);
+            Annotation annotation = field.getAnnotation(Conflict.class);
             if (annotation != null) {
                 conflicts.add(field.getName());
             }

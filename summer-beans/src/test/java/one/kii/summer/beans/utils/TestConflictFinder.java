@@ -1,6 +1,6 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.ConflictFactor;
+import one.kii.summer.beans.annotations.Conflict;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,10 +36,10 @@ public class TestConflictFinder {
         String fieldB;
 
 
-        @ConflictFactor
+        @Conflict
         Long fieldZ = 2L;
 
-        @ConflictFactor
+        @Conflict
         private String fieldA = "1";
 
         public String getFieldA() {
@@ -49,12 +49,12 @@ public class TestConflictFinder {
 
     public static class TestKeys2 {
 
-        @ConflictFactor
+        @Conflict
         String fieldA = "1";
 
         String fieldB;
 
-        @ConflictFactor
+        @Conflict
         Long fieldZ = 2L;
     }
 }

@@ -1,20 +1,20 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.CommitFactor;
+import one.kii.summer.beans.annotations.Commit;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Created by WangYanJiong on 18/05/2017.
  */
-public class TestCommitFactorTools {
+public class TestCommitCalculator {
 
     @Test
     public void test1(){
 
         String[] expect = {"fieldA", "fieldZ"};
 
-        String[] actual =  CommitFactorTools.find(new TestKeys());
+        String[] actual =  CommitCalculator.find(new TestKeys());
 
         Assert.assertArrayEquals(expect, actual);
     }
@@ -24,19 +24,19 @@ public class TestCommitFactorTools {
 
         String[] expect = {"fieldA", "fieldZ"};
 
-        String[] actual =  CommitFactorTools.find(TestKeys.class);
+        String[] actual =  CommitCalculator.find(TestKeys.class);
 
         Assert.assertArrayEquals(expect, actual);
     }
 
     public static class TestKeys{
 
-        @CommitFactor
+        @Commit
         String fieldA;
 
         String fieldB;
 
-        @CommitFactor
+        @Commit
         String fieldZ;
     }
 }

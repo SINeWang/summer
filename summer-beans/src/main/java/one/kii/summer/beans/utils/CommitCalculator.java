@@ -1,6 +1,6 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.CommitFactor;
+import one.kii.summer.beans.annotations.Commit;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 18/05/2017.
  */
-public class CommitFactorTools {
+public class CommitCalculator {
 
     public static String[] find(Object object) {
         Class klass = object.getClass();
@@ -19,7 +19,7 @@ public class CommitFactorTools {
 
         List<String> keyFactors = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(CommitFactor.class);
+            Annotation annotation = field.getAnnotation(Commit.class);
             if (annotation != null) {
                 keyFactors.add(field.getName());
             }
@@ -34,7 +34,7 @@ public class CommitFactorTools {
 
         List<String> keyFactors = new ArrayList<>();
         for (Field field : fields) {
-            Annotation annotation = field.getAnnotation(CommitFactor.class);
+            Annotation annotation = field.getAnnotation(Commit.class);
             if (annotation != null) {
                 keyFactors.add(field.getName());
             }
