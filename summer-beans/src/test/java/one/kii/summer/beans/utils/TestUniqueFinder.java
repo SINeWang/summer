@@ -1,6 +1,6 @@
 package one.kii.summer.beans.utils;
 
-import one.kii.summer.beans.annotations.Conflict;
+import one.kii.summer.beans.annotations.Unique;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 06/06/2017.
  */
-public class TestConflictFinder {
+public class TestUniqueFinder {
 
     @Test
     public void test1() {
@@ -36,10 +36,10 @@ public class TestConflictFinder {
         String fieldB;
 
 
-        @Conflict
+        @Unique
         Long fieldZ = 2L;
 
-        @Conflict
+        @Unique
         private String fieldA = "1";
 
         public String getFieldA() {
@@ -49,12 +49,12 @@ public class TestConflictFinder {
 
     public static class TestKeys2 {
 
-        @Conflict
+        @Unique
         String fieldA = "1";
 
         String fieldB;
 
-        @Conflict
+        @Unique
         Long fieldZ = 2L;
     }
 }
