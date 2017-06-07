@@ -13,16 +13,19 @@ public class OwnerViewDownInsight {
 
 
     /**
-     * Owner play as Provider
+     * subscription from upstream
      */
-    private Long subId;
-
-    private String providerId;
+    private Long id;
 
     /**
-     * downstream set of provider's publication
+     * publication to downstream
      */
-    private Long pubSet;
+    private Long set;
+
+    /**
+     * Owner play as Provider
+     */
+    private String providerId;
 
     private String group;
 

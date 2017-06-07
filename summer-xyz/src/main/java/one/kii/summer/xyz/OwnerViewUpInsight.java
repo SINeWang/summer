@@ -13,16 +13,16 @@ public class OwnerViewUpInsight {
 
 
     /**
+     * publication from upstream
+     */
+    private Long set;
+
+    /**
      * Owner play as Subscriber
      */
     private String subscriberId;
 
     private Long id;
-
-    /**
-     * upstream set of provider's publication
-     */
-    private Long subSet;
 
     private String group;
 
