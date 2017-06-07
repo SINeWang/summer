@@ -7,6 +7,8 @@ import java.util.Date;
 
 /**
  * Created by WangYanJiong on 07/06/2017.
+ *
+ * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
 public final class OwnerViewDownWithSet {
