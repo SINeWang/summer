@@ -22,10 +22,7 @@ public class OwnerViewDownInsight {
      */
     private Long set;
 
-    /**
-     * Owner play as Provider
-     */
-    private String providerId;
+    private String ownerId;
 
     private String group;
 

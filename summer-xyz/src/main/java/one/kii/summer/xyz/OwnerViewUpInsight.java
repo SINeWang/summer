@@ -18,9 +18,17 @@ public class OwnerViewUpInsight {
     private Long set;
 
     /**
+     * root id of publication from upstream
+     */
+    private Long rootId;
+
+
+    private String providerId;
+
+    /**
      * Owner play as Subscriber
      */
-    private String subscriberId;
+    private String ownerId;
 
     private Long id;
 
