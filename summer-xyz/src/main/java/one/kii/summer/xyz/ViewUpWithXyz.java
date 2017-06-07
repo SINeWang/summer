@@ -11,14 +11,21 @@ import java.util.Date;
  * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
-public final class OwnerViewUpWithId {
+public final class ViewUpWithXyz {
+
 
     /**
      * Owner play as Subscriber
      */
     private String subscriberId;
 
-    private Long id;
+    private String group;
+
+    private String name;
+
+    private String stability;
+
+    private String version;
 
     @MayHave
     private Date beginTime;
