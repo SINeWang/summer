@@ -7,25 +7,17 @@ import java.util.Date;
 
 /**
  * Created by WangYanJiong on 07/06/2017.
+ *
+ * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
-public class ViewDownInsight {
+public final class VisitUpWithXyz {
 
 
     /**
-     * subscription from upstream
+     * Owner play as Subscriber
      */
-    private Long id;
-
-    /**
-     * publication to downstream
-     */
-    private Long set;
-
-    /**
-     * Owner play as Provider, Provider is Owner
-     */
-    private String providerId;
+    private String subscriberId;
 
     private String group;
 
@@ -35,9 +27,7 @@ public class ViewDownInsight {
 
     private String version;
 
-    private Date beginTime;
-
     @MayHave
-    private Date endTime;
+    private Date beginTime;
 
 }

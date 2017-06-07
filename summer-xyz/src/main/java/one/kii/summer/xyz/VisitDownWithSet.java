@@ -11,7 +11,7 @@ import java.util.Date;
  * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
-public final class ViewDownWithSet {
+public final class VisitDownWithSet {
 
     /**
      * Owner play as Provider
