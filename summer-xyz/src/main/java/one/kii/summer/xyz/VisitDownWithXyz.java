@@ -22,7 +22,9 @@ public final class VisitDownWithXyz {
 
     private String name;
 
-    private String tree;
+    private String stability;
+
+    private String version;
 
     @MayHave
     private Date beginTime;
