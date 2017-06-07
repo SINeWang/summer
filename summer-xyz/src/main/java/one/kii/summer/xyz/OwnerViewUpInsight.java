@@ -26,9 +26,9 @@ public class OwnerViewUpInsight {
     private String providerId;
 
     /**
-     * Owner play as Subscriber
+     * Owner play as Subscriber, Subscriber is Owner
      */
-    private String ownerId;
+    private String subscriberId;
 
     private Long id;
 
