@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,22 +18,46 @@ public class NotBadResponse {
 
     private static final String INTERNAL_CLASS = "this$";
 
+    public static <T> List<T> of(List<T> objects) throws Panic {
+        if (objects == null) {
+            throw new NullPointerException();
+        }
+        if (objects.isEmpty()) {
+            return Collections.emptyList();
+        }
+        for (Object object : objects) {
+            checkFields(object, MayHave.class);
+        }
+        return objects;
+    }
+
+    public static <T> List<T> of(List<T> objects, Class<? extends Annotation> ignore) throws Panic {
+        if (objects == null) {
+            throw new NullPointerException();
+        }
+        if (objects.isEmpty()) {
+            return Collections.emptyList();
+        }
+        for (Object object : objects) {
+            checkFields(object, ignore);
+        }
+        return objects;
+    }
+
 
     public static <T> T of(T object) throws Panic {
         if (object == null) {
             throw new NullPointerException();
-        } else {
-            checkFields(object, MayHave.class);
         }
+        checkFields(object, MayHave.class);
         return object;
     }
 
     public static <T> T of(T object, Class<? extends Annotation> ignore) throws Panic {
         if (object == null) {
             throw new NullPointerException();
-        } else {
-            checkFields(object, ignore);
         }
+        checkFields(object, ignore);
         return object;
     }
 

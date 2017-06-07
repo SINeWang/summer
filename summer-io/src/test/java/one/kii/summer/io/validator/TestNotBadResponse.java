@@ -5,10 +5,31 @@ import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 02/06/2017.
  */
 public class TestNotBadResponse {
+
+    @Test
+    public void testNonfOf11() throws Panic {
+        List<TestClass1> list = new ArrayList<>();
+        list.add(new TestClass1());
+        NotBadResponse.of(list);
+    }
+
+    @Test
+    public void testNonfOf12()  {
+        List<TestClass1> list = new ArrayList<>();
+        list.add(new TestClass1());
+        try {
+            NotBadResponse.of(list, null);
+        } catch (Panic panic) {
+            Assert.assertEquals(1, panic.getKeys().length);
+        }
+    }
 
     @Test(expected = Panic.class)
     public void testNoneOf23() throws Panic {
@@ -50,6 +71,13 @@ public class TestNotBadResponse {
         } catch (Panic panic) {
             Assert.assertEquals(2, panic.getKeys().length);
         }
+    }
+
+
+    static class TestClass1 {
+        String a = "1";
+        @MayHave
+        String b;
     }
 
     static class TestClass2 {
