@@ -1,5 +1,6 @@
 package one.kii.summer.asdf.dai;
 
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 
 /**
@@ -7,5 +8,5 @@ import one.kii.summer.io.exception.Conflict;
  */
 public interface RememberSingleDai<T> {
 
-    void remember(T object) throws Conflict;
+    void remember(T object) throws BadRequest, Conflict;
 }

@@ -1,5 +1,6 @@
 package one.kii.summer.asdf.dai;
 
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
  */
 public interface RememberMultipleDai<H, L> {
 
-    void remember(H header, List<L> list) throws Conflict;
+    void remember(H header, List<L> list) throws BadRequest, Conflict;
 }
