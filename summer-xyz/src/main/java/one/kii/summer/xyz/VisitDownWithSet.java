@@ -18,7 +18,7 @@ public final class VisitDownWithSet {
      */
     private String providerId;
 
-    private Long pubSet;
+    private Long set;
 
     @MayHave
     private Date beginTime;
