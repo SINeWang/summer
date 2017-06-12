@@ -3,4 +3,4 @@ include 'summer-asdf'
 include 'summer-beans'
 include 'summer-datetime'
 include 'summer-io'
-include 'summer-zoom'
+include 'summer-zoom':x
