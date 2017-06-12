@@ -1,4 +1,4 @@
-package one.kii.summer.xyz;
+package one.kii.summer.zoom;
 
 import lombok.Data;
 import one.kii.summer.io.annotations.MayHave;
@@ -7,18 +7,24 @@ import java.util.Date;
 
 /**
  * Created by WangYanJiong on 07/06/2017.
- *
+ * <p>
  * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
-public final class OutsideInWithId {
+public final class ZoomOutByName {
 
     /**
-     * Owner play as Subscriber
+     * Owner play as Provider
      */
-    private String subscriberId;
+    private String providerId;
 
-    private Long id;
+    private String group;
+
+    private String name;
+
+    private String stability;
+
+    private String version;
 
     @MayHave
     private Date beginTime;
