@@ -6,6 +6,8 @@ import one.kii.summer.io.exception.Panic;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,8 @@ public class TestSearchApiCaller {
 
 
     static String[] keys = new String[]{};
+    static MultiValueMap map = new LinkedMultiValueMap();
+
     ReadContext context = new ReadContext("requestId", "ownerId", "visitorId");
     Object form = new Object();
 
@@ -53,7 +57,7 @@ public class TestSearchApiCaller {
     public static class TestBadRequest implements SearchApi {
         @Override
         public List search(ReadContext context, Object form) throws BadRequest, Panic {
-            throw new BadRequest(keys);
+            throw new BadRequest(map);
         }
     }
 

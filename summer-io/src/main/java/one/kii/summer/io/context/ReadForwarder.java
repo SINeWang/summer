@@ -2,6 +2,8 @@ package one.kii.summer.io.context;
 
 import one.kii.summer.io.annotations.OwnerId;
 import one.kii.summer.io.exception.BadRequest;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -14,7 +16,9 @@ public class ReadForwarder extends ActionForwarder {
 
     public static ReadContext from(WriteContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         ReadContext readContext = new ReadContext(
                 UUID.randomUUID().toString(),
@@ -27,7 +31,9 @@ public class ReadForwarder extends ActionForwarder {
 
     public static ReadContext from(ReadContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         ReadContext readContext = new ReadContext(
                 UUID.randomUUID().toString(),

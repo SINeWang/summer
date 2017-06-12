@@ -2,6 +2,8 @@ package one.kii.summer.io.validator;
 
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -26,7 +28,7 @@ public class NotBadRequest {
         if (fieldsName.length == 0) {
             return object;
         }
-        List<String> badFields = new ArrayList<>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         Class type = object.getClass();
         for (String fieldName : fieldsName) {
             if (fieldName == null) {
@@ -36,14 +38,14 @@ public class NotBadRequest {
             try {
                 field = type.getDeclaredField(fieldName);
             } catch (NoSuchFieldException e) {
-                badFields.add(fieldName);
+                map.put(field.getName(), null);
             }
             if (field != null) {
-                checkValueNotEmpty(object, badFields, field);
+                checkValueNotEmpty(object, map, field);
             }
         }
-        if (badFields.size() > 0) {
-            throw new BadRequest(badFields.toArray(new String[0]));
+        if (map.size() > 0) {
+            throw new BadRequest(map);
         }
         return object;
     }
@@ -55,22 +57,22 @@ public class NotBadRequest {
         }
         Class type = object.getClass();
         Field[] fields = type.getDeclaredFields();
-        List<String> badFields = new ArrayList<>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         for (Field field : fields) {
             Annotation mayHave = field.getAnnotation(MayHave.class);
             if (mayHave != null) {
                 continue;
             }
-            checkValueNotEmpty(object, badFields, field);
+            checkValueNotEmpty(object, map, field);
         }
-        if (badFields.size() > 0) {
-            throw new BadRequest(badFields.toArray(new String[0]));
+        if (map.size() > 0) {
+            throw new BadRequest(map);
         }
         return object;
     }
 
 
-    private static void checkValueNotEmpty(Object object, List<String> badFields, Field field) {
+    private static void checkValueNotEmpty(Object object, MultiValueMap<String, String> map, Field field) {
         Object value;
         try {
             field.setAccessible(true);
@@ -83,18 +85,18 @@ public class NotBadRequest {
             try {
                 method = object.getClass().getMethod(getMethodName);
             } catch (NoSuchMethodException ignore) {
-                badFields.add(field.getName());
+                map.put(field.getName(), null);
                 return;
             }
             try {
                 value = method.invoke(object);
             } catch (IllegalAccessException | InvocationTargetException e1) {
-                badFields.add(field.getName());
+                map.put(field.getName(), null);
                 return;
             }
         }
         if (value == null) {
-            badFields.add(field.getName());
+            map.put(field.getName(), null);
         }
     }
 }

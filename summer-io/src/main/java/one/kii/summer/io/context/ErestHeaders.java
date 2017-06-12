@@ -25,7 +25,7 @@ public class ErestHeaders {
 
     public static final String NOT_FOUND_KEY = "X-SUMMER-NotFoundKey";
 
-    public static final String BAD_REQUEST_FIELDS = "X-SUMMER-BadRequestFields";
+    public static final String BAD_REQUEST_KEY = "X-SUMMER-BadRequestFields";
 
     public static final String RETRY = "X-SUMMER-Retry";
 

@@ -2,6 +2,8 @@ package one.kii.summer.io.context;
 
 import one.kii.summer.io.annotations.OwnerId;
 import one.kii.summer.io.exception.BadRequest;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.UUID;
 
@@ -13,7 +15,9 @@ public class ReadAuthorizationForwarder extends ActionForwarder {
 
     public static ReadAuthorizationContext from(WriteAuthorizationContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         ReadAuthorizationContext readContext = buildReadAuthorizationContext(context, targetOwnerId);
         return readContext;
@@ -29,7 +33,9 @@ public class ReadAuthorizationForwarder extends ActionForwarder {
 
     public static ReadAuthorizationContext from(ReadAuthorizationContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         return buildReadAuthorizationContext(context, targetOwnerId);
     }

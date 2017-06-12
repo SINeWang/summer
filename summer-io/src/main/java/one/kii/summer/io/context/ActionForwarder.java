@@ -2,9 +2,13 @@ package one.kii.summer.io.context;
 
 import one.kii.summer.io.annotations.OwnerId;
 import one.kii.summer.io.exception.BadRequest;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 20/04/2017.
@@ -22,14 +26,18 @@ public abstract class ActionForwarder {
                 try {
                     value = field.get(target);
                 } catch (IllegalAccessException e) {
-                    throw new BadRequest(OwnerId.FIELD_NAME);
+                    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+                    map.put(OwnerId.FIELD_NAME, null);
+                    throw new BadRequest(map);
                 }
                 if (value != null) {
                     return value.toString();
                 }
             }
         }
-        throw new BadRequest(OwnerId.FIELD_NAME);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.put(OwnerId.FIELD_NAME, null);
+        throw new BadRequest(map);
     }
 
 }

@@ -6,6 +6,8 @@ import one.kii.summer.io.exception.NotFound;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,18 +30,28 @@ public abstract class ErestClient {
     protected void handleBasic(HttpStatus code, HttpHeaders headers) throws NotFound, BadRequest {
         switch (code) {
             case NOT_FOUND:
-                List<String> values = headers.get(ErestHeaders.NOT_FOUND_KEY);
-                if (values == null || values.size() == 0) {
-                    throw new NotFound(null);
-                }
-                throw new NotFound(values.toArray(new String[0]));
+                List<String> keys404 = headers.get(ErestHeaders.NOT_FOUND_KEY);
+                MultiValueMap<String, String> map404 = buildReasons(headers, keys404, ErestHeaders.NOT_FOUND_KEY);
+                throw new NotFound(map404);
             case BAD_REQUEST:
-                List<String> fields = headers.get(ErestHeaders.BAD_REQUEST_FIELDS);
-                if (fields == null || fields.size() == 0) {
-                    throw new NotFound(null);
-                }
-                throw new BadRequest(fields.toArray(new String[0]));
-
+                List<String> keys400 = headers.get(ErestHeaders.BAD_REQUEST_KEY);
+                MultiValueMap<String, String> map400 = buildReasons(headers, keys400, ErestHeaders.BAD_REQUEST_KEY);
+                throw new BadRequest(map400);
         }
+    }
+
+    private MultiValueMap<String, String> buildReasons(HttpHeaders headers, List<String> keys, String erestHeaders) {
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        if (keys != null || keys.size() > 0) {
+            for (String key : keys) {
+                List<String> values = headers.get(erestHeaders + ":" + key);
+                if (values.isEmpty()) {
+                    map.set(key, null);
+                } else {
+                    map.put(key, values);
+                }
+            }
+        }
+        return map;
     }
 }

@@ -1,40 +1,25 @@
 package one.kii.summer.io.exception;
 
-import java.util.Set;
+import org.springframework.util.MultiValueMap;
 
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 public class BadRequest extends Exception {
 
-    String[] keys;
+    private MultiValueMap<String, String> reasons;
 
-    String[] reasons;
-
-    public BadRequest(String keys) {
-        this.keys = new String[]{keys};
-    }
-
-    public BadRequest(String[] keys) {
-        this.keys = keys;
-    }
-
-    public BadRequest(String[] keys, String[] reasons) {
-        this.keys = keys;
+    public BadRequest(MultiValueMap<String, String> reasons) {
         this.reasons = reasons;
     }
 
-    public BadRequest(Set<String> keys) {
-        this.keys = keys.toArray(new String[0]);
-    }
-
-
-    public String[] getKeys() {
-        return keys;
-    }
-
-    public String[] getReasons() {
+    public MultiValueMap<String, String> getReasons() {
         return reasons;
     }
+
+    public String[] getKeys() {
+        return reasons.keySet().toArray(new String[0]);
+    }
+
 
 }

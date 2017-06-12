@@ -2,6 +2,8 @@ package one.kii.summer.io.context;
 
 import one.kii.summer.io.annotations.OwnerId;
 import one.kii.summer.io.exception.BadRequest;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.UUID;
 
@@ -12,28 +14,36 @@ public class WriteForwarder extends ActionForwarder {
 
     public static WriteContext from(WriteContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         return buildWriteContext(context, targetOwnerId);
     }
 
     public static WriteContext from(WriteAuthorizationContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         return buildWriteContext(context, targetOwnerId);
     }
 
     public static WriteContext from(ReadContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         return buildWriteContext(context, targetOwnerId);
     }
 
     public static WriteContext from(ReadAuthorizationContext context, String targetOwnerId) throws BadRequest {
         if (targetOwnerId == null) {
-            throw new BadRequest(OwnerId.FIELD_NAME);
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.put(OwnerId.FIELD_NAME, null);
+            throw new BadRequest(map);
         }
         return buildWriteContext(context, targetOwnerId);
     }

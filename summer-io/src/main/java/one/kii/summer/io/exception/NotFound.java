@@ -1,33 +1,26 @@
 package one.kii.summer.io.exception;
 
-import java.util.Set;
+import org.springframework.util.MultiValueMap;
+
 
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 public class NotFound extends Exception {
 
-    String[] keys;
+    MultiValueMap<String, String> reasons;
 
-    public NotFound(String[] keys) {
-        this.keys = keys;
+    public NotFound(MultiValueMap<String, String> reasons) {
+        this.reasons = reasons;
     }
 
-    public NotFound(Set<String> keys) {
-        this.keys = keys.toArray(new String[0]);
+    public MultiValueMap<String, String> getReasons() {
+        return reasons;
     }
+
 
     public String[] getKeys() {
-        return keys;
+        return reasons.keySet().toArray(new String[0]);
     }
 
-    public String getKey() {
-        if (keys == null) {
-            return null;
-        }
-        if (keys.length == 0) {
-            return null;
-        }
-        return keys[0];
-    }
 }
