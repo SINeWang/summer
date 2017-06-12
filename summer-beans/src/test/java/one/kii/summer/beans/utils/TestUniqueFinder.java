@@ -14,7 +14,7 @@ public class TestUniqueFinder {
     @Test
     public void test1() {
 
-        Map<String, Object> actual = ConflictFinder.find(new TestKeys1());
+        Map<String, Object> actual = UniqueFinder.find(new TestKeys1());
 
         Assert.assertEquals(2L, actual.get("fieldZ"));
 
@@ -26,7 +26,7 @@ public class TestUniqueFinder {
 
         String[] expect = {"fieldA", "fieldZ"};
 
-        String[] actual = ConflictFinder.find(TestKeys2.class);
+        String[] actual = UniqueFinder.find(TestKeys2.class);
 
         Assert.assertArrayEquals(expect, actual);
     }

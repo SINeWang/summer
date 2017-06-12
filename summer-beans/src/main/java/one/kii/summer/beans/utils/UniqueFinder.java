@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by WangYanJiong on 06/06/2017.
  */
-public class ConflictFinder {
+public class UniqueFinder {
 
     public static Map<String, Object> find(Object object) {
         Class klass = object.getClass();

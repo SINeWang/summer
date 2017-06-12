@@ -1,5 +1,7 @@
 package one.kii.summer.io.exception;
 
+import java.util.Set;
+
 /**
  * Created by WangYanJiong on 14/04/2017.
  */
@@ -13,6 +15,10 @@ public class Forbidden extends Exception {
 
     public Forbidden(String[] keys) {
         this.keys = keys;
+    }
+
+    public Forbidden(Set<String> keys) {
+        this.keys = keys.toArray(new String[0]);
     }
 
     public String[] getKeys() {
