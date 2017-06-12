@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,40 +19,7 @@ import java.util.List;
 public class NotBadRequest {
 
 
-    public static <T> T from(T object, String... fieldsName) throws BadRequest {
-        if (object == null) {
-            throw new NullPointerException();
-        }
-        if (fieldsName == null) {
-            throw new NullPointerException();
-        }
-        if (fieldsName.length == 0) {
-            return object;
-        }
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        Class type = object.getClass();
-        for (String fieldName : fieldsName) {
-            if (fieldName == null) {
-                continue;
-            }
-            Field field = null;
-            try {
-                field = type.getDeclaredField(fieldName);
-            } catch (NoSuchFieldException e) {
-                map.put(field.getName(), null);
-            }
-            if (field != null) {
-                checkValueNotEmpty(object, map, field);
-            }
-        }
-        if (map.size() > 0) {
-            throw new BadRequest(map);
-        }
-        return object;
-    }
-
-
-    public static <T> T from(T object) throws BadRequest {
+    public static <T> MultiValueMap<String, String> from(T object) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
         }
@@ -68,7 +36,7 @@ public class NotBadRequest {
         if (map.size() > 0) {
             throw new BadRequest(map);
         }
-        return object;
+        return map;
     }
 
 
