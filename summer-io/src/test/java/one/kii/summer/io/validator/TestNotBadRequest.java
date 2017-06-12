@@ -2,60 +2,42 @@ package one.kii.summer.io.validator;
 
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
+import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.util.MultiValueMap;
 
 /**
  * Created by WangYanJiong on 20/04/2017.
  */
 public class TestNotBadRequest {
 
+
     @Test
-    public void test() {
+    public void test1() {
+        TestClass1 tc1 = new TestClass1();
 
-        TestClass tc = new TestClass();
-
+        MultiValueMap map = null;
         try {
-            NotBadRequest.from(tc, new String[]{"a"});
+            NotBadRequest.from(tc1);
         } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
+            Assert.assertEquals(1, badRequest.getReasons().size());
+            Assert.assertNull(badRequest.getReasons().getFirst("b"));
         }
-    }
-
-    @Test(expected = BadRequest.class)
-    public void test1() throws BadRequest {
-
-        TestClass tc = new TestClass();
-
-        NotBadRequest.from(tc, new String[]{"b"});
     }
 
     @Test
     public void test2() throws BadRequest {
-
-        TestClass tc = new TestClass();
-
-        NotBadRequest.from(tc, new String[]{"c"});
-    }
-
-    @Test
-    public void test3() throws BadRequest {
-        TestClass tc = new TestClass();
-        NotBadRequest.from(tc, new String[]{"a", "d"});
-    }
-
-    @Test
-    public void test4() throws BadRequest {
         TestClass2 tc2 = new TestClass2();
         NotBadRequest.from(tc2);
     }
 
-
-    class TestClass {
+    class TestClass1 {
         String a = "12";
         String b = null;
         String c = "  ";
         String d = "123";
     }
+
 
     class TestClass2 {
         String a = "12";

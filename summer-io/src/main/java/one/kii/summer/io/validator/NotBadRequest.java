@@ -19,24 +19,23 @@ import java.util.List;
 public class NotBadRequest {
 
 
-    public static <T> MultiValueMap<String, String> from(T object) throws BadRequest {
+    public static <T> void from(T object) throws BadRequest {
         if (object == null) {
             throw new NullPointerException();
         }
         Class type = object.getClass();
         Field[] fields = type.getDeclaredFields();
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> bads = new LinkedMultiValueMap<>();
         for (Field field : fields) {
             Annotation mayHave = field.getAnnotation(MayHave.class);
             if (mayHave != null) {
                 continue;
             }
-            checkValueNotEmpty(object, map, field);
+            checkValueNotEmpty(object, bads, field);
         }
-        if (map.size() > 0) {
-            throw new BadRequest(map);
+        if (bads.size() > 0) {
+            throw new BadRequest(bads);
         }
-        return map;
     }
 
 
