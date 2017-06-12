@@ -7,23 +7,24 @@ import java.util.Date;
 
 /**
  * Created by WangYanJiong on 07/06/2017.
- *
+ * <p>
  * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
-public final class VisitUpWithXyz {
-
+public final class InsideOutWithXyz {
 
     /**
-     * Owner play as Subscriber
+     * Owner play as Provider
      */
-    private String subscriberId;
+    private String providerId;
 
     private String group;
 
     private String name;
 
-    private String tree;
+    private String stability;
+
+    private String version;
 
     @MayHave
     private Date beginTime;

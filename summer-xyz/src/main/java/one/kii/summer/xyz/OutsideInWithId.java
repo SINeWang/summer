@@ -11,7 +11,7 @@ import java.util.Date;
  * Disabled extension for <code>class.getDeclaredFields()</code>
  */
 @Data
-public final class VisitUpWithId {
+public final class OutsideInWithId {
 
     /**
      * Owner play as Subscriber
