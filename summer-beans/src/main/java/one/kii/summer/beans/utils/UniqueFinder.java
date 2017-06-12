@@ -1,6 +1,8 @@
 package one.kii.summer.beans.utils;
 
 import one.kii.summer.beans.annotations.Unique;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -11,16 +13,16 @@ import java.util.*;
  */
 public class UniqueFinder {
 
-    public static Map<String, Object> find(Object object) {
+    public static MultiValueMap<String, String> find(Object object) {
         Class klass = object.getClass();
         Field[] fields = klass.getDeclaredFields();
 
-        Map<String, Object> map = new HashMap<>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         for (Field field : fields) {
             Annotation annotation = field.getAnnotation(Unique.class);
             if (annotation != null) {
                 Object value = FieldValueTools.get(field, object);
-                map.put(field.getName(), value);
+                map.set(field.getName(), String.valueOf(value));
             }
         }
         return map;

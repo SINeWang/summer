@@ -3,6 +3,7 @@ package one.kii.summer.beans.utils;
 import one.kii.summer.beans.annotations.Unique;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
@@ -14,11 +15,11 @@ public class TestUniqueFinder {
     @Test
     public void test1() {
 
-        Map<String, Object> actual = UniqueFinder.find(new TestKeys1());
+        MultiValueMap<String, String> actual = UniqueFinder.find(new TestKeys1());
 
-        Assert.assertEquals(2L, actual.get("fieldZ"));
+        Assert.assertEquals("2", actual.getFirst("fieldZ"));
 
-        Assert.assertEquals("1", actual.get("fieldA"));
+        Assert.assertEquals("1", actual.getFirst("fieldA"));
     }
 
     @Test
