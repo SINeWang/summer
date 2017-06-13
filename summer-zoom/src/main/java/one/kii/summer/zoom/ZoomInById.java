@@ -23,4 +23,7 @@ public final class ZoomInById {
     @MayHave
     private Date beginTime;
 
+    @MayHave
+    private Date endTime;
+
 }

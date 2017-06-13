@@ -23,4 +23,7 @@ public final class ZoomOutBySet {
     @MayHave
     private Date beginTime;
 
+    @MayHave
+    private Date endTime;
+
 }

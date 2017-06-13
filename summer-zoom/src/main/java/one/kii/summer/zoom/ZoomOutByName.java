@@ -29,4 +29,7 @@ public final class ZoomOutByName {
     @MayHave
     private Date beginTime;
 
+    @MayHave
+    private Date endTime;
+
 }
