@@ -42,7 +42,7 @@ public abstract class ErestClient {
 
     private MultiValueMap<String, String> buildReasons(HttpHeaders headers, List<String> keys, String erestHeaders) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        if (keys != null || keys.size() > 0) {
+        if (keys != null && keys.size() > 0) {
             for (String key : keys) {
                 List<String> values = headers.get(erestHeaders + ":" + key);
                 if (values.isEmpty()) {
