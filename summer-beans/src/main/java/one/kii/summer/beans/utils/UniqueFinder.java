@@ -6,7 +6,9 @@ import org.springframework.util.MultiValueMap;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 06/06/2017.
@@ -22,7 +24,11 @@ public class UniqueFinder {
             Annotation annotation = field.getAnnotation(Unique.class);
             if (annotation != null) {
                 Object value = FieldValueTools.get(field, object);
-                map.set(field.getName(), String.valueOf(value));
+                if (value == null) {
+                    map.set(field.getName(), null);
+                } else {
+                    map.set(field.getName(), String.valueOf(value));
+                }
             }
         }
         return map;
