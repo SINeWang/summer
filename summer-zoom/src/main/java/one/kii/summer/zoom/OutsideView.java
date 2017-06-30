@@ -15,12 +15,12 @@ public class OutsideView {
     /**
      * subscription from upstream
      */
-    private Long id;
+    private String id;
 
     /**
      * publication to downstream
      */
-    private Long set;
+    private String set;
 
     /**
      * Owner play as Provider, Provider is Owner

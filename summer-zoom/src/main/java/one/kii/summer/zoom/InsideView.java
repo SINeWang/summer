@@ -15,7 +15,7 @@ public class InsideView {
     /**
      * publication from upstream
      */
-    private Long set;
+    private String set;
 
     /**
      * root id of publication from upstream
@@ -30,7 +30,7 @@ public class InsideView {
      */
     private String subscriberId;
 
-    private Long id;
+    private String id;
 
     private String group;
 

@@ -18,7 +18,7 @@ public final class ZoomOutBySet {
      */
     private String providerId;
 
-    private Long set;
+    private String set;
 
     @MayHave
     private Date beginTime;

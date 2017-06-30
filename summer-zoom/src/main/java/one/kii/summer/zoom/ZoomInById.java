@@ -18,7 +18,7 @@ public final class ZoomInById {
      */
     private String subscriberId;
 
-    private Long id;
+    private String id;
 
     @MayHave
     private Date beginTime;
