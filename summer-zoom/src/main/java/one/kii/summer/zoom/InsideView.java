@@ -20,7 +20,7 @@ public class InsideView {
     /**
      * root id of publication from upstream
      */
-    private Long rootId;
+    private String rootId;
 
 
     private String providerId;
