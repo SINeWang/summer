@@ -1,1 +1,0 @@
-![travis-ci](https://travis-ci.org/SINeWang/summer.svg?branch=master)
