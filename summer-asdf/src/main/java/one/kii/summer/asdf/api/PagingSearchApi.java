@@ -29,7 +29,7 @@ public interface PagingSearchApi<R, C extends ReadContext, F extends PagingSearc
         String beginPage;
 
         @MayHave
-        String endPage;
+        String pageSize;
 
         @MayHave
         String order;
