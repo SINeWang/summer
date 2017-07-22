@@ -15,7 +15,7 @@ public class PagingSearchApiCaller {
     private PagingSearchApiCaller() {
     }
 
-    public static <R, C extends ReadContext, F extends PagingSearchApi.Paginator> ResponseEntity<PagingSearchApi.Receipt<R>> sync(PagingSearchApi<R, C, F> api, C context, F form) {
+    public static <R, C extends ReadContext, F extends PagingSearchApi.Paging> ResponseEntity<PagingSearchApi.Receipt<R>> sync(PagingSearchApi<R, C, F> api, C context, F form) {
         logger.debug("begin: api={},context={},form={}", api, context, form);
         try {
             PagingSearchApi.Receipt<R> response = api.search(context, form);
