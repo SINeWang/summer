@@ -9,7 +9,7 @@ import one.kii.summer.io.exception.Panic;
 import java.util.List;
 
 /**
- * Created by WangYanJiong on 05/06/2017.
+ * Created by WangYanJiong on 22/07/2017.
  */
 public interface PagingSearchApi<R, C extends ReadContext, F extends PagingSearchApi.Form> {
 
