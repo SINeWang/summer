@@ -26,10 +26,10 @@ public interface PagingSearchApi<R, C extends ReadContext, F extends PagingSearc
     class Paginator {
 
         @MayHave
-        String beginPage;
+        Integer beginPage;
 
         @MayHave
-        String pageSize;
+        Integer pageSize;
 
         @MayHave
         String order;
