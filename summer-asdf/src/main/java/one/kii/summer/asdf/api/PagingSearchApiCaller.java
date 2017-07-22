@@ -15,7 +15,14 @@ public class PagingSearchApiCaller {
     private PagingSearchApiCaller() {
     }
 
-    public static <R, C extends ReadContext, F extends PagingSearchApi.Paging> ResponseEntity<PagingSearchApi.Receipt<R>> sync(PagingSearchApi<R, C, F> api, C context, F form, PagingSearchApi.Paging paging) {
+    public static <R, C extends ReadContext, F>
+
+    ResponseEntity<PagingSearchApi.Receipt<R>> sync(
+            PagingSearchApi<R, C, F> api,
+            C context,
+            F form,
+            PagingSearchApi.Paging paging) {
+
         logger.debug("begin: api={},context={},form={}, paging={}", api, context, form, paging);
         try {
             PagingSearchApi.Receipt<R> response = api.search(context, form, paging);
