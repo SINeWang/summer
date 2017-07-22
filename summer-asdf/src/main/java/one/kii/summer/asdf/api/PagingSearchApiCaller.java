@@ -15,10 +15,10 @@ public class PagingSearchApiCaller {
     private PagingSearchApiCaller() {
     }
 
-    public static <R, C extends ReadContext, F extends PagingSearchApi.Paging> ResponseEntity<PagingSearchApi.Receipt<R>> sync(PagingSearchApi<R, C, F> api, C context, F form) {
-        logger.debug("begin: api={},context={},form={}", api, context, form);
+    public static <R, C extends ReadContext, F extends PagingSearchApi.Paging> ResponseEntity<PagingSearchApi.Receipt<R>> sync(PagingSearchApi<R, C, F> api, C context, F form, PagingSearchApi.Paging paging) {
+        logger.debug("begin: api={},context={},form={}, paging={}", api, context, form, paging);
         try {
-            PagingSearchApi.Receipt<R> response = api.search(context, form);
+            PagingSearchApi.Receipt<R> response = api.search(context, form, paging);
             logger.debug("after: response=<{}>", response);
             return ErestResponse.ok(context.getRequestId(), response);
         } catch (BadRequest badRequest) {

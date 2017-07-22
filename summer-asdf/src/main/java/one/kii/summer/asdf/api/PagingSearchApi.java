@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 22/07/2017.
  */
-public interface PagingSearchApi<R, C extends ReadContext, F extends PagingSearchApi.Paging> {
+public interface PagingSearchApi<R, C extends ReadContext, F> {
 
-    Receipt<R> search(C context, F form) throws BadRequest, Panic;
+    Receipt<R> search(C context, F form, Paging paging) throws BadRequest, Panic;
 
 
     @Data
@@ -26,10 +26,10 @@ public interface PagingSearchApi<R, C extends ReadContext, F extends PagingSearc
     class Paging {
 
         @MayHave
-        Integer beginPage;
+        Integer begin;
 
         @MayHave
-        Integer pageSize;
+        Integer size;
 
         @MayHave
         String order;
