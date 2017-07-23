@@ -32,7 +32,7 @@ public interface PagingSearchApi<R, C extends ReadContext, F> {
         Integer size;
 
         @MayHave
-        String order;
+        String sort;
 
         @MayHave
         String orderBy;
