@@ -80,8 +80,12 @@ public class SingleValueMapping {
                 continue;
             }
             Object srcValue = getValue(targetField.getName(), src);
-            if (srcValue != null) {
-                targetValue = primitive(targetField.getType(), srcValue);
+            if (!targetField.getDeclaringClass().isPrimitive() || !targetField.getDeclaringClass().equals(String.class)) {
+                targetValue = from(targetField.getType(), srcValue);
+            } else {
+                if (srcValue != null) {
+                    targetValue = primitive(targetField.getType(), srcValue);
+                }
             }
             if (targetValue != null) {
                 try {

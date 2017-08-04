@@ -67,6 +67,16 @@ public class TestSingleValueMapping {
         Assert.assertEquals("333", td.getCcc());
     }
 
+    @Test
+    public void testComplex() {
+        TestComplexSrc1 src = new TestComplexSrc1();
+        TestData3 testData3 = new TestData3();
+        testData3.setCcc(333L);
+        src.setComplex(testData3);
+
+        TestComplexDest1 dest = ValueMapping.from(TestComplexDest1.class, src);
+        Assert.assertEquals("333", dest.getComplex().getCcc());
+    }
 
     public static class TestData {
 
@@ -117,6 +127,31 @@ public class TestSingleValueMapping {
 
         public void setCcc(String ccc) {
             this.ccc = ccc;
+        }
+    }
+
+    public static class TestComplexSrc1 {
+
+        TestData3 complex;
+
+        public TestData3 getComplex() {
+            return complex;
+        }
+
+        public void setComplex(TestData3 complex) {
+            this.complex = complex;
+        }
+    }
+
+    public static class TestComplexDest1 {
+        TestData4 complex;
+
+        public TestData4 getComplex() {
+            return complex;
+        }
+
+        public void setComplex(TestData4 complex) {
+            this.complex = complex;
         }
     }
 }
