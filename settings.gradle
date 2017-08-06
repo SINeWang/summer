@@ -1,5 +1,4 @@
 rootProject.name = 'summer'
-include 'summer-asdf'
 include 'summer-beans'
 include 'summer-datetime'
 include 'summer-io'
