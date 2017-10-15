@@ -3,8 +3,9 @@ package one.kii.summer.io.utils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Objects;
 
 
 /**
@@ -34,13 +35,8 @@ public class MultiValueForm {
             if (vType == null) {
                 map.set(field.getName(), String.valueOf(value));
             } else {
-                int length = Array.getLength(value);
-                for (int i = 0; i < length; i++) {
-                    Object arrayElement = Array.get(value, i);
-                    if (arrayElement != null) {
-                        map.add(field.getName(), String.valueOf(arrayElement));
-                    }
-                }
+                Arrays.stream((Object[]) value).filter(Objects::nonNull)
+                        .forEachOrdered(v -> map.add(field.getName(), String.valueOf(v)));
             }
         }
         return map;
