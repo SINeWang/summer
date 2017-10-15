@@ -15,6 +15,22 @@ public class TestSingleValueMapping {
 
 
     @Test
+    public void testSameClass() {
+
+        List<TestData3> test1 = new ArrayList<>();
+
+        TestData3 td1 = new TestData3();
+        td1.setCcc(333L);
+
+        test1.add(td1);
+
+
+        List<TestData3> test2 = SingleValueMapping.from(TestData3.class, test1);
+        Assert.assertEquals(Long.valueOf(333L), test2.get(0).getCcc());
+    }
+
+
+    @Test
     public void test1() {
         List<TestData> test1 = new ArrayList<>();
         TestData td1 = new TestData();
@@ -76,7 +92,43 @@ public class TestSingleValueMapping {
 
         TestComplexDest1 dest = ValueMapping.from(TestComplexDest1.class, src);
         Assert.assertEquals("333", dest.getComplex().getCcc());
+
+        Assert.assertEquals(TestData4.class, dest.getComplex().getClass());
     }
+
+    @Test
+    public void testComplexList1() {
+        TestComplexSrcList1 src = new TestComplexSrcList1();
+        List<TestData3> testData3s = new ArrayList<>();
+        TestData3 testData3 = new TestData3();
+        testData3.setCcc(333L);
+        testData3s.add(testData3);
+        src.setComplexs(testData3s);
+
+
+        TestComplexDestList1 dests = ValueMapping.from(TestComplexDestList1.class, src);
+        Assert.assertEquals("333", dests.getComplexs().get(0).getCcc());
+
+        Assert.assertEquals(TestData4.class, dests.getComplexs().get(0).getClass());
+    }
+
+
+    @Test
+    public void testComplexList2() {
+        TestComplexDestList1 src = new TestComplexDestList1();
+        List<TestData4> testData4s = new ArrayList<>();
+        TestData4 testData3 = new TestData4();
+        testData3.setCcc("333");
+        testData4s.add(testData3);
+        src.setComplexs(testData4s);
+
+
+        TestComplexSrcList1 dests = ValueMapping.from(TestComplexSrcList1.class, src);
+        Assert.assertEquals(Long.valueOf(333L), dests.getComplexs().get(0).getCcc());
+
+        Assert.assertEquals(TestData3.class, dests.getComplexs().get(0).getClass());
+    }
+
 
     public static class TestData {
 
@@ -154,4 +206,31 @@ public class TestSingleValueMapping {
             this.complex = complex;
         }
     }
+
+    public static class TestComplexSrcList1 {
+
+        List<TestData3> complexs;
+
+        public List<TestData3> getComplexs() {
+            return complexs;
+        }
+
+        public void setComplexs(List<TestData3> complexs) {
+            this.complexs = complexs;
+        }
+    }
+
+    public static class TestComplexDestList1 {
+        List<TestData4> complexs;
+
+        public List<TestData4> getComplexs() {
+            return complexs;
+        }
+
+        public void setComplexs(List<TestData4> complexs) {
+            this.complexs = complexs;
+        }
+    }
+
+
 }

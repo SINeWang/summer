@@ -1,11 +1,11 @@
 package one.kii.summer.beans.utils;
 
-import org.springframework.beans.BeanUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -58,8 +58,7 @@ public class SingleValueMapping {
         if (src == null) {
             return null;
         }
-        if (klass.isPrimitive() || klass.equals(String.class)
-                || src.getClass().isPrimitive() || src.getClass().equals(String.class)) {
+        if (isScala(klass)) {
             T x = primitive(klass, src);
             if (x != null) return x;
         }
@@ -73,15 +72,23 @@ public class SingleValueMapping {
         } catch (InstantiationException | IllegalAccessException e) {
             return null;
         }
-        BeanUtils.copyProperties(src, instance);
+
+
         for (Field targetField : klass.getDeclaredFields()) {
             Object targetValue = getValue(targetField, instance);
             if (targetValue != null) {
                 continue;
             }
             Object srcValue = getValue(targetField.getName(), src);
-            if (!targetField.getDeclaringClass().isPrimitive() || !targetField.getDeclaringClass().equals(String.class)) {
-                targetValue = from(targetField.getType(), srcValue);
+            if (!isScala(targetField.getType())) {
+                if (targetField.getGenericType() instanceof ParameterizedType) {
+                    ParameterizedType genericType = (ParameterizedType) targetField.getGenericType();
+                    if (genericType.getRawType().equals(List.class)) {
+                        targetValue = from((Class) genericType.getActualTypeArguments()[0], (List) srcValue);
+                    }
+                } else {
+                    targetValue = from(targetField.getType(), srcValue);
+                }
             } else {
                 if (srcValue != null) {
                     targetValue = primitive(targetField.getType(), srcValue);
@@ -170,6 +177,9 @@ public class SingleValueMapping {
 
 
     private static <T> T primitive(Class<T> klass, Object src) {
+        if (klass.equals(src.getClass())) {
+            return (T) src;
+        }
         if (klass.equals(String.class)) {
             return (T) String.valueOf(src);
         }
@@ -268,6 +278,9 @@ public class SingleValueMapping {
     }
 
     public static <T> List<T> from(Class<T> klass, List sources) {
+        if (sources == null) {
+            return Collections.emptyList();
+        }
         List<T> list = new ArrayList<>();
         for (Object src : sources) {
             if (src != null) {
@@ -276,6 +289,31 @@ public class SingleValueMapping {
             }
         }
         return list;
+    }
+
+    private static boolean isScala(Class klass) {
+        if (klass.isPrimitive()) {
+            return true;
+        }
+        if (klass.equals(String.class)) {
+            return true;
+        } else if (klass.equals(Integer.class)) {
+            return true;
+        } else if (klass.equals(Long.class)) {
+            return true;
+        } else if (klass.equals(Boolean.class)) {
+            return true;
+        } else if (klass.equals(Float.class)) {
+            return true;
+        } else if (klass.equals(Double.class)) {
+            return true;
+        } else if (klass.equals(Byte.class)) {
+            return true;
+        } else if (klass.equals(Short.class)) {
+            return true;
+        }
+        return false;
+
     }
 
 
