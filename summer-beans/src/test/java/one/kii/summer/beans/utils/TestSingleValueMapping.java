@@ -3,15 +3,35 @@ package one.kii.summer.beans.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by WangYanJiong on 26/04/2017.
  */
 public class TestSingleValueMapping {
+
+
+    @Test
+    public void testDate() {
+
+
+        TestDate src = new TestDate();
+
+        src.setDate(new Date());
+
+        TestDate target = ValueMapping.from(TestDate.class, src);
+
+        Assert.assertEquals(target.getDate().getTime(), src.getDate().getTime());
+
+
+
+        TestDate srcNull = new TestDate();
+
+        TestDate targetNull = ValueMapping.from(TestDate.class, srcNull);
+
+        Assert.assertNull(targetNull.getDate());
+
+    }
 
 
     @Test
@@ -127,6 +147,20 @@ public class TestSingleValueMapping {
         Assert.assertEquals(Long.valueOf(333L), dests.getComplexs().get(0).getCcc());
 
         Assert.assertEquals(TestData3.class, dests.getComplexs().get(0).getClass());
+    }
+
+
+    public static class TestDate {
+
+        Date date;
+
+        public Date getDate() {
+            return date;
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
     }
 
 

@@ -4,10 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by WangYanJiong on 02/04/2017.
@@ -294,8 +291,9 @@ public class SingleValueMapping {
     private static boolean isScala(Class klass) {
         if (klass.isPrimitive()) {
             return true;
-        }
-        if (klass.equals(String.class)) {
+        } else if (klass.equals(Date.class)) {
+            return true;
+        } else if (klass.equals(String.class)) {
             return true;
         } else if (klass.equals(Integer.class)) {
             return true;
