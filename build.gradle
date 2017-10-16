@@ -23,7 +23,7 @@ ext {
 
 scmVersion {
     tag {
-        prefix = 'summer'
+        prefix = ''
     }
 }
 
