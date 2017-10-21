@@ -31,9 +31,16 @@ allprojects {
     project.version = scmVersion.version
     apply plugin: 'maven-publish'
 
-
     group = 'one.kii.summer'
 
+    apply plugin: 'maven-publish'
+
+    repositories {
+        mavenLocal()
+        maven {
+            url "${maven_public_url}"
+        }
+    }
     publishing {
         repositories {
             maven {
