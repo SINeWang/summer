@@ -1,12 +1,8 @@
 buildscript {
-    dependencies {
-        classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
-    }
 }
 
 plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.8.1'
-    id 'org.springframework.boot' version '1.5.7.RELEASE' apply false
     id 'idea'
 }
 
@@ -17,7 +13,6 @@ ext {
     junitVersion = '4.12'
     lombokVersion = '1.16.16'
     slf4jVersion = '1.7.24'
-    springBootVersion = '1.5.7.RELEASE'
     springFrameworkVersion = '4.3.12.RELEASE'
 }
 
@@ -29,19 +24,17 @@ scmVersion {
 
 allprojects {
     project.version = scmVersion.version
-    apply plugin: 'maven-publish-auth'
 
     group = 'one.kii.summer'
-
+    repositories {
+        mavenLocal()
+        maven {
+            url "${maven_public_url}"
+        }
+    }
 }
 
 subprojects {
-
-    buildscript {
-        dependencies {
-            classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
-        }
-    }
 
     apply plugin: 'java'
     apply plugin: 'maven'
@@ -68,6 +61,23 @@ subprojects {
         publications {
             mavenJava(MavenPublication) {
                 from components.java
+            }
+        }
+        repositories {
+            maven {
+                if (project.version.endsWith('-SNAPSHOT')) {
+                    credentials {
+                        username "$maven_username"
+                        password "$maven_password"
+                    }
+                    url "${maven_snapshot_url}"
+                } else {
+                    credentials {
+                        username "$maven_username"
+                        password "$maven_password"
+                    }
+                    url "${maven_release_url}"
+                }
             }
         }
     }
