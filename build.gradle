@@ -1,4 +1,7 @@
 buildscript {
+    dependencies {
+        classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+    }
 }
 
 plugins {
@@ -24,23 +27,63 @@ scmVersion {
 
 allprojects {
     project.version = scmVersion.version
+    apply plugin: 'maven-publish'
 
     group = 'one.kii.summer'
+
     repositories {
         mavenLocal()
         maven {
             url "${maven_public_url}"
         }
     }
+    publishing {
+        repositories {
+            maven {
+                if (project.version.endsWith('-SNAPSHOT')) {
+                    credentials {
+                        username "$maven_username"
+                        password "$maven_password"
+                    }
+                    url "${maven_snapshot_url}"
+                } else {
+                    credentials {
+                        username "$maven_username"
+                        password "$maven_password"
+                    }
+                    url "${maven_release_url}"
+                }
+            }
+        }
+    }
+
 }
 
 subprojects {
+
+    buildscript {
+        dependencies {
+            classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+        }
+    }
 
     apply plugin: 'java'
     apply plugin: 'maven'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    configurations {
+        provided
+    }
+
+    sourceSets {
+        main {
+            compileClasspath += configurations.provided
+            test.compileClasspath += configurations.provided
+            test.runtimeClasspath += configurations.provided
+        }
+    }
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -61,23 +104,6 @@ subprojects {
         publications {
             mavenJava(MavenPublication) {
                 from components.java
-            }
-        }
-        repositories {
-            maven {
-                if (project.version.endsWith('-SNAPSHOT')) {
-                    credentials {
-                        username "$maven_username"
-                        password "$maven_password"
-                    }
-                    url "${maven_snapshot_url}"
-                } else {
-                    credentials {
-                        username "$maven_username"
-                        password "$maven_password"
-                    }
-                    url "${maven_release_url}"
-                }
             }
         }
     }
