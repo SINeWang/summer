@@ -1,7 +1,4 @@
 buildscript {
-    dependencies {
-        classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
-    }
 }
 
 plugins {
@@ -60,12 +57,6 @@ allprojects {
 }
 
 subprojects {
-
-    buildscript {
-        dependencies {
-            classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
-        }
-    }
 
     apply plugin: 'java'
     apply plugin: 'maven'
