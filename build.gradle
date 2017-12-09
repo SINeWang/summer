@@ -29,7 +29,6 @@ allprojects {
     group = 'one.kii.summer'
 
     repositories {
-        mavenLocal()
         maven {
             url "${maven_public_url}"
         }
@@ -61,6 +60,23 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
 
+    apply plugin: 'pl.allegro.tech.build.axion-release'
+
+    scmVersion {
+        tag {
+            prefix = project.name
+        }
+    }
+    project.version = scmVersion.version
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
@@ -89,14 +105,6 @@ subprojects {
         testCompile("org.springframework:spring-test:${springFrameworkVersion}")
         testCompile("org.slf4j:slf4j-simple:${slf4jVersion}")
 
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
-        }
     }
 
 }
