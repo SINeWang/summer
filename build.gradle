@@ -13,7 +13,7 @@ ext {
     junitVersion = '4.12'
     lombokVersion = '1.16.16'
     slf4jVersion = '1.7.24'
-    springFrameworkVersion = '4.3.12.RELEASE'
+    springFrameworkVersion = '4.3.13.RELEASE'
 }
 
 scmVersion {
