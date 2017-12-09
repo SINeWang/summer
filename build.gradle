@@ -11,7 +11,7 @@ ext {
     guavaVersion = '22.0'
     jacksondatabindVersion = '2.8.7'
     junitVersion = '4.12'
-    lombokVersion = '1.16.16'
+    lombokVersion = '1.16.18'
     slf4jVersion = '1.7.24'
     springFrameworkVersion = '4.3.13.RELEASE'
 }
