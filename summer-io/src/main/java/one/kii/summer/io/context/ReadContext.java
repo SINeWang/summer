@@ -15,4 +15,9 @@ public class ReadContext extends RequestContext {
         super(requestId, ownerId);
         this.visitorId = visitorId;
     }
+
+    public ReadContext(WriteContext writeContext) {
+        super(writeContext.getRequestId(), writeContext.getOwnerId());
+        this.visitorId = writeContext.getOperatorId();
+    }
 }
