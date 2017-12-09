@@ -1,5 +1,6 @@
 package one.kii.summer.asdf.api;
 
+import lombok.extern.slf4j.Slf4j;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
@@ -10,28 +11,28 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-/**
- * Created by WangYanJiong on 05/06/2017.
- */
+@Slf4j
 public class SearchApiCaller {
-
-    private static Logger logger = LoggerFactory.getLogger(SearchApiCaller.class);
 
     private SearchApiCaller() {
     }
 
     public static <R, C extends ReadContext, F> ResponseEntity<List<R>> sync(SearchApi<R, C, F> api, C context, F form) {
-        logger.debug("begin: api={},context={},form={}", api, context, form);
+        log.debug("begin: api={},context={},form={}", api, context, form);
         try {
             List<R> response = api.search(context, form);
-            logger.debug("after: response=<{}>", (Object) response.toArray(new Object[0]));
+            log.debug("after: response=<{}>", (Object) response.toArray(new Object[0]));
             return ErestResponse.ok(context.getRequestId(), response);
         } catch (BadRequest badRequest) {
-            logger.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
+            log.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
             return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());
         } catch (Panic panic) {
-            logger.error("after: panic=<{}>", (Object) panic.getKeys());
+            log.error("after: panic=<{}>", (Object) panic.getKeys());
             return ErestResponse.panic(context.getRequestId(), panic.getKeys());
         }
+    }
+
+    public static <R, F> ResponseEntity<List<R>> sync(SimpleSearchApi<R, F> api, ReadContext context, F form) {
+        return sync((SearchApi<R, ReadContext, F>) api, context, form);
     }
 }
