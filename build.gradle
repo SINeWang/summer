@@ -16,14 +16,7 @@ ext {
     springFrameworkVersion = '4.3.13.RELEASE'
 }
 
-scmVersion {
-    tag {
-        prefix = ''
-    }
-}
-
 allprojects {
-    project.version = scmVersion.version
     apply plugin: 'maven-publish'
 
     group = 'one.kii.summer'
