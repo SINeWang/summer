@@ -17,13 +17,13 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = AcceptableValuesValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@NotNull(message = "value cannot be null")
+@NotNull
 @ReportAsSingleViolation
 public @interface AcceptableValues {
 
     Class<? extends Enum<?>> refer();
 
-    String message() default "value is out of range";
+    String message();
 
     Class<?>[] groups() default {};
 

@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +34,12 @@ public class SearchApiCaller {
             log.debug("after: response=<{}>", (Object) response.toArray(new Object[0]));
             NotBadResponse.of(response);
             return ErestResponse.ok(context.getRequestId(), response);
+        } catch (ConstraintViolationException e) {
+            List<String> keys = new ArrayList<>();
+            for (ConstraintViolation violation : e.getConstraintViolations()) {
+                keys.add(violation.getPropertyPath().toString());
+            }
+            return ErestResponse.badRequest(context.getRequestId(), keys.toArray(new String[0]));
         } catch (BadRequest badRequest) {
             log.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
             return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());

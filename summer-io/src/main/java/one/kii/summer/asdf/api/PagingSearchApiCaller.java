@@ -9,6 +9,11 @@ import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.http.ResponseEntity;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 public class PagingSearchApiCaller {
 
@@ -31,6 +36,12 @@ public class PagingSearchApiCaller {
             log.debug("after: response=<{}>", response);
             NotBadResponse.of(response);
             return ErestResponse.ok(context.getRequestId(), response);
+        } catch (ConstraintViolationException e) {
+            List<String> keys = new ArrayList<>();
+            for (ConstraintViolation violation : e.getConstraintViolations()) {
+                keys.add(violation.getPropertyPath().toString());
+            }
+            return ErestResponse.badRequest(context.getRequestId(), keys.toArray(new String[0]));
         } catch (BadRequest badRequest) {
             log.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
             return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());

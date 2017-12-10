@@ -14,6 +14,7 @@ ext {
     lombokVersion = '1.16.18'
     slf4jVersion = '1.7.24'
     springFrameworkVersion = '4.3.13.RELEASE'
+    v_validation_api = '1.1.0.Final'
 }
 
 allprojects {
@@ -87,6 +88,9 @@ subprojects {
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+        compileOnly("javax.validation:validation-api:${v_validation_api}")
+        testCompile("javax.validation:validation-api:${v_validation_api}")
 
 
         compile "org.springframework:spring-beans:${springFrameworkVersion}"

@@ -25,6 +25,7 @@ public class AcceptableValuesValidator implements ConstraintValidator<Acceptable
     public void initialize(AcceptableValues annotation) {
         Class<? extends Enum<?>> refer = annotation.refer();
 
+        annotation.refer().getName();
         @SuppressWarnings("rawtypes") Enum[] constants = refer.getEnumConstants();
 
         for (@SuppressWarnings("rawtypes") Enum each : constants) {
