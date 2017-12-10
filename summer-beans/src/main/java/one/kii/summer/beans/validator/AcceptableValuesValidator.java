@@ -14,25 +14,21 @@ import java.util.List;
 
 public class AcceptableValuesValidator implements ConstraintValidator<AcceptableValues, String> {
 
-    List<String> values = null;
+    private List<String> values = new ArrayList<>();
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (!values.contains(value.toUpperCase())) {
-            return false;
-        }
-        return true;
+        return values.contains(value.toUpperCase());
     }
 
     @Override
-    public void initialize(AcceptableValues constraintAnnotation) {
-        values = new ArrayList<>();
-        Class<? extends Enum<?>> range = constraintAnnotation.range();
+    public void initialize(AcceptableValues annotation) {
+        Class<? extends Enum<?>> range = annotation.range();
 
-        @SuppressWarnings("rawtypes") Enum[] enumValArr = range.getEnumConstants();
+        @SuppressWarnings("rawtypes") Enum[] constants = range.getEnumConstants();
 
-        for (@SuppressWarnings("rawtypes") Enum enumVal : enumValArr) {
-            values.add(enumVal.toString().toUpperCase());
+        for (@SuppressWarnings("rawtypes") Enum each : constants) {
+            values.add(each.toString().toUpperCase());
         }
 
     }
