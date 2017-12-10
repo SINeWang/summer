@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.receiver.ErestResponse;
+import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.http.ResponseEntity;
 
-/**
- * Created by WangYanJiong on 03/06/2017.
- */
 @Slf4j
 public class CommitApiCaller {
 
@@ -17,10 +16,16 @@ public class CommitApiCaller {
     }
 
     public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form) {
+        try {
+            NotBadRequest.from(form);
+        } catch (BadRequest badRequest) {
+            return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());
+        }
         log.debug("before: api={},context={},form={}", api, context, form);
         try {
             R response = api.commit(context, form);
             log.debug("after: response={}", response);
+            NotBadResponse.of(response);
             return ErestResponse.ok(context.getRequestId(), response);
         } catch (BadRequest badRequest) {
             log.error("after: badRequest=<{}>", (Object) badRequest.getKeys());
