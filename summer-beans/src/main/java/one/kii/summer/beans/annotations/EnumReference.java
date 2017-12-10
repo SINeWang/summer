@@ -21,7 +21,7 @@ import java.lang.annotation.*;
 @ReportAsSingleViolation
 public @interface EnumReference {
 
-    Class<? extends Enum<?>> klass();
+    Class<? extends Enum<?>> range();
 
     String message() default "value is out of range";
 
