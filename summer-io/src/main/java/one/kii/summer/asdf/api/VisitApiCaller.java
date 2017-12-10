@@ -41,7 +41,7 @@ public class VisitApiCaller {
         }
     }
 
-    public static <R, C extends ReadContext, F> ResponseEntity<R> sync(SimpleVisitApi<R, F> api, ReadContext context, F form) {
+    public static <R, F> ResponseEntity<R> sync(SimpleVisitApi<R, F> api, ReadContext context, F form) {
         return sync((VisitApi<R, ReadContext, F>) api, context, form);
     }
 }
