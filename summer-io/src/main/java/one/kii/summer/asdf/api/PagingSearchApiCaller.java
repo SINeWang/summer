@@ -5,6 +5,8 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.receiver.ErestResponse;
+import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.http.ResponseEntity;
 
 @Slf4j
@@ -18,11 +20,16 @@ public class PagingSearchApiCaller {
             C context,
             F form,
             PagingSearchApi.Paging paging) {
-
         log.debug("begin: api={},context={},form={}, paging={}", api, context, form, paging);
+        try {
+            NotBadRequest.from(form);
+        } catch (BadRequest badRequest) {
+            return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());
+        }
         try {
             PagingSearchApi.Receipt<R> response = api.search(context, form, paging);
             log.debug("after: response=<{}>", response);
+            NotBadResponse.of(response);
             return ErestResponse.ok(context.getRequestId(), response);
         } catch (BadRequest badRequest) {
             log.error("after: badRequest=<{}>", (Object) badRequest.getKeys());

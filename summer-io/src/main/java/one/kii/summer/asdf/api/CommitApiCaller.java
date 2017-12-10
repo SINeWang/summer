@@ -16,12 +16,12 @@ public class CommitApiCaller {
     }
 
     public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form) {
+        log.debug("before: api={},context={},form={}", api, context, form);
         try {
             NotBadRequest.from(form);
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(context.getRequestId(), badRequest.getKeys());
         }
-        log.debug("before: api={},context={},form={}", api, context, form);
         try {
             R response = api.commit(context, form);
             log.debug("after: response={}", response);
