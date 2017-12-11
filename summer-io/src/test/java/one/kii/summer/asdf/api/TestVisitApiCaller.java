@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.Errors;
 
 /**
  * Created by WangYanJiong on 03/06/2017.
@@ -25,7 +26,8 @@ public class TestVisitApiCaller {
     @Test
     public void testOK() {
         VisitApi api = new TestOK();
-        Object resp = VisitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = VisitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
@@ -33,21 +35,24 @@ public class TestVisitApiCaller {
     @Test
     public void testBadRequest() {
         VisitApi api = new TestBadRequest();
-        Object resp = VisitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = VisitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testNotFound() {
         VisitApi api = new TestNotFound();
-        Object resp = VisitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = VisitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testPanic() {
         VisitApi api = new TestPanic();
-        Object resp = VisitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = VisitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 

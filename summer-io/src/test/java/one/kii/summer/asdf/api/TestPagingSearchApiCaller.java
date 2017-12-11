@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.Errors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,8 @@ public class TestPagingSearchApiCaller {
     public void testOK() {
         PagingSearchApi api = new TestPagingSearchApiCaller.TestOK();
         PagingSearchApi.Paging paging = new PagingSearchApi.Paging();
-        Object resp = PagingSearchApiCaller.sync(api, context, form, paging);
+        Errors errors = null;
+        Object resp = PagingSearchApiCaller.sync(api, context, form, paging, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
@@ -37,7 +39,8 @@ public class TestPagingSearchApiCaller {
     public void testBadRequest() {
         PagingSearchApi api = new TestPagingSearchApiCaller.TestBadRequest();
         PagingSearchApi.Paging paging = new PagingSearchApi.Paging();
-        Object resp = PagingSearchApiCaller.sync(api, context, form, paging);
+        Errors errors = null;
+        Object resp = PagingSearchApiCaller.sync(api, context, form, paging, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
@@ -45,7 +48,8 @@ public class TestPagingSearchApiCaller {
     public void testPanic() {
         PagingSearchApi api = new TestPagingSearchApiCaller.TestPanic();
         PagingSearchApi.Paging paging = new PagingSearchApi.Paging();
-        Object resp = PagingSearchApiCaller.sync(api, context, form, paging);
+        Errors errors = null;
+        Object resp = PagingSearchApiCaller.sync(api, context, form, paging, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 

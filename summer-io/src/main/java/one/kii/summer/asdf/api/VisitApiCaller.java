@@ -26,7 +26,7 @@ public class VisitApiCaller {
 
     public static <R, C extends ReadContext, F> ResponseEntity<R> sync(VisitApi<R, C, F> api, C context, F form, Errors errors) {
         log.debug("before: api={},context={},form={}, errors={}", api, context, form, errors);
-        if (errors.hasErrors()) {
+        if (errors != null && errors.hasErrors()) {
             List<String> keys = new ArrayList<>();
             for (FieldError error : errors.getFieldErrors()) {
                 keys.add(error.getField() + ':' + error.getRejectedValue());

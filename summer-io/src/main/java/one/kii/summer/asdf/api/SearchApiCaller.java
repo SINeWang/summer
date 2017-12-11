@@ -23,7 +23,8 @@ public class SearchApiCaller {
     }
 
     public static <R, C extends ReadContext, F> ResponseEntity<List<R>> sync(SearchApi<R, C, F> api, C context, F form, Errors errors) {
-        if (errors.hasErrors()) {
+        log.debug("before: api={}, context={},form={}, errors={}", api, context, form, errors);
+        if (errors != null && errors.hasErrors()) {
             List<String> keys = new ArrayList<>();
             for (FieldError error : errors.getFieldErrors()) {
                 keys.add(error.getField() + ':' + error.getRejectedValue());

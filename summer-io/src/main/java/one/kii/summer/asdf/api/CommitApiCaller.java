@@ -22,7 +22,7 @@ public class CommitApiCaller {
 
     public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form, Errors errors) {
         log.debug("before: api={},context={},form={}, errors={}", api, context, form, errors);
-        if (errors.hasErrors()) {
+        if (errors != null && errors.hasErrors()) {
             List<String> keys = new ArrayList<>();
             for (FieldError error : errors.getFieldErrors()) {
                 keys.add(error.getField() + ':' + error.getRejectedValue());

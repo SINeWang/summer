@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.Errors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class TestSearchApiCaller {
     @Test
     public void testOK() {
         SearchApi api = new TestSearchApiCaller.TestOK();
-        Object resp = SearchApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = SearchApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
@@ -35,14 +37,16 @@ public class TestSearchApiCaller {
     @Test
     public void testBadRequest() {
         SearchApi api = new TestSearchApiCaller.TestBadRequest();
-        Object resp = SearchApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = SearchApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testPanic() {
         SearchApi api = new TestSearchApiCaller.TestPanic();
-        Object resp = SearchApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = SearchApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 

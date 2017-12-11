@@ -29,7 +29,7 @@ public class PagingSearchApiCaller {
             PagingSearchApi.Paging paging,
             Errors errors) {
         log.debug("before: api={},context={},form={}, paging={}, errors={}", api, context, form, paging, errors);
-        if (errors.hasErrors()) {
+        if (errors != null && errors.hasErrors()) {
             List<String> keys = new ArrayList<>();
             for (FieldError error : errors.getFieldErrors()) {
                 keys.add(error.getField() + ':' + error.getRejectedValue());

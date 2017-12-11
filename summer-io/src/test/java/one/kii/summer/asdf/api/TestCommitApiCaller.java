@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.Errors;
 
 /**
  * Created by WangYanJiong on 03/06/2017.
@@ -21,7 +22,8 @@ public class TestCommitApiCaller {
     @Test
     public void testOK() {
         CommitApi api = new TestOK();
-        Object resp = CommitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = CommitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
@@ -29,35 +31,40 @@ public class TestCommitApiCaller {
     @Test
     public void testBadRequest() {
         CommitApi api = new TestBadRequest();
-        Object resp = CommitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = CommitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testConflict() {
         CommitApi api = new TestConflict();
-        Object resp = CommitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = CommitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testForbidden() {
         CommitApi api = new TestForbidden();
-        Object resp = CommitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = CommitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testNotFound() {
         CommitApi api = new TestNotFound();
-        Object resp = CommitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = CommitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
     @Test
     public void testPanic() {
         CommitApi api = new TestPanic();
-        Object resp = CommitApiCaller.sync(api, context, form);
+        Errors errors = null;
+        Object resp = CommitApiCaller.sync(api, context, form, errors);
         Assert.isInstanceOf(ResponseEntity.class, resp);
     }
 
