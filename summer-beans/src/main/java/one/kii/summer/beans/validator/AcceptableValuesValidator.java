@@ -12,12 +12,12 @@ import java.util.List;
  * https://stackoverflow.com/a/21070806/1206735
  */
 
-public class AcceptableValuesValidator<T> implements ConstraintValidator<AcceptableValues, T> {
+public class AcceptableValuesValidator implements ConstraintValidator<AcceptableValues, String> {
 
     private List<String> values = new ArrayList<>();
 
     @Override
-    public boolean isValid(T value, ConstraintValidatorContext context) {
+    public boolean isValid(String value, ConstraintValidatorContext context) {
         try {
             final int v = Integer.valueOf(value.toString());
             return v <= values.size();
