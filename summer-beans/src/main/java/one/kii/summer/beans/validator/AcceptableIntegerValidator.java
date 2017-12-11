@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * https://stackoverflow.com/a/21070806/1206735
- */
-
-public class AcceptableValuesValidator implements ConstraintValidator<AcceptableValues, String> {
+public class AcceptableIntegerValidator implements ConstraintValidator<AcceptableValues, String> {
 
     private List<String> values = new ArrayList<>();
 

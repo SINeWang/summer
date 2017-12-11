@@ -5,7 +5,8 @@ package one.kii.summer.beans.annotations;
  * https://stackoverflow.com/a/21070806/1206735
  */
 
-import one.kii.summer.beans.validator.AcceptableValuesValidator;
+import one.kii.summer.beans.validator.AcceptableIntegerValidator;
+import one.kii.summer.beans.validator.AcceptableStringValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = AcceptableValuesValidator.class)
+@Constraint(validatedBy = {AcceptableStringValidator.class, AcceptableIntegerValidator.class})
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @NotNull
