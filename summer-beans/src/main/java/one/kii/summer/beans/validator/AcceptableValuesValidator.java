@@ -12,13 +12,18 @@ import java.util.List;
  * https://stackoverflow.com/a/21070806/1206735
  */
 
-public class AcceptableValuesValidator implements ConstraintValidator<AcceptableValues, String> {
+public class AcceptableValuesValidator<T> implements ConstraintValidator<AcceptableValues, T> {
 
     private List<String> values = new ArrayList<>();
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        return values.contains(value.toUpperCase());
+    public boolean isValid(T value, ConstraintValidatorContext context) {
+        try {
+            final int v = Integer.valueOf(value.toString());
+            return v <= values.size();
+        } catch (NumberFormatException e) {
+            return values.contains(value.toString().toUpperCase());
+        }
     }
 
     @Override

@@ -23,7 +23,7 @@ public @interface AcceptableValues {
 
     Class<? extends Enum<?>> refer();
 
-    String message();
+    String message() default "";
 
     Class<?>[] groups() default {};
 
