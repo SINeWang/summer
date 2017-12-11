@@ -7,9 +7,9 @@ import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +20,15 @@ public class CommitApiCaller {
     private CommitApiCaller() {
     }
 
-    public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form) {
-        log.debug("before: api={},context={},form={}", api, context, form);
+    public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form, Errors errors) {
+        log.debug("before: api={},context={},form={}, errors={}", api, context, form, errors);
+        if (errors.hasErrors()) {
+            List<String> keys = new ArrayList<>();
+            for (FieldError error : errors.getFieldErrors()) {
+                keys.add(error.getField() + ':' + error.getRejectedValue());
+            }
+            return ErestResponse.badRequest(context.getRequestId(), keys.toArray(new String[0]));
+        }
         try {
             NotBadRequest.from(form);
         } catch (BadRequest badRequest) {
@@ -56,7 +63,7 @@ public class CommitApiCaller {
         }
     }
 
-    public static <R, F> ResponseEntity<R> sync(SimpleCommitApi<R, F> api, WriteContext context, F form) {
-        return sync((CommitApi<R, WriteContext, F>) api, context, form);
+    public static <R, F> ResponseEntity<R> sync(SimpleCommitApi<R, F> api, WriteContext context, F form, Errors errors) {
+        return sync((CommitApi<R, WriteContext, F>) api, context, form, errors);
     }
 }

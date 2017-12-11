@@ -8,6 +8,8 @@ import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -24,8 +26,16 @@ public class PagingSearchApiCaller {
             PagingSearchApi<R, C, F> api,
             C context,
             F form,
-            PagingSearchApi.Paging paging) {
-        log.debug("begin: api={},context={},form={}, paging={}", api, context, form, paging);
+            PagingSearchApi.Paging paging,
+            Errors errors) {
+        log.debug("before: api={},context={},form={}, paging={}, errors={}", api, context, form, paging, errors);
+        if (errors.hasErrors()) {
+            List<String> keys = new ArrayList<>();
+            for (FieldError error : errors.getFieldErrors()) {
+                keys.add(error.getField() + ':' + error.getRejectedValue());
+            }
+            return ErestResponse.badRequest(context.getRequestId(), keys.toArray(new String[0]));
+        }
         try {
             NotBadRequest.from(form);
         } catch (BadRequest badRequest) {
@@ -55,7 +65,8 @@ public class PagingSearchApiCaller {
             SimplePagingSearchApi<R, F> api,
             ReadContext context,
             F form,
-            PagingSearchApi.Paging paging) {
-        return sync((PagingSearchApi<R, ReadContext, F>) api, context, form, paging);
+            PagingSearchApi.Paging paging,
+            Errors errors) {
+        return sync((PagingSearchApi<R, ReadContext, F>) api, context, form, paging, errors);
     }
 }
