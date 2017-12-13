@@ -63,7 +63,15 @@ public class CommitApiCaller {
         }
     }
 
+    public static <R, C extends WriteContext, F> ResponseEntity<R> sync(CommitApi<R, C, F> api, C context, F form) {
+        return sync(api, context, form, null);
+    }
+
     public static <R, F> ResponseEntity<R> sync(SimpleCommitApi<R, F> api, WriteContext context, F form, Errors errors) {
         return sync((CommitApi<R, WriteContext, F>) api, context, form, errors);
+    }
+
+    public static <R, F> ResponseEntity<R> sync(SimpleCommitApi<R, F> api, WriteContext context, F form) {
+        return sync((CommitApi<R, WriteContext, F>) api, context, form, null);
     }
 }

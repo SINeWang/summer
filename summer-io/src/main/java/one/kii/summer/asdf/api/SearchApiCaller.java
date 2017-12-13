@@ -57,7 +57,15 @@ public class SearchApiCaller {
         }
     }
 
+    public static <R, C extends ReadContext, F> ResponseEntity<List<R>> sync(SearchApi<R, C, F> api, C context, F form) {
+        return sync(api, context, form, null);
+    }
+
     public static <R, F> ResponseEntity<List<R>> sync(SimpleSearchApi<R, F> api, ReadContext context, F form, Errors errors) {
         return sync((SearchApi<R, ReadContext, F>) api, context, form, errors);
+    }
+
+    public static <R, F> ResponseEntity<List<R>> sync(SimpleSearchApi<R, F> api, ReadContext context, F form) {
+        return sync((SearchApi<R, ReadContext, F>) api, context, form, null);
     }
 }

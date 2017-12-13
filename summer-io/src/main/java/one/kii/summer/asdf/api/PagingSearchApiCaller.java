@@ -61,6 +61,15 @@ public class PagingSearchApiCaller {
         }
     }
 
+    public static <R, C extends ReadContext, F> ResponseEntity<PagingSearchApi.Receipt<R>> sync
+            (PagingSearchApi<R, C, F> api,
+             C context,
+             F form,
+             PagingSearchApi.Paging paging) {
+        return sync(api, context, form, paging, null);
+
+    }
+
     public static <R, F> ResponseEntity<PagingSearchApi.Receipt<R>> sync(
             SimplePagingSearchApi<R, F> api,
             ReadContext context,
@@ -68,5 +77,13 @@ public class PagingSearchApiCaller {
             PagingSearchApi.Paging paging,
             Errors errors) {
         return sync((PagingSearchApi<R, ReadContext, F>) api, context, form, paging, errors);
+    }
+
+    public static <R, F> ResponseEntity<PagingSearchApi.Receipt<R>> sync(
+            SimplePagingSearchApi<R, F> api,
+            ReadContext context,
+            F form,
+            PagingSearchApi.Paging paging) {
+        return sync((PagingSearchApi<R, ReadContext, F>) api, context, form, paging, null);
     }
 }
