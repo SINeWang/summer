@@ -10,15 +10,13 @@ import java.lang.annotation.Target;
 public @interface Alias {
 
     /**
-     *
      * @return another name under specified namespace
      */
     String as();
 
     /**
-     *
      * @return Namespace
      */
-    String ns();
+    String ns() default "";
 
 }
