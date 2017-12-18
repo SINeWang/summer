@@ -12,11 +12,11 @@ public @interface Alias {
     /**
      * @return another name under specified namespace
      */
-    String as();
+    String name();
 
     /**
      * @return Namespace
      */
-    String ns() default "";
+    String space() default "";
 
 }
