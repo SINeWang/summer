@@ -9,6 +9,16 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Alias {
 
+    /**
+     *
+     * @return another name under specified namespace
+     */
     String as();
+
+    /**
+     *
+     * @return Namespace
+     */
+    String ns();
 
 }
