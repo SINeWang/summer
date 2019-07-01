@@ -8,3 +8,8 @@ maven_password=your_user_password_of_private_repo_for_snapshot_or_release
 maven_release_url=your_private_repo_url
 ```
  
+
+## Intellij Configurations
+
+* Enable Annotation Processing
+* Install Lombok plugin
