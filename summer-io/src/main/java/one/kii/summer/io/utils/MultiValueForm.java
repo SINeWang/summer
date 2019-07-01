@@ -11,6 +11,7 @@ import java.util.Objects;
 /**
  * Created by WangYanJiong on 29/04/2017.
  */
+@SuppressWarnings("unchecked")
 public class MultiValueForm {
 
     private final static MultiValueMap EMPTY = new LinkedMultiValueMap();

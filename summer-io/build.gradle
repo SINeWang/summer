@@ -1,4 +1,4 @@
 dependencies {
-    compile "org.springframework:spring-web:${springFrameworkVersion}"
+    compile "org.springframework:spring-web:${v_spring_framework}"
     compileOnly("javax.validation:validation-api:1.1.0.Final")
 }

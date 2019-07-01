@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
+@SuppressWarnings("unchecked")
 public class SingleValueMapping {
 
     public static <T> T from(Class<T> klass, Map map) {
