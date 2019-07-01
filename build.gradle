@@ -13,7 +13,7 @@ ext {
     v_junit = '4.12'
     v_lombok = '1.18.8'
     v_slf4j = '1.7.26'
-    v_spring_framework = '4.3.13.RELEASE'
+    v_spring_framework = '5.1.8.RELEASE'
     v_validation_api = '1.1.0.Final'
 }
 
