@@ -15,6 +15,7 @@ ext {
     v_slf4j = '1.7.26'
     v_spring_framework = '5.1.8.RELEASE'
     v_validation_api = '1.1.0.Final'
+    ENV_MAVEN_PUBLIC_URL = System.getenv('MAVEN_PUBLIC_URL')
 }
 
 allprojects {
@@ -24,7 +25,12 @@ allprojects {
 
     repositories {
         maven {
-            url "${maven_public_url}"
+            if ("${ENV_MAVEN_PUBLIC_URL}" != null) {
+                url "${ENV_MAVEN_PUBLIC_URL}"
+            } else {
+                url "${maven_public_url}"
+            }
+
         }
     }
     publishing {
