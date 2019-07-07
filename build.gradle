@@ -3,6 +3,7 @@ buildscript {
 
 plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.10.1'
+    id "com.jfrog.bintray" version "1.8.4"
     id 'idea'
 }
 
@@ -19,7 +20,7 @@ ext {
     ENV_MAVEN_SNAPSHOT_URL = System.getenv('MAVEN_SNAPSHOT_URL')
     ENV_MAVEN_RELEASE_URL = System.getenv('MAVEN_RELEASE_URL')
     ENV_MAVEN_REPO_USERNAME = System.getenv('MAVEN_REPO_USERNAME')
-    ENV_MAVEN_REPO_PASSWORD = System.getenv('MAVEN_REPO_PASSWORD') 
+    ENV_MAVEN_REPO_PASSWORD = System.getenv('MAVEN_REPO_PASSWORD')
 }
 
 allprojects {
@@ -36,49 +37,6 @@ allprojects {
                 url "${maven_public_url}"
             }
 
-        }
-    }
-    publishing {
-        repositories {
-            maven {
-                if (project.version.endsWith('-SNAPSHOT')) {
-                    credentials {
-                        if ("${ENV_MAVEN_REPO_USERNAME}" != 'null') {
-                            username "${ENV_MAVEN_REPO_USERNAME}"
-                        } else {
-                            username "$maven_username"
-                        }
-                        if ("${ENV_MAVEN_REPO_PASSWORD}" != 'null') {
-                            password "${ENV_MAVEN_REPO_PASSWORD}"
-                        } else {
-                            password "$maven_password"
-                        }
-                    }
-                    if ("${ENV_MAVEN_PUBLIC_URL}" != 'null') {
-                        url "${ENV_MAVEN_SNAPSHOT_URL}"
-                    } else {
-                        url "${maven_snapshot_url}"
-                    }
-                } else {
-                    credentials {
-                        if ("${ENV_MAVEN_REPO_USERNAME}" != 'null') {
-                            username "${ENV_MAVEN_REPO_USERNAME}"
-                        } else {
-                            username "$maven_username"
-                        }
-                        if ("${ENV_MAVEN_REPO_PASSWORD}" != 'null') {
-                            password "${ENV_MAVEN_REPO_PASSWORD}"
-                        } else {
-                            password "$maven_password"
-                        }
-                    }
-                    if ("${ENV_MAVEN_RELEASE_URL}" != 'null') {
-                        url "${ENV_MAVEN_RELEASE_URL}"
-                    } else {
-                        url "${maven_release_url}"
-                    }
-                }
-            }
         }
     }
 
@@ -102,6 +60,47 @@ subprojects {
         publications {
             mavenJava(MavenPublication) {
                 from components.java
+            }
+        }
+        repositories {
+            maven {
+                if (project.version.endsWith('-SNAPSHOT')) {
+                    credentials {
+                        if ("${ENV_MAVEN_REPO_USERNAME}" != 'null') {
+                            username "${ENV_MAVEN_REPO_USERNAME}"
+                        } else {
+                            username "$maven_username"
+                        }
+                        if ("${ENV_MAVEN_REPO_PASSWORD}" != 'null') {
+                            password "${ENV_MAVEN_REPO_PASSWORD}"
+                        } else {
+                            password "$maven_password"
+                        }
+                    }
+                    if ("${ENV_MAVEN_SNAPSHOT_URL}" != 'null') {
+                        url "${ENV_MAVEN_SNAPSHOT_URL}"
+                    } else {
+                        url "${maven_snapshot_url}"
+                    }
+                } else {
+                    credentials {
+                        if ("${ENV_MAVEN_REPO_USERNAME}" != 'null') {
+                            username "${ENV_MAVEN_REPO_USERNAME}"
+                        } else {
+                            username "$maven_username"
+                        }
+                        if ("${ENV_MAVEN_REPO_PASSWORD}" != 'null') {
+                            password "${ENV_MAVEN_REPO_PASSWORD}"
+                        } else {
+                            password "$maven_password"
+                        }
+                    }
+                    if ("${ENV_MAVEN_RELEASE_URL}" != 'null') {
+                        url "${ENV_MAVEN_RELEASE_URL}"
+                    } else {
+                        url "${maven_release_url}"
+                    }
+                }
             }
         }
     }
@@ -142,6 +141,19 @@ subprojects {
 
 //    test.useTestNG()
 
+    bintray {
+        user = "${ENV_MAVEN_REPO_USERNAME}" != 'null' ? "${ENV_MAVEN_REPO_USERNAME}" : "${maven_username}"
+        key = "${ENV_MAVEN_REPO_PASSWORD}" != 'null' ? "${ENV_MAVEN_REPO_PASSWORD}" : "${maven_password}"
+        publications = ['mavenJava']
+        pkg {
+            repo = 'maven'
+            name = 'summer'
+            userOrg = 'kiiworld'
+            licenses = ['MIT']
+            vcsUrl = 'https://github.com/SINeWang/summer.git'
+        }
+    }
+
 }
 
 task codeCoverageReport(type: JacocoReport) {
@@ -163,3 +175,4 @@ task codeCoverageReport(type: JacocoReport) {
 codeCoverageReport.dependsOn {
     subprojects*.test
 }
+
