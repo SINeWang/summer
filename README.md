@@ -1,3 +1,5 @@
+![Travis-CI](https://travis-ci.org/SINeWang/summer.svg?branch=master)
+
 ## Gradle Configurations
 * `~/.gradle/gradle.properties`
 
