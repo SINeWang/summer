@@ -1,4 +1,4 @@
-![Travis-CI](https://travis-ci.org/SINeWang/summer.svg?branch=master)
+[![Build Status](https://travis-ci.org/SINeWang/summer.svg?branch=master)](https://travis-ci.org/SINeWang/summer)
 
 ## Gradle Configurations
 * `~/.gradle/gradle.properties`
