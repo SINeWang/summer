@@ -140,7 +140,7 @@ subprojects {
 
     }
 
-    test.useTestNG()
+//    test.useTestNG()
 
 }
 
