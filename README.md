@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/SINeWang/summer.svg?branch=master)](https://travis-ci.org/SINeWang/summer)
-
+[![codecov](https://codecov.io/gh/SINeWang/summer/branch/master/graph/badge.svg)](https://codecov.io/gh/SINeWang/summer)
 ## Gradle Configurations
 * `~/.gradle/gradle.properties`
 
