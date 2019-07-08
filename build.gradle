@@ -46,6 +46,7 @@ subprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven'
+    apply plugin: 'pl.allegro.tech.build.axion-release'
 
     scmVersion {
         tag {
@@ -134,7 +135,7 @@ subprojects {
 
     // https://reflectoring.io/publish-snapshots-with-gradle/
     artifactory {
-        contextUrl = 'http://oss.jfrog.org'
+        contextUrl = 'https://oss.jfrog.org'
         publish {
             repository {
                 repoKey = 'oss-snapshot-local'
