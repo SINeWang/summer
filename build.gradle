@@ -4,6 +4,7 @@ buildscript {
 plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.10.1'
     id "com.jfrog.bintray" version "1.8.4"
+    id "com.jfrog.artifactory" version "4.9.7"
     id 'idea'
 }
 
@@ -17,7 +18,6 @@ ext {
     v_spring_framework = '5.1.8.RELEASE'
     v_validation_api = '1.1.0.Final'
     ENV_MAVEN_PUBLIC_URL = System.getenv('MAVEN_PUBLIC_URL')
-    ENV_MAVEN_SNAPSHOT_URL = System.getenv('MAVEN_SNAPSHOT_URL')
     ENV_MAVEN_RELEASE_URL = System.getenv('MAVEN_RELEASE_URL')
     ENV_MAVEN_REPO_USERNAME = System.getenv('MAVEN_REPO_USERNAME')
     ENV_MAVEN_REPO_PASSWORD = System.getenv('MAVEN_REPO_PASSWORD')
@@ -46,8 +46,6 @@ subprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven'
-
-    apply plugin: 'pl.allegro.tech.build.axion-release'
 
     scmVersion {
         tag {
@@ -139,7 +137,26 @@ subprojects {
 
     }
 
-//    test.useTestNG()
+    // https://reflectoring.io/publish-snapshots-with-gradle/
+    artifactory {
+        contextUrl = 'http://oss.jfrog.org'
+        publish {
+            repository {
+                repoKey = 'oss-snapshot-local'
+                username = "${ENV_MAVEN_REPO_USERNAME}" != 'null' ? "${ENV_MAVEN_REPO_USERNAME}" : "${maven_username}"
+                password = "${ENV_MAVEN_REPO_PASSWORD}" != 'null' ? "${ENV_MAVEN_REPO_PASSWORD}" : "${maven_password}"
+            }
+            defaults {
+                publications('mavenJava')
+                publishArtifacts = true
+                publishPom = true
+            }
+        }
+        resolve {
+            repoKey = 'jcenter'
+        }
+        clientConfig.info.setBuildNumber(System.getProperty('build.number'))
+    }
 
     bintray {
         user = "${ENV_MAVEN_REPO_USERNAME}" != 'null' ? "${ENV_MAVEN_REPO_USERNAME}" : "${maven_username}"
@@ -150,7 +167,7 @@ subprojects {
             name = 'summer'
             userOrg = 'kiiworld'
             licenses = ['MIT']
-            vcsUrl = 'https://github.com/SINeWang/summer.git'
+            vcsUrl = 'https://github.com/sinewang/summer.git'
         }
     }
 
