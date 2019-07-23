@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/SINeWang/summer.svg?branch=master)](https://travis-ci.org/SINeWang/summer)
 [![codecov](https://codecov.io/gh/SINeWang/summer/branch/master/graph/badge.svg)](https://codecov.io/gh/SINeWang/summer)
-[ ![Download](https://api.bintray.com/packages/kiiworld/maven/summer/images/download.svg) ](https://bintray.com/kiiworld/maven/summer/_latestVersion)
+
 
 ## Gradle Configurations
 * `~/.gradle/gradle.properties`
