@@ -2,9 +2,9 @@ buildscript {
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.10.1'
-    id "com.jfrog.bintray" version "1.8.4"
-    id "com.jfrog.artifactory" version "4.9.7"
+    id 'pl.allegro.tech.build.axion-release' version '1.10.1' apply false
+    id "com.jfrog.bintray" version "1.8.4"  apply false
+    id "com.jfrog.artifactory" version "4.9.7" apply false
     id 'idea'
 }
 
@@ -24,8 +24,6 @@ ext {
 }
 
 allprojects {
-    apply plugin: 'maven-publish'
-    apply plugin: 'jacoco'
 
     group = 'one.kii.summer'
 
@@ -43,10 +41,14 @@ allprojects {
 }
 
 subprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'jacoco'
 
     apply plugin: 'java'
     apply plugin: 'maven'
     apply plugin: 'pl.allegro.tech.build.axion-release'
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'com.jfrog.bintray'
 
     scmVersion {
         tag {
