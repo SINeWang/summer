@@ -5,6 +5,7 @@ plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.10.1' apply false
     id "com.jfrog.bintray" version "1.8.4"  apply false
     id "com.jfrog.artifactory" version "4.9.7" apply false
+    id 'jacoco'
     id 'idea'
 }
 
@@ -42,7 +43,6 @@ allprojects {
 
 subprojects {
     apply plugin: 'maven-publish'
-    apply plugin: 'jacoco'
 
     apply plugin: 'java'
     apply plugin: 'maven'
