@@ -1,5 +1,5 @@
 dependencies {
     compile("commons-codec:commons-codec:${v_commons_codec}")
-    compile "com.google.guava:guava:${guavaVersion}"
-    compile("com.fasterxml.jackson.core:jackson-databind:${jacksondatabindVersion}")
+    compile "com.google.guava:guava:${v_guava}"
+    compile("com.fasterxml.jackson.core:jackson-databind:${v_jacksondatabind}")
 }

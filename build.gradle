@@ -11,8 +11,8 @@ plugins {
 
 ext {
     v_commons_codec = '1.12'
-    guavaVersion = '22.0'
-    jacksondatabindVersion = '2.9.8'
+    v_guava = '22.0'
+    v_jacksondatabind = '2.9.8'
     v_junit = '4.12'
     v_lombok = '1.18.8'
     v_slf4j = '1.7.26'
