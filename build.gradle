@@ -20,6 +20,7 @@ ext {
     v_validation_api = '1.1.0.Final'
     ENV_MAVEN_PUBLIC_URL = System.getenv('MAVEN_PUBLIC_URL')
     ENV_MAVEN_RELEASE_URL = System.getenv('MAVEN_RELEASE_URL')
+    ENV_MAVEN_SNAPSHOT_URL = System.getenv('MAVEN_SNAPSHOT_URL')
     ENV_MAVEN_REPO_USERNAME = System.getenv('MAVEN_REPO_USERNAME')
     ENV_MAVEN_REPO_PASSWORD = System.getenv('MAVEN_REPO_PASSWORD')
 }
@@ -77,6 +78,11 @@ subprojects {
                         } else {
                             password "$maven_password"
                         }
+                    }
+                    if ("${ENV_MAVEN_SNAPSHOT_URL}" != 'null') {
+                        url "${ENV_MAVEN_SNAPSHOT_URL}"
+                    } else {
+                        url "${maven_snapshot_url}"
                     }
                 } else {
                     credentials {
